@@ -1,0 +1,951 @@
+﻿@{
+    ViewBag.Title = "Details_Etudiants";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Gestion pédagogique
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        <a href="~/Admins/Etudiants">Étudiants/Élèves</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Détails fiche Étudiant/Élève
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner" style="background:lightgray;">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-id-card"></i> INFORMATIONS GÉNÉRALES</span></h3>
+                        </div><br />
+                        <!-- tab style 2 -->
+                        <div class="col-md-12">
+                            <div class="white_shd full margin_bottom_30">
+                                <div class="full inner_elements">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="tab_style2">
+                                                <div class="tabbar padding_infor_info">
+                                                    <nav>
+                                                        <div class="row justify-content-center">
+                                                            <div class="nav nav-tabs" id="nav-tab1" role="tablist">
+                                                                <a class="nav-item nav-link active" id="nav-profile-tab2" data-toggle="tab" href="#nav-profile_s2" role="tab" aria-controls="nav-profile_s2" aria-selected="true">Mon Profil</a>
+                                                                <a class="nav-item nav-link" id="nav-finance-tab2" data-toggle="tab" href="#nav-finance_s2" role="tab" aria-controls="nav-finance_s2" aria-selected="false">Finances</a>
+                                                                <a class="nav-item nav-link" id="nav-inscription-tab2" data-toggle="tab" href="#nav-inscription_s2" role="tab" aria-controls="nav-inscription_s2" aria-selected="false">Inscriptions</a>
+                                                                <a class="nav-item nav-link" id="nav-scolarite-tab2" data-toggle="tab" href="#nav-scolarite_s2" role="tab" aria-controls="nav-scolarite_s2" aria-selected="false">Scolarités</a>
+                                                                <a class="nav-item nav-link" id="nav-note-tab2" data-toggle="tab" href="#nav-note_s2" role="tab" aria-controls="nav-note_s2" aria-selected="false">Notes</a>
+                                                            </div>
+                                                        </div>
+                                                    </nav>
+                                                    <div class="tab-content" id="nav-tabContent_2">
+                                                        <div class="tab-pane fade show active" id="nav-profile_s2" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="white_shd full margin_bottom_30">
+                                                                    <div class="modal-dialog modal-lg" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="mediumModalLabelCreate">INFORMATIONS</h5>
+                                                                               
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <fieldset id="fieldset">
+                                                                                            <legend id="legend">
+                                                                                                Informations personnelles
+                                                                                            </legend>
+                                                                                            <center>
+                                                                                                <p id="messadeAjouterEtudiant" style="color: green"></p>
+                                                                                                <p id="smsAjouterEtudiant" style="color:red"></p>
+                                                                                            </center>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-3"></div>
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="image" class="control-label mb-1">Image </label>
+                                                                                                        <input id="url_photo" name="url_photo" type="file" accept="image/*" onchange="loadFile(event)" class="form-control cc-cvc">
+                                                                                                        <div class="row justify-content-center" style="margin-top:5px;">
+                                                                                                            <img id="output" />
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-3"></div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-4"></div>
+                                                                                                <div class="col-md-2">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="masculin" class="control-label mb-1">Masculin </label>
+                                                                                                        <input type="radio" onchange="choisirSexe()" id="masculin" name="fav_genre" value="masculin">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <input id="sexe" name="sexe" type="text" class="form-control" hidden>
+
+                                                                                                <div class="col-md-2">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="feminin" class="control-label mb-1">Féminin </label>
+                                                                                                        <input type="radio" onchange="choisirSexe()" id="feminin" name="fav_genre" value="feminin">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4"></div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="numeroMatriciule" class="control-label mb-1">Matricule </label>
+                                                                                                        <input id="numeroMatriciule" name="numeroMatriciule" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="prenom" class="control-label mb-1">Prénom </label>
+                                                                                                        <input id="prenom" name="prenom" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="nom" class="control-label mb-1">Nom </label>
+                                                                                                        <input id="nom" name="nom" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="date_naissance" class="control-label mb-1">Date de naissance </label>
+                                                                                                        <input id="date_naissance" name="date_naissance" type="date" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="lieu_naissance" class="control-label mb-1">Lieu de naissance </label>
+                                                                                                        <input id="lieu_naissance" name="lieu_naissance" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="nationalite" class="control-label mb-1">Nationalité </label>
+                                                                                                        <input id="nationalite" name="nationalite" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="telephone" class="control-label mb-1">Téléphone </label>
+                                                                                                        <input id="telephone" name="telephone" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="adresse" class="control-label mb-1">Adresse </label>
+                                                                                                        <input id="adresse" name="adresse" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="email" class="control-label mb-1">E-mail </label>
+                                                                                                        <input id="email" name="email" type="email" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </fieldset>
+
+                                                                                        <fieldset id="fieldset">
+                                                                                            <legend id="legend">
+                                                                                                Informations sur la formation
+                                                                                            </legend>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-4"></div>
+                                                                                                <div class="col-md-2">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="actif" class="control-label mb-1">Actif </label>
+                                                                                                        <input type="radio" id="actif" name="fav_status" value="actif">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-2">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="attente" class="control-label mb-1">En attente </label>
+                                                                                                        <input type="radio" id="attente" name="fav_status" value="attente">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4"></div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="departement" class="control-label mb-1">Département </label>
+                                                                                                        <select name="departement" id="departement" class="form-control">
+                                                                                                            <option value="choose">-- Choisir un département --</option>
+                                                                                                            <option value="d1">Sciences de l'informatique et des systèmes d'information</option>
+                                                                                                            <option value="d2">Lettres modernes</option>
+                                                                                                            <option value="d3">Sciences Economiques et de Gestion</option>
+                                                                                                            <option value="d4">Sciences juridiques et politiques</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="filiere" class="control-label mb-1">Filière </label>
+                                                                                                        <select name="filiere" id="filiere" class="form-control">
+                                                                                                            <option value="choose">-- Choisir une filière --</option>
+                                                                                                            <option value="f1">Génie logiciel</option>
+                                                                                                            <option value="f2">Français</option>
+                                                                                                            <option value="f3">Finance</option>
+                                                                                                            <option value="f4">Droit privé</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="classe" class="control-label mb-1">Classe </label>
+                                                                                                        <select name="classe" id="classe" class="form-control">
+                                                                                                            <option value="choose">-- Choisir une classe --</option>
+                                                                                                            <option value="c1">3ème</option>
+                                                                                                            <option value="c2">1ère</option>
+                                                                                                            <option value="terminal">Terminal</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="niveau" class="control-label mb-1">Niveau </label>
+                                                                                                        <select name="niveau" id="niveau" class="form-control">
+                                                                                                            <option value="choose">-- Choisir un niveau --</option>
+                                                                                                            <option value="n1">Licence 1</option>
+                                                                                                            <option value="n2">Licence 2</option>
+                                                                                                            <option value="n3">Licence 3</option>
+                                                                                                            <option value="n4">Master 1</option>
+                                                                                                            <option value="n5">Master 2</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="groupe" class="control-label mb-1">Groupe </label>
+                                                                                                        <select name="groupe" id="groupe" class="form-control">
+                                                                                                            <option value="choose">-- Choisir un groupe --</option>
+                                                                                                            <option value="g1">TRONC1-CO</option>
+                                                                                                            <option value="g2">TRONC2-CO</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="cours" class="control-label mb-1">Cours </label>
+                                                                                                        <select name="cours" id="cours" class="form-control">
+                                                                                                            <option value="choose">-- Choisir un cours --</option>
+                                                                                                            <option value="cours1">Langues étrangères appliquées</option>
+                                                                                                            <option value="cours2">Génie logiciel</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="duree" class="control-label mb-1">Durée </label>
+                                                                                                        <input id="duree" name="duree" type="time" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="date_debut" class="control-label mb-1">Date de début </label>
+                                                                                                        <input id="date_debut" name="date_debut" type="date" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="date_fin" class="control-label mb-1">Date de fin </label>
+                                                                                                        <input id="date_fin" name="date_fin" type="date" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </fieldset>
+
+                                                                                        <fieldset id="fieldset">
+                                                                                            <legend id="legend">
+                                                                                                Frais scolaire
+                                                                                            </legend>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-3">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="montant" class="control-label mb-1">Montant </label>
+                                                                                                        <input id="montant" name="montant" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-3">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="frais_ecole" class="control-label mb-1">Frais de l'école </label>
+                                                                                                        <input id="frais_ecole" name="frais_ecole" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-3">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="frais_inscription" class="control-label mb-1">Frais d'inscription </label>
+                                                                                                        <input id="frais_inscription" name="frais_inscription" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-3">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="Total_frais" class="control-label mb-1">Total </label>
+                                                                                                        <input id="Total_frais" name="Total_frais" type="text" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </fieldset>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row justify-content-center">
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-primary" onclick="ajouterEtudiant()"><span id="spinner" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- MODIFIER INFORMATIONS PERSONNELLES POPUP-->
+                                                            <div class="modal fade" id="mediumModalModify" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelModify" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="mediumModalLabelModify">Modifier mes informations personnelles</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true" style="color:red;">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-3"></div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="image" class="control-label mb-1">Image </label>
+                                                                                                <input id="url_photo" name="url_photo" type="file" accept="image/*" onchange="loadFile(event)" class="form-control cc-cvc">
+                                                                                                <div class="row justify-content-center" style="margin-top:5px;">
+                                                                                                    <img id="output" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-3"></div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4"></div>
+                                                                                        <div class="col-md-2">
+                                                                                            <div class="form-group">
+                                                                                                <label for="masculin" class="control-label mb-1">Masculin </label>
+                                                                                                <input type="radio" id="masculin" name="fav_genre" value="masculin">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-2">
+                                                                                            <div class="form-group">
+                                                                                                <label for="feminin" class="control-label mb-1">Féminin </label>
+                                                                                                <input type="radio" id="feminin" name="fav_genre" value="feminin">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4"></div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="matricule" class="control-label mb-1">Matricule </label>
+                                                                                                <input id="matricule" name="matricule" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="prenom" class="control-label mb-1">Prénom </label>
+                                                                                                <input id="prenomEtu" name="prenomEtu" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="nom" class="control-label mb-1">Nom </label>
+                                                                                                <input id="nomEtu" name="nomEtu" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="date_naissance" class="control-label mb-1">Date de naissance </label>
+                                                                                                <input id="date_naissance" name="date_naissance" type="date" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="lieu_naissance" class="control-label mb-1">Lieu de naissance </label>
+                                                                                                <input id="lieu_naissance" name="lieu_naissance" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="nationalite" class="control-label mb-1">Nationalité </label>
+                                                                                                <input id="nationalite" name="nationalite" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="phone" class="control-label mb-1">Téléphone </label>
+                                                                                                <input id="phone" name="phone" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="adresse" class="control-label mb-1">Adresse </label>
+                                                                                                <input id="adresse" name="adresse" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="email" class="control-label mb-1">E-mail </label>
+                                                                                                <input id="adresse" name="adresse" type="email" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Enregistrer</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END MODIFIER INFORMATIONS PERSONNELLES POPUP-->
+                                                            <!-- SUPPRIMER INFORMATIONS PERSONNELLES POPUP-->
+                                                            <div class="modal fade" id="myModal">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body" style="color:#000000; text-align:center;">
+                                                                            Êtes-vous sûr(e) de vouloir supprimer ces informations ?
+                                                                        </div>
+                                                                        <!-- Modal footer -->
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Oui</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END SUPPRIMER INFORMATIONS PERSONNELLES POPUP-->
+                                                        </div>
+                                                        <div class="tab-pane fade" id="nav-finance_s2" role="tabpanel" aria-labelledby="nav-finance-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="white_shd full margin_bottom_30">
+                                                                    <div class="table_section padding_infor_info">
+                                                                        <div class="table-responsive-sm">
+                                                                            <table class="table table-responsive-md">
+                                                                                <thead class="thead-light" style="text-align:center;">
+                                                                                    <tr>
+                                                                                        <th>Prénom</th>
+                                                                                        <th>Nom</th>
+                                                                                        <th>Téléphone</th>
+                                                                                        <th>E-mail</th>
+                                                                                        <th>Profession</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody style="text-align:center;">
+                                                                                    <tr>
+                                                                                        <td>Salimata</td>
+                                                                                        <td>Gueye</td>
+                                                                                        <td>775505151</td>
+                                                                                        <td>gueyesalimata@gmail.com</td>
+                                                                                        <td>Responsable financière</td>
+                                                                                        <td>
+                                                                                            <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="modifier(this.id)" data-target="#mediumModalModify2" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                                            <button class="btn-danger btn-sm" id="supprimer" data-toggle="modal" data-target="#myModal2" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- MODIFIER RESPONSABLE FINANCIERE POPUP-->
+                                                            <div class="modal fade" id="mediumModalModify2" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelModify" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="mediumModalLabelModify">Modifier le/la responsable financier(e)</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true" style="color:red;">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="prenom" class="control-label mb-1">Prénom </label>
+                                                                                                <input id="prenom" name="prenom" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="nom" class="control-label mb-1">Nom </label>
+                                                                                                <input id="nom" name="nom" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="phone" class="control-label mb-1">Téléphone </label>
+                                                                                                <input id="phone" name="phone" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="profession" class="control-label mb-1">Profession </label>
+                                                                                                <input id="profession" name="profession" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label for="email" class="control-label mb-1">E-mail </label>
+                                                                                                <input id="email" name="email" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Enregistrer</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END MODIFIER ETUDIANT POPUP-->
+                                                            <!-- SUPPRIMER RESPONSABLE FINANCIERE POPUP-->
+                                                            <div class="modal fade" id="myModal2">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body" style="color:#000000; text-align:center;">
+                                                                            Êtes-vous sûr(e) de vouloir supprimer ces informations ?
+                                                                        </div>
+                                                                        <!-- Modal footer -->
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Oui</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END SUPPRIMER RESPONSABLE FINANCIERE POPUP-->
+                                                        </div>
+                                                        <div class="tab-pane fade" id="nav-inscription_s2" role="tabpanel" aria-labelledby="nav-inscription-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="white_shd full margin_bottom_30">
+                                                                    <div class="table_section padding_infor_info">
+                                                                        <div class="table-responsive-sm">
+                                                                            <table class="table table-responsive-md">
+                                                                                <thead class="thead-light" style="text-align:center;">
+                                                                                    <tr>
+                                                                                        <th>Date inscription</th>
+                                                                                        <th>Département</th>
+                                                                                        <th>Filière</th>
+                                                                                        <th>Niveau</th>
+                                                                                        <th>Coût mensuel</th>
+                                                                                        <th>Montant versé</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody style="text-align:center;">
+                                                                                    <tr>
+                                                                                        <td>11/12/2022</td>
+                                                                                        <td>Finance publique</td>
+                                                                                        <td>Droit</td>
+                                                                                        <td>Licence 3</td>
+                                                                                        <td>45000</td>
+                                                                                        <td>45000</td>
+                                                                                        <td>
+                                                                                            <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="modifier(this.id)" data-target="#mediumModalModify3" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                                            <button class="btn-danger btn-sm" id="supprimer" data-toggle="modal" data-target="#myModal3" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- MODIFIER RINSCRIPTION POPUP-->
+                                                            <div class="modal fade" id="mediumModalModify3" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelModify" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="mediumModalLabelModify">Modifier une inscription</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true" style="color:red;">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="inscription" class="control-label mb-1">Date d'inscription </label>
+                                                                                                <input id="inscription" name="inscription" type="date" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="departement" class="control-label mb-1">Département </label>
+                                                                                                <input id="departement" name="departement" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="filiere" class="control-label mb-1">Filière </label>
+                                                                                                <input id="filiere" name="filiere" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="niveau" class="control-label mb-1">Niveau </label>
+                                                                                                <input id="niveau" name="niveau" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="cout_mensuel" class="control-label mb-1">Coût mensuel </label>
+                                                                                                <input id="cout_mensuel" name="cout_mensuel" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="montant_verse" class="control-label mb-1">Montant versé </label>
+                                                                                                <input id="montant_verse" name="montant_verse" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Enregistrer</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END MODIFIER INSCRIPTION POPUP-->
+                                                            <!-- SUPPRIMER INSCRIPTION POPUP-->
+                                                            <div class="modal fade" id="myModal3">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body" style="color:#000000; text-align:center;">
+                                                                            Êtes-vous sûr(e) de vouloir supprimer ces informations ?
+                                                                        </div>
+                                                                        <!-- Modal footer -->
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Oui</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END SUPPRIMER INSCRIPTION POPUP-->
+                                                        </div>
+                                                        <div class="tab-pane fade" id="nav-scolarite_s2" role="tabpanel" aria-labelledby="nav-scolarite-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="white_shd full margin_bottom_30">
+                                                                    <div class="table_section padding_infor_info">
+                                                                        <div class="table-responsive-sm">
+                                                                            <table class="table table-responsive-md">
+                                                                                <thead class="thead-light" style="text-align:center;">
+                                                                                    <tr>
+                                                                                        <th>Mode de paiement</th>
+                                                                                        <th>Frais payés</th>
+                                                                                        <th>Frais impayés</th>
+                                                                                        <th>État scolarité</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody style="text-align:center;">
+                                                                                    <tr>
+                                                                                        <td>Mensuel</td>
+                                                                                        <td>45000</td>
+                                                                                        <td>5000</td>
+                                                                                        <td>Réglé</td>
+                                                                                        <td>
+                                                                                            <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="modifier(this.id)" data-target="#mediumModalModify4" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                                            <button class="btn-danger btn-sm" id="supprimer" data-toggle="modal" data-target="#myModal4" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- MODIFIER SCOLARITE POPUP-->
+                                                            <div class="modal fade" id="mediumModalModify4" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelModify" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="mediumModalLabelModify">Modifier la scolarité</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true" style="color:red;">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="mode_paiement" class="control-label mb-1">Mode de paiement </label>
+                                                                                                <input id="mode_paiement" name="mode_paiement" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="etat_scolarite" class="control-label mb-1">État scolarité </label>
+                                                                                                <input id="etat_scolarite" name="etat_scolarite" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="frais_payes" class="control-label mb-1">Frais payés </label>
+                                                                                                <input id="frais_payes" name="frais_payes" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="frais_impayes" class="control-label mb-1">Frais impayés </label>
+                                                                                                <input id="frais_impayes" name="frais_impayes" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Enregistrer</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END MODIFIER SCOLARITE POPUP-->
+                                                            <!-- SUPPRIMER SCOLARITE POPUP-->
+                                                            <div class="modal fade" id="myModal4">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body" style="color:#000000; text-align:center;">
+                                                                            Êtes-vous sûr(e) de vouloir supprimer ces informations ?
+                                                                        </div>
+                                                                        <!-- Modal footer -->
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Oui</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END SUPPRIMER SCOLARITE POPUP-->
+                                                        </div>
+                                                        <div class="tab-pane fade" id="nav-note_s2" role="tabpanel" aria-labelledby="nav-note-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="white_shd full margin_bottom_30">
+                                                                    <div class="table_section padding_infor_info">
+                                                                        <div class="table-responsive-sm">
+                                                                            <table class="table table-responsive-md">
+                                                                                <thead class="thead-light" style="text-align:center;">
+                                                                                    <tr>
+                                                                                        <th>Matière</th>
+                                                                                        <th>Note</th>
+                                                                                        <th>Appréciation</th>
+                                                                                        <th>Type</th>
+                                                                                        <th>Semestre</th>
+                                                                                        <th>Enseignant</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody style="text-align:center;">
+                                                                                    <tr>
+                                                                                        <td>Français</td>
+                                                                                        <td>16</td>
+                                                                                        <td>Bien</td>
+                                                                                        <td>Devoir</td>
+                                                                                        <td>Semestre 1</td>
+                                                                                        <td>Ababacar Thiombane</td>
+                                                                                        <td>
+                                                                                            <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="modifier(this.id)" data-target="#mediumModalModify5" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                                            <button class="btn-danger btn-sm" id="supprimer" data-toggle="modal" data-target="#myModal5" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- MODIFIER NOTES POPUP-->
+                                                            <div class="modal fade" id="mediumModalModify5" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelModify" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="mediumModalLabelModify">Modifier une note</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true" style="color:red;">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="matiere" class="control-label mb-1">Matière </label>
+                                                                                                <input id="matiere" name="matiere" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="note" class="control-label mb-1">Note </label>
+                                                                                                <input id="note" name="note" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="appreciation" class="control-label mb-1">Appréciation </label>
+                                                                                                <input id="appreciation" name="appreciation" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="type" class="control-label mb-1">Type </label>
+                                                                                                <input id="type" name="type" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="semestre" class="control-label mb-1">Semestre </label>
+                                                                                                <input id="semestre" name="semestre" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="form-group">
+                                                                                                <label for="enseignant" class="control-label mb-1">Enseignant </label>
+                                                                                                <input id="enseignant" name="enseignant" type="text" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Enregistrer</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END MODIFIER NOTES POPUP-->
+                                                            <!-- SUPPRIMER NOTES POPUP-->
+                                                            <div class="modal fade" id="myModal5">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body" style="color:#000000; text-align:center;">
+                                                                            Êtes-vous sûr(e) de vouloir supprimer ces informations ?
+                                                                        </div>
+                                                                        <!-- Modal footer -->
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary">Oui</button>
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END SUPPRIMER NOTES POPUP-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+<style>
+    #modifier, #details, #supprimer {
+        border-radius: 100px;
+    }
+</style>

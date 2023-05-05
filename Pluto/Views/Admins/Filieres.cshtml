@@ -1,0 +1,433 @@
+﻿@model Tuple<PagedList.IPagedList<FiliereList>, List < DepartementList >>
+@{
+    ViewBag.Title = "Filières";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+@using Pluto.Models;
+@using PagedList.Mvc;
+<style>
+    #modifier, #details, #supprimer {
+        border-radius: 100px;
+    }
+
+    .modal-header {
+        background: #15283c;
+    }
+
+    .modal-title {
+        color: #fff;
+    }
+</style>
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Gestion pédagogique
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Filières
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span class="text-capitalize  text-center"><i class="fa fa-university "></i> Filières</span></h3>
+                        </div><br />
+                        <p class="text-capitalize  text-center" style="color: red">
+                            @ViewBag.sms
+                        </p>
+                        <!-- table section -->
+                        <div class="col-md-12">
+                            <div class="white_shd full margin_bottom_30">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="inbox-head">
+                                            <div class="col-md-4">
+                                                <div class="button_block"><button type="button" class="btn cur-p btn-outline-success" data-toggle="modal" data-target="#mediumModalCreate">Cliquer ici pour ajouter une filière</button></div>
+                                            </div>
+                                            @using (Html.BeginForm("Filieres", "Admins", FormMethod.Get))
+                                            {
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <select class="form-control" value="@ViewBag.departement" name="departement" id="departement">
+                                                            <option selected>Rechercher par département</option>
+                                                            @foreach (var filiere in Model.Item1.Select(a => a.departementID).Distinct())
+                                                            {
+                                                                <option value="@filiere">@Model.Item2.Where(v => v.id == filiere).Select(a => a.nom).Distinct().FirstOrDefault()</option>
+
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+
+
+                                                    <div class="row">
+                                                        <input type="text" class="form-control" value="@ViewBag.CurrentFilter" style="width:60%" name="searching" placeholder="Rechercher...">
+                                                        <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                   
+
+                                                </div>
+                                            }
+                                            </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <p id="messageDepartementB" style="color: green"></p>
+                                    <p id="smsDepartementB" style="color:red"></p>
+                                </center>
+                                <div class="table_section padding_infor_info">
+                                    <div class="table-responsive-sm">
+                                        <a type="button" href="@Url.Action("Filieres","Admins")" class="btn cur-p btn-outline-success" style="float:right">Cliquer ici pour initialiser la liste</a>
+
+                                        @if (@Model == null || @Model.Item1.Count() == 0)
+                                        {
+                                            <h3 class="text-center">Aucune filière disponible</h3>
+                                        }
+                                        else
+                                        {
+                                            <table class="table table-bordered" style="border:1px solid #15283c;">
+                                                <thead style="background: #15283c;">
+                                                    <tr style="text-align:center; color:#fff; font-weight:bold;">
+                                                        <th>N° Filière</th>
+                                                        <th>Intitulé</th>
+                                                        <th>Département</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var filiere in Model.Item1)
+                                                    {
+
+                                                    <tr style="text-align:center; color:#000000;">
+                                                        <td>@filiere.id</td>
+                                                        <td>@filiere.titre</td>
+                                                        <td>@Model.Item2.Where(v => v.id == filiere.departementID).Select(a => a.nom).Distinct().FirstOrDefault()</td>
+                                                        @if (filiere.status)
+                                                        {
+                                                            <td style="color:green"> Active</td>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="color:red">Desactive</td>
+
+                                                        }
+
+                                                        <td>
+
+                                                            <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="  ouvrirFiliereModal(@filiere.id)" data-target="#mediumModalModify" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                            <button class="btn-danger btn-sm" onclick="ouvrirBloquerModal(@filiere.id)" id="supprimer" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        }
+
+                                    </div>
+                                </div>
+                                <center>
+                                    <div class="pagination" style="width:200px;margin-right:2.5%;margin-left:2.5%">
+                                        @Html.PagedListPager(Model.Item1, page => Url.Action("Filieres", new { page, searching = ViewBag.CurrentFilter,departement= ViewBag.departement }) + "#Product", new PagedListRenderOptions { MaximumPageNumbersToDisplay = 4, ContainerDivClasses = new List<string> { "MenuTab", "MenuTab" }, LiElementClasses = new List<string> { "pagination-bar", "pagination-bar" }, DelimiterBetweenPageNumbers = "-" })
+                                    </div>
+                                </center>
+                                <!-- CREER PERSONNEL POPUP-->
+                                <div class="modal fade" id="mediumModalCreate" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelCreate" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelCreate">Ajouter une filière</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <center>
+                                                            <p id="messadeAjouterFiliere" style="color: green"></p>
+                                                            <p id="smsAjouterFiliere" style="color:red"></p>
+                                                        </center>
+                                                        <div class="row">
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nom" class="control-label mb-1">Nom </label>
+                                                                    <input id="nom" name="nom" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="text" style="width:100%;color:black;float:left">Choisir un département</label>
+                                                                    <select class="form-control" style="width:300px;height:40px;background-color:whitesmoke" name="departementID" id="departementID" required>
+                                                                        @foreach (var depart in Model.Item2)
+                                                                        {
+                                                                            <option value="@depart.id"> @depart.nom</option>
+
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="ajouterFiliere()"><span id="spinner" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="document.getElementById('mediumModalCreate').style.display = 'none', window.location.reload()">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input id="filiereID" name="filiereID" type="text" class="form-control" hidden>
+
+                                <!-- END CREER PERSONNEL POPUP-->
+                                <!-- MODIFIER PERSONNEL POPUP-->
+                                <div id="mediumModalModify" class="modal container-fluid ">
+
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelModify">Modifier une filière</h5>
+
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <center>
+                                                            <p id="messadeAjouterFiliereM" style="color: green"></p>
+                                                            <p id="smsAjouterFiliereM" style="color:red"></p>
+                                                        </center>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nom" class="control-label mb-1">Nom </label>
+                                                                    <input id="nomM" name="nomM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="text" style="width:100%;color:black;float:left">Choisir un département</label>
+                                                                    <select class="form-control" style="width:300px;height:40px;background-color:whitesmoke" name="departementIDM" id="departementIDM" required>
+                                                                        @foreach (var depart in Model.Item2)
+                                                                        {
+                                                                            <option value="@depart.id"> @depart.nom</option>
+
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="modifierFiliere()"><span id="spinnerM" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                <button type="button" class="btn btn-danger" onclick="document.getElementById('mediumModalModify').style.display = 'none';window.location.reload()">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER PERSONNEL POPUP-->
+                                <!-- BLOQUER PERSONNEL POPUP-->
+                                <div id="mediumModalBloquer" class="modal container-fluid ">
+
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content align-content-center">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelBloquer">Bloquer une filière</h5>
+
+                                            </div>
+                                            <div class="modal-body align-content-center">
+                                                <center>
+                                                    <h5 class="text-center">Voulez-vous bloquer cette filière ?</h5>
+                                                </center>
+
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <button type="button" class="btn btn-primary" onclick="bloquerFiliere()"><span id="spinnerB" class="spinner-border text-light" role="status" hidden></span>Oui</button>
+                                                        <button type="button" style="float:right" class="btn btn-danger" onclick="document.getElementById('mediumModalBloquer').style.display = 'none';window.location.reload()">Non</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER PERSONNEL POPUP-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+
+<script>
+
+    function ajouterFiliere()
+    {
+        document.getElementById("spinner").hidden = false
+        document.getElementById("messadeAjouterFiliere").innerText = null
+        document.getElementById("smsAjouterFiliere").innerText = null
+         $.post('@Url.Action("ajouterFiliere")',
+            {
+                nom: document.getElementById('nom').value,
+                departementID: document.getElementById('departementID').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("messadeAjouterFiliere").innerText = rep.message;
+                    document.getElementById("smsAjouterFiliere").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalCreate').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("smsAjouterFiliere").innerText = rep.message ;
+                    document.getElementById("messadeAjouterFiliere").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinner").hidden = true
+                document.getElementById("smsAjouterDepartement").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterDepartement").innerText = null
+
+            });
+
+
+
+    }
+    function modifierFiliere()
+    {
+        document.getElementById("spinnerM").hidden = false
+        document.getElementById("messadeAjouterFiliereM").innerText = null
+        document.getElementById("smsAjouterFiliereM").innerText = null
+         $.post('@Url.Action("ajouterFiliere")',
+            {
+
+                nom: document.getElementById('nomM').value,
+                departementID: document.getElementById('departementIDM').value,
+                id: document.getElementById('filiereID').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("messadeAjouterFiliereM").innerText = rep.message;
+                    document.getElementById("smsAjouterFiliereM").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalModify').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("smsAjouterFiliereM").innerText = rep.message ;
+                    document.getElementById("messadeAjouterFiliereM").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinnerM").hidden = true
+                document.getElementById("smsAjouterFiliereM").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterFiliereM").innerText = null
+
+            });
+
+
+
+    }
+    function ouvrirFiliereModal(filiereID)
+    {
+        document.getElementById("messadeAjouterFiliereM").innerText = null
+        document.getElementById("smsAjouterFiliereM").innerText = null
+
+        var filieres = @Html.Raw(Json.Encode(Model.Item1));
+        var filiere = filieres.filter(e => e.id == filiereID)[0];
+
+            document.getElementById('filiereID').value = filiereID
+            document.getElementById('nomM').value = filiere.titre,
+            document.getElementById('departementIDM').value = filiere.departementID
+            document.getElementById('mediumModalModify').style.display = 'block'
+
+
+
+
+     }
+    function ouvrirBloquerModal(filiereID)
+    {
+        document.getElementById('mediumModalBloquer').style.display = 'block'
+        document.getElementById('filiereID').value = filiereID
+
+
+
+    }
+    function bloquerFiliere()
+    {
+        document.getElementById("messadeAjouterFiliereM").innerText = null
+        document.getElementById("smsAjouterFiliereM").innerText = null
+
+             $.post('@Url.Action("bloquerFiliere")',
+
+                {
+                    id: document.getElementById('filiereID').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+                    document.getElementById("messadeAjouterFiliereM").innerText = rep.message;
+                    document.getElementById("smsAjouterFiliereM").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("smsAjouterFiliereM").innerText = rep.message;
+                    document.getElementById("messadeAjouterFiliereM").innerText = null
+                }
+            }
+            ).fail(function (xhr, status, error)
+            {
+                                //Ajax request failed.
+                document.getElementById("smsAjouterFiliereM").innerText = " une erreur interne est survenue coté client";
+                document.getElementById("messadeAjouterFiliereM").innerText = null
+
+            });
+    }
+
+
+</script>
+

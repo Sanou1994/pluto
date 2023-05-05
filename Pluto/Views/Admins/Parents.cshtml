@@ -1,0 +1,395 @@
+﻿@model PagedList.IPagedList<Parent>
+@{
+    ViewBag.Title = "Parents";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+@using Pluto.Models;
+@using PagedList.Mvc;
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Parents
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fas fa-restroom"></i> PARENTS</span></h3>
+                        </div><br />
+                        <p class="text-capitalize  text-center" style="color: red">
+                            @ViewBag.sms
+                        </p>
+                        <!-- table section -->
+                        <div class="col-md-12">
+                            <div class="white_shd full margin_bottom_30">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="inbox-head">
+                                            <div class="col-md-6">
+                                                <div class="button_block"><button type="button" class="btn cur-p btn-outline-success" data-toggle="modal" data-target="#mediumModalCreate">Cliquer ici pour ajouter un parent</button></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @using (Html.BeginForm("Parents", "Admins", FormMethod.Get))
+                                                {
+                                                    <div class="row">
+                                                        <input type="text" class="form-control" value="@ViewBag.CurrentFilter" style="width:60%" name="searching" placeholder="Rechercher...">
+                                                        <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <p id="messageParentB" style="color: green"></p>
+                                    <p id="smsParentB" style="color:red"></p>
+                                </center>
+
+                                <div class="table_section padding_infor_info">
+                                    <div class="table-responsive-sm">
+                                        <a type="button" href="@Url.Action("Parents","Admins")" class="btn cur-p btn-outline-success" style="float:right">Cliquer ici pour initialiser la liste</a>
+
+                                        @if (@Model == null || @Model.Count() == 0)
+                                        {
+                                            <h3 class="text-center">Aucun parent disponible</h3>
+                                        }
+                                        else
+                                        {
+                                            <table class="table table-bordered" style="border:1px solid #15283c;">
+                                                <thead style="background: #15283c;">
+                                                    <tr style="text-align:center; color:#fff; font-weight:bold;">
+
+                                                        <th>Prénom</th>
+                                                        <th>Nom</th>
+                                                        <th>Sexe</th>
+                                                        <th>Nationalité</th>
+                                                        <th>Adresse</th>
+                                                        <th>Profession</th>
+                                                        <th>Téléphone</th>
+                                                        <th>Email</th>
+                                                        <th>Étudiant/Élève</th>
+                                                        <th>Etat</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var etudiant in Model)
+                                                    {
+
+                                                        <tr style="text-align:center; color:#000000;">
+                                                            <td>@etudiant.prenom</td>
+                                                            <td>@etudiant.nom</td>
+                                                            <td>@etudiant.sexe</td>
+                                                            <td>@etudiant.nationalite</td>
+                                                            <td>@etudiant.adresse</td>
+                                                            <td>PROFESSION</td>
+                                                            <td>@etudiant.telephone</td>
+                                                            <td>@etudiant.email</td>
+                                                            <td>ENFANT</td>
+                                                            @if (etudiant.status)
+                                                            {
+                                                                <td style="color:green"> Active</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="color:red">Desactive</td>
+
+                                                            }
+
+                                                            <td>
+                                                                <a class="btn-info btn-sm" href="@Url.Action("Details_Etudiants","Admins",new {No=etudiant.id})">
+                                                                    <span style="width:100%;height:20px" class="fa fa-eye"> </span>
+                                                                </a>
+                                                                <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="  ouvrirParentModal(@etudiant.id)" data-target="#mediumModalModify" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                <button class="btn-danger btn-sm" onclick="ouvrirBloquerModal(@etudiant.id)" id="supprimer" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+
+
+                                        }
+
+                                    </div>
+                                    <center>
+                                        <div class="pagination" style="width:200px;margin-right:2.5%;margin-left:2.5%">
+                                            @Html.PagedListPager(Model, page => Url.Action("Parents", new { page, searching = ViewBag.CurrentFilter }) + "#Product", new PagedListRenderOptions { MaximumPageNumbersToDisplay = 4, ContainerDivClasses = new List<string> { "MenuTab", "MenuTab" }, LiElementClasses = new List<string> { "pagination-bar", "pagination-bar" }, DelimiterBetweenPageNumbers = "-" })
+                                        </div>
+                                    </center>
+                                </div>
+                                <!-- MODIFIER PARENT POPUP-->
+                                <div class="modal fade" id="mediumModalModify" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelModify" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelModify">Modifier un parent</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <center>
+                                                    <p id="messadeAjouterParentM" style="color: green"></p>
+                                                    <p id="smsAjouterParentM" style="color:red"></p>
+                                                </center>
+                                                <input id="parentID" name="parentID" type="text" class="form-control" hidden>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="prenomM" class="control-label mb-1">Prénom </label>
+                                                                    <input id="prenomM" name="prenom" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nomM" class="control-label mb-1">Nom </label>
+                                                                    <input id="nomM" name="nom" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="phoneM" class="control-label mb-1">Téléphone </label>
+                                                                    <input id="phoneM" name="phone" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="adresseM" class="control-label mb-1">Adresse </label>
+                                                                    <input id="adresseM" name="adresse" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="emailM" class="control-label mb-1">E-mail </label>
+                                                                    <input id="emailM" name="email" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="professionM" class="control-label mb-1">Profession </label>
+                                                                    <input id="professionM" name="profession" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary">Enregistrer</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER PARENT POPUP-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+<style>
+    label {
+        color: #000000;
+    }
+
+    .horizontal-line {
+        border-bottom: 1px solid #574B90;
+        display: inline-block;
+        width: 65%;
+    }
+
+    .vertical-line {
+        border-left: 1px solid #5a5a5a;
+        display: inline-block;
+        height: 100%;
+        margin: 0 20px;
+    }
+
+    #title_infos_activite {
+        color: #574B90;
+        font-size: 16px;
+    }
+
+    #legend {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 25%;
+        border: 2px double #15283c;
+        border-radius: 8px;
+        padding: 5px 5px 5px 10px;
+        color: #15283c;
+        background-color: #fff;
+        text-align: center;
+    }
+
+    #fieldset {
+        border: 1px solid #15283c !important;
+        margin: 0;
+        min-width: 0;
+        padding: 10px;
+        position: relative;
+        border-radius: 8px;
+        background-color: #fff;
+        padding-left: 10px !important;
+    }
+
+    #modifier, #details, #supprimer {
+        border-radius: 100px;
+    }
+
+    .modal-header {
+        background: #15283c;
+    }
+
+    .modal-title {
+        color: #fff;
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script>
+   
+   
+    
+    function modifierParent()
+    {
+        document.getElementById("spinnerM").hidden = false
+        document.getElementById("messadeAjouterParentM").innerText = null
+         document.getElementById("smsAjouterParentM").innerText = null
+         $.post('@Url.Action("ajouterUser")',
+            {
+                prenom: document.getElementById('prenomM').value,
+                nom: document.getElementById('nomM').value,
+                email: document.getElementById('emailM').value,
+                telephone: document.getElementById('telephoneM').value,
+                adresse: document.getElementById('adresseM').value,
+                sexe: document.getElementById('sexeM').value,
+                nationalite: document.getElementById('nationaliteM').value,
+                type: 3,
+                id: document.getElementById('parentID').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("messadeAjouterParentM").innerText = rep.message;
+                    document.getElementById("smsAjouterParentM").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalModify').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("smsAjouterParentM").innerText = rep.message ;
+                    document.getElementById("messadeAjouterParentM").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinnerM").hidden = true
+                document.getElementById("smsAjouterParentM").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterParentM").innerText = null
+
+            });
+
+
+
+    }
+    function ouvrirParentModal(parentID)
+    {
+        document.getElementById("messadeAjouterParentM").innerText = null
+        document.getElementById("smsAjouterParentM").innerText = null
+
+        var parents = @Html.Raw(Json.Encode(Model));
+        var parent = parents.filter(e => e.id == parentID)[0];
+        
+            document.getElementById('parentID').value = parentID
+            document.getElementById('prenomM').value = parent.prenom,
+            document.getElementById('nomM').value = parent.nom,
+            document.getElementById('nationaliteM').value = parent.nationalite,
+            document.getElementById('emailM').value = parent.email,
+            document.getElementById('telephoneM').value = parent.telephone,
+            document.getElementById('adresseM').value = parent.adresse,
+            document.getElementById('sexeM').value = parent.sexe,
+            document.getElementById('mediumModalModify').style.display = 'block'
+
+
+
+
+     }
+    function ouvrirBloquerModal(parentID)
+    {
+        document.getElementById('mediumModalBloquer').style.display = 'block'
+        document.getElementById('parentID').value = parentID
+
+
+
+    }
+    function bloquerParent()
+    {
+        document.getElementById("messageParentB").innerText = null
+        document.getElementById("smsParentB").innerText = null
+
+             $.post('@Url.Action("bloquerUser")',
+
+                {
+                    id: document.getElementById('parentID').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+                    document.getElementById("messageParentB").innerText = rep.message;
+                    document.getElementById("smsParentB").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("smsParentB").innerText = rep.message;
+                    document.getElementById("messageParentB").innerText = null
+                }
+            }
+            ).fail(function (xhr, status, error)
+            {
+                                //Ajax request failed.
+                document.getElementById("smsParentB").innerText = " une erreur interne est survenue coté client";
+                document.getElementById("messageParentB").innerText = null
+
+            });
+    }
+
+
+</script>

@@ -1,0 +1,367 @@
+﻿@model Pluto.Models.ProfilData
+@using Pluto.Controllers;
+@{
+    ViewBag.fullName = ViewBag.Fullname;
+    ViewBag.name_logo = ViewBag.Name_logo;
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/EtudiantsLayout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- calendar file css -->
+    <link rel="stylesheet" href="~/AdminStyle/js/semantic.min.css" />
+    <!--[if lt IE 9]>
+    <![endif]-->
+</head>
+<body class="inner_page profile_page">
+    <div class="full_container">
+        <div class="inner_container">
+            <div class="midde_cont">
+                <div class="container-fluid">
+                    <div class="row column_title">
+                        <div class="col-md-12">
+                            <div class="page_title">
+                                <h2>
+                                    <a href="~/Etudiants/Index">Accueil</a>
+                                    <span>
+                                        <i class="fa fa-angle-right"></i>
+                                    </span>
+                                    Mon profil
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <div class="row column1">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <div class="white_shd full margin_bottom_30" id="back">
+                                <div class="dash_head" style="text-align:center;">
+                                    <h3 style="font-weight:bold;"><span><i class="fa fa-user"></i> MON PROFIL</span></h3>
+                                </div><br />
+                                <div class="full price_table padding_infor_info">
+                                    <div class="row justify-content-center">
+                                        <!-- user profile section -->
+                                        <!-- profile image -->
+                                        <div class="col-md-12">
+                                            <div class="row justify-content-center">
+                                                <div class="dash_head">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-1"></div>
+                                                        <div class="col-md-10">
+                                                            <div class="full dis_flex">
+                                                                <div class="profile_img">
+                                                                    @{
+                                                                        var resultA = ((EtudiantsController)this.ViewContext.Controller).Photo(ViewBag.name_logo);
+                                                                        if (@resultA != null)
+                                                                        {
+                                                                            <img width="180" class="img-responsive rounded-circle" src="@resultA" alt="#" />
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <img width="180" class="img-responsive  rounded-circle" src="~/AdminStyle/images/layout_img/user_img.jpg" alt="#" />
+
+                                                                        }
+
+                                                                    }
+                                                                    <br />
+                                                                    <br />
+                                                                    <div class="row justify-content-center" style="background: #ff5722; border-radius:10px;">
+                                                                        <div class="profile-usertitle">
+                                                                            <div class="profile-usertitle-job" style="text-transform: lowercase !important; color: #15283c; text-align: center;">
+                                                                                <i class="fa fa-qrcode" style="font-size: 80px;"></i>
+                                                                                <br />
+                                                                                <span>95028</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!-- profile contant section -->
+                                            <div class="full inner_elements margin_top_30">
+                                                <div class="tab_style2">
+                                                    <div class="tabbar">
+                                                        <div class="row justify-content-center">
+                                                            <nav>
+                                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#details_eleve" role="tab" aria-selected="true">Détails de l'étudiant</a>
+                                                                    <a class="nav-item nav-link" id="nav-infos-perso-tab" data-toggle="tab" href="#infos_perso" role="tab" aria-selected="false">Informations personelles</a>
+                                                                    <a class="nav-item nav-link" id="nav-details-parent-tab" data-toggle="tab" href="#details_parent" role="tab" aria-selected="false">Détail Parental</a>
+                                                                </div>
+                                                            </nav>
+                                                        </div>
+                                                        <div class="tab-content" id="nav-tabContent">
+                                                            <div class="tab-pane fade show active" id="details_eleve" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                                <div class="col-md-12">
+                                                                    <div class="white_shd full margin_bottom_30">
+                                                                        <div class="table_section padding_infor_info">
+                                                                            <div class="table-responsive-sm">
+                                                                                <table class="table table-light">
+                                                                                    <tbody style="font-family: 'Lucida Calligraphy';">
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="500" style="">
+                                                                                                <i class="fa fa-user"></i>
+                                                                                                Nom de l'Étudiant :
+                                                                                            </td>
+                                                                                            <td width="800" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                                @ViewBag.Fullname
+                                                                                            </td>
+                                                                                        </tr>                                                                               
+                                                                                   
+                                                                                   
+
+                                                                                    <tr style="border-bottom:1px solid;">
+                                                                                        <td width="800">
+                                                                                            <i class="fa fa-university"></i>
+                                                                                            Département :
+                                                                                        </td>
+                                                                                        <td width="500" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                            @Model.lstDepartements.Where(n => n.id == Model.student.departementID).Select(p => p.nom).FirstOrDefault()
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr style="border-bottom:1px solid;">
+                                                                                        <td width="800">
+                                                                                            <i class="fa fa-suitcase"></i>
+                                                                                            Filière :
+                                                                                        </td>
+                                                                                        <td width="500" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                            @Model.lstFilieres.Where(n => n.id == Model.student.filiereID).Select(p => p.titre).FirstOrDefault()
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr style="border-bottom:1px solid;">
+                                                                                        <td width="800">
+                                                                                            <i class="fa fa-graduation-cap"></i>
+                                                                                            Classe :
+                                                                                        </td>
+                                                                                        <td width="500" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                            @Model.lstNiveauEtudes.Where(n => n.id == Model.student.niveauEtudeID).Select(p => p.nom).FirstOrDefault()
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr style="border-bottom:1px solid;">
+                                                                                        <td width="800">
+                                                                                            <i class="fa fa-child"></i>
+                                                                                            Sexe :
+                                                                                        </td>
+                                                                                        <td width="500" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                            @if (@Model.student.sexe == "F")
+                                                                                            {
+                                                                                                <span>Féminin</span> 
+                                                                                             }
+                                                                                            else
+                                                                                            {
+                                                                                        <span>Masculin</span>    
+                                                                                            }
+
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tab-pane fade" id="infos_perso" role="tabpanel" aria-labelledby="nav-infos-perso-tab">
+                                                                <div class="col-md-12">
+                                                                    <div class="white_shd full margin_bottom_30">
+                                                                        <div class="table_section padding_infor_info">
+                                                                            <div class="table-responsive-sm">
+                                                                                <table class="table table-light">
+                                                                                    <tbody style="font-family: 'Lucida Calligraphy';">
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="500" style="">
+                                                                                                <i class="fa fa-thumbs-up"></i>
+                                                                                                Date d'admission :
+                                                                                            </td>
+                                                                                            <td width="800" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                                15 Janvier 2023
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="800">
+                                                                                                <i class="fa fa-calendar"></i>
+                                                                                                Date & lieu de naissance :
+                                                                                            </td>
+                                                                                            <td width="500" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                                @Model.student.naissance à @Model.student.lieu_naissance
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="800">
+                                                                                                <i class="fa fa-flag"></i>
+                                                                                                Nationalité
+                                                                                            </td>
+                                                                                            <td width="500" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                                @Model.student.nationalite
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="800">
+                                                                                                <i class="fa fa-phone"></i>
+                                                                                                Numéro de téléphone :
+                                                                                            </td>
+                                                                                            <td width="500" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                                @Model.student.telephone
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="800">
+                                                                                                <i class="fa fa-envelope"></i>
+                                                                                                Adresse Email :
+                                                                                            </td>
+                                                                                            <td width="500" style="text-align: right; color: #15283c; font-weight: bold; ">
+                                                                                                @Model.student.email
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tab-pane fade" id="details_parent" role="tabpanel" aria-labelledby="nav-details-parent-tab">
+                                                                <div class="col-md-12">
+                                                                    <div class="white_shd full margin_bottom_30">
+                                                                        <div class="table_section padding_infor_info">
+                                                                            <div class="table-responsive-sm">
+                                                                                <table class="table table-light">
+                                                                                    <tbody style="font-family: 'Lucida Calligraphy';">
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="650" style="text-align: left; color: #15283c;">
+                                                                                                <i class="fa fa-user"></i>
+                                                                                                Nom Complet  : <span style="font-weight: bold;">@Model.parent.prenom @Model.parent.nom</span>
+                                                                                            </td>
+
+                                                                                        </tr>
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="650" style="text-align: left; color: #15283c;">
+                                                                                                <i class="fa fa-suitcase"></i>
+                                                                                                Profession  : <span style="font-weight: bold;">@Model.parent.professionParent</span>
+                                                                                            </td>
+
+                                                                                        </tr>
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="650" style="text-align: left; color: #15283c;">
+                                                                                                <i class="fa fa-header"></i>
+                                                                                                Relation Parentale : <span style="font-weight: bold;">@Model.parent.typeParent</span>
+                                                                                            </td>
+
+                                                                                        </tr>
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="650" style="text-align: left; color: #15283c;">
+                                                                                                <i class="fa fa-envelope"></i>
+                                                                                                Email  : <span style="font-weight: bold;">@Model.parent.email</span>
+                                                                                            </td>
+
+                                                                                        </tr>
+                                                                                        <tr style="border-bottom:1px solid;">
+                                                                                            <td width="650" style="text-align: left; color: #15283c;">
+                                                                                                <i class="fa fa-phone"></i>
+                                                                                                Numéro de téléphone  : <span style="font-weight: bold;">@Model.parent.telephone</span>
+                                                                                            </td>
+
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                               
+                                                            </div>
+
+                                                            
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4"></div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group row justify-content-center">
+                                                                    <button class="btn btn-dark" onclick="window.location.href = 'Mettre_a_jour_profil';" id="editer_etudiant"><i class="fa fa-check-circle"></i> Édition</button>
+                                                                    @*<button class="btn btn-dark" href="~/Etudiants/Mettre_a_jour_profil" type="submit" id="editer_etudiant"><i class="fa fa-check-circle"></i> Édition</button>*@
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4"></div>
+                                                        </div><br />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end user profile section -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <!-- end row -->
+                    </div>
+                    <!-- model popup -->
+                    <!-- The Modal -->
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header" style="background: #15283c;">
+                                    <h4 class="modal-title" style="color: #fff;">
+                                        <i class="fa fa-info-circle"></i>
+                                        Information
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" style="color:red;">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body" style="color:#000000;">
+                                    Veuillez-vous rapprocher de l’administration pour l’activation de cette fonctionnalité.
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end model popup -->
+                    <!-- end dashboard inner -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    #editer_etudiant {
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 16px;
+        height: 40px;
+    }
+
+    #nav-home-tab, #nav-infos-perso-tab, #nav-details-parent-tab, #nav-details-transport-tab, #nav-autres-info-tab {
+        border-radius: 50px;
+        font-weight: bold;
+        font-family: 'Eras ITC';
+        color: #15283c;
+    }
+
+    #back {
+        background: lightgray;
+    }
+
+    /*#back {
+        background: rgb(255,255,255);
+        background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,87,34,1) 35%, rgba(255,255,255,1) 100%);
+    }*/
+</style>
+
+
+

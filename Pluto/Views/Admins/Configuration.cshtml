@@ -1,0 +1,1367 @@
+﻿@model Tempon.ConfigurationData
+@{
+    ViewBag.Title = "Parametres";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+@using Pluto.Models;
+@using PagedList.Mvc;
+
+
+<style>
+
+    label {
+        color: #000000;
+        font-size: 10px;
+    }
+
+    .horizontal-line {
+        border-bottom: 1px solid #574B90;
+        display: inline-block;
+        width: 65%;
+    }
+
+    .vertical-line {
+        border-left: 1px solid #5a5a5a;
+        display: inline-block;
+        height: 100%;
+        margin: 0 20px;
+    }
+
+    #title_infos_activite {
+        color: #574B90;
+        font-size: 16px;
+    }
+
+    #legend {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 25%;
+        border: 2px double #15283c;
+        border-radius: 8px;
+        padding: 5px 5px 5px 10px;
+        color: #15283c;
+        background-color: #fff;
+        text-align: center;
+    }
+
+    #fieldset {
+        border: 1px solid #15283c !important;
+        margin: 0;
+        min-width: 0;
+        padding: 10px;
+        position: relative;
+        border-radius: 8px;
+        background-color: #fff;
+        padding-left: 10px !important;
+    }
+
+    #annee_academique, #filiere, #classe, #date_debut, #date_fin, #Menu1, #Menu2, #Menu3, #Menu4, #Menu5, #Menu6, #Menu7, #Menu8 {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        /*height:10px;*/
+    }
+
+    #lancer_preinscription {
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 15px;
+        height: 32px;
+    }
+
+    #header1, #header2, #header3, #header4, #header5, #header6 {
+        background: #ff5722;
+    }
+
+    #button1, #button2, #button3, #button4, #button5, #button6 {
+        border: 1px solid;
+        border-radius: 100px;
+        color: #15283c;
+        background: #fff;
+        font-weight: bold;
+    }
+
+    #nav-home-tab, #nav-annescolaire-tab, #nav-preinscription-tab {
+        border-radius: 50px;
+        font-weight: bold;
+        font-family: 'Eras ITC';
+        color: #15283c;
+    }
+
+    #ajouter {
+        border-radius: 50px;
+        cursor: pointer;
+    }
+
+    #save {
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 15px;
+        height: 40px;
+    }
+</style>
+
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Paramètres
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-cogs"></i> PARAMÈTRES</span></h3>
+                        </div><br />
+                        <div class="full inner_elements margin_top_30">
+                            <div class="tab_style2">
+                                <div class="tabbar">
+                                    <div class="row justify-content-center">
+                                        <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a class="nav-item nav-link active" id="nav-annescolaire-tab" data-toggle="tab" href="#annescolaire" role="tab" aria-selected="true">Année Scolaire</a>
+                                                <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#parametrage" role="tab" aria-selected="true">Paramétrage interface d'accueil</a>
+                                                <a class="nav-item nav-link" id="nav-preinscription-tab" data-toggle="tab" href="#preinscription" role="tab" aria-selected="false">Préinscription</a>
+                                            </div>
+                                        </nav>
+                                    </div>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="annescolaire" role="tabpanel" aria-labelledby="nav-annescolaire-tab">
+                                            <div class="row justify-content-center">
+                                                <br />
+                                                <p class="text-capitalize  text-center" style="color: red">
+                                                    @ViewBag.sms
+                                                </p>
+                                                <div class="col-md-10">
+                                                    <div class="table_section padding_infor_info">
+                                                        <div class="table-responsive-sm">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="inbox-head">
+                                                                        <div class="col-md-6">
+                                                                            <div class="button_block"><button type="button" class="btn cur-p btn-outline-success" data-toggle="modal" data-target="#mediumModalCreate">Cliquer ici pour ajouter une année scolaire</button></div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+
+                                                                            @using (Html.BeginForm("Departements", "Admins", FormMethod.Get))
+                                                                            {
+                                                                                <div class="row">
+                                                                                    <input type="text" class="form-control" value="@ViewBag.CurrentFilter" style="width:60%" name="searching" placeholder="Rechercher...">
+                                                                                    <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
+                                                                                </div>
+                                                                            }
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <center>
+                                                                <p id="messageDepartementB" style="color: green"></p>
+                                                                <p id="smsDepartementB" style="color:red"></p>
+                                                            </center>
+                                                            <div class="table_section padding_infor_info">
+                                                                <div class="table-responsive-sm">
+
+                                                                    @if (@Model.lstAnneeScolaires == null || Model.lstAnneeScolaires.Count() == 0)
+                                                                    {
+                                                                        <h3 class="text-center">Aucune annee scoalire disponible </h3>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a type="button" href="@Url.Action("Departements","Admins")" class="btn cur-p btn-outline-success" style="float:right">Cliquer ici pour initialiser la liste</a>
+
+                                                                        <table class="table table-bordered" style="border:1px solid #15283c;">
+                                                                            <thead style="background: #15283c;">
+                                                                                <tr style="text-align:center; color:#fff; font-weight:bold;">
+                                                                                    <th>N° Département</th>
+                                                                                    <th>Intitulé</th>
+                                                                                    <th>Status</th>
+                                                                                    <th>Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var departement in Model.lstAnneeScolaires)
+                                                                                {
+
+                                                                                    <tr style="text-align:center; color:#000000;">
+                                                                                        <td>@departement.id</td>
+                                                                                        <td>@departement.libelle</td>
+
+                                                                                        @if (departement.status)
+                                                                                        {
+                                                                                            <td style="color:green"> Active</td>
+
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <td style="color:red">Desactive</td>
+
+                                                                                        }
+
+                                                                                        <td>
+
+                                                                                            <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="ouvrirAnneeScolaireModal(@departement.id)" data-target="#mediumModalModify" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                                            <button class="btn-danger btn-sm" onclick="ouvrirBloquerModal(@departement.id)" id="supprimer" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                            <center>
+                                                                <div class="pagination" style="width:200px;margin-right:2.5%;margin-left:2.5%">
+                                                                </div>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade " id="parametrage" role="tabpanel" aria-labelledby="nav-home-tab">
+                                            <div class="container">
+                                                <div class="accordion" id="exempleAccordeon">
+                                                    <div class="card">
+                                                        <div class="card-header" id="header1">
+                                                            <button class="btn btn-link" type="button" id="button1" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">Section 1</button>
+                                                        </div>
+                                                        <div id="collapse1" class="collapse show" aria-labelledby="header1" data-parent="#exempleAccordeon">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-2"></div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="logo">Logo</label>
+                                                                            <input id="logo" name="logo" type="file" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="background">Fond d'écran</label>
+                                                                            <input id="background" name="background" type="file" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2"></div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <input id="Menu1" name="Menu1" type="text" class="form-control" placeholder="Menu 1">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <input id="Menu2" name="Menu2" type="text" class="form-control" placeholder="Menu 2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <input id="Menu3" name="Menu3" type="text" class="form-control" placeholder="Menu 3">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <input id="Menu4" name="Menu4" type="text" class="form-control" placeholder="Menu 4">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <input id="Menu5" name="Menu5" type="text" class="form-control" placeholder="Menu 5">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <input id="Menu6" name="Menu6" type="text" class="form-control" placeholder="Menu 6">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <input id="Menu7" name="Menu7" type="text" class="form-control" placeholder="Menu 7">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <input id="Menu8" name="Menu8" type="text" class="form-control" placeholder="Menu 8">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card">
+                                                        <div class="card-header" id="header2">
+                                                            <button class="btn btn-link" type="button" id="button2" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">Section 2</button>
+                                                        </div>
+                                                        <div id="collapse2" class="collapse" aria-labelledby="header2" data-parent="#exempleAccordeon">
+                                                            <div class="card-body">
+                                                                <div id="collapse1" class="collapse show" aria-labelledby="header1" data-parent="#exempleAccordeon">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2"></div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="logo">Logo </label>
+                                                                                    <input id="logo" name="logo" type="file" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="background">Fond d'écran</label>
+                                                                                    <input id="background" name="background" type="file" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2"></div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+                                                                                    <input id="Menu1" name="Menu1" type="text" class="form-control" placeholder="Menu 1">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+                                                                                    <input id="Menu2" name="Menu2" type="text" class="form-control" placeholder="Menu 2">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+                                                                                    <input id="Menu3" name="Menu3" type="text" class="form-control" placeholder="Menu 3">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+                                                                                    <input id="Menu4" name="Menu4" type="text" class="form-control" placeholder="Menu 4">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+                                                                                    <input id="Menu5" name="Menu5" type="text" class="form-control" placeholder="Menu 5">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+                                                                                    <input id="Menu6" name="Menu6" type="text" class="form-control" placeholder="Menu 6">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+                                                                                    <input id="Menu7" name="Menu7" type="text" class="form-control" placeholder="Menu 7">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+                                                                                    <input id="Menu8" name="Menu8" type="text" class="form-control" placeholder="Menu 8">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card">
+                                                        <div class="card-header" id="header3">
+                                                            <button class="btn btn-link" type="button" id="button3" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">Section 3</button>
+                                                        </div>
+                                                        <div id="collapse3" class="collapse" aria-labelledby="header3" data-parent="#exempleAccordeon">
+                                                            <div class="card-body">
+                                                                3
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card">
+                                                        <div class="card-header" id="header4">
+                                                            <button class="btn btn-link" type="button" id="button4" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">Section 4</button>
+                                                        </div>
+                                                        <div id="collapse4" class="collapse" aria-labelledby="header4" data-parent="#exempleAccordeon">
+                                                            <div class="card-body">
+                                                                4
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card">
+                                                        <div class="card-header" id="header5">
+                                                            <button class="btn btn-link" type="button" id="button5" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">Section 5</button>
+                                                        </div>
+                                                        <div id="collapse5" class="collapse" aria-labelledby="header5" data-parent="#exempleAccordeon">
+                                                            <div class="card-body">
+                                                                5
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card">
+                                                        <div class="card-header" id="header6">
+                                                            <button class="btn btn-link" type="button" id="button6" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">Section 6</button>
+                                                        </div>
+                                                        <div id="collapse6" class="collapse" aria-labelledby="header6" data-parent="#exempleAccordeon">
+                                                            <div class="card-body">
+                                                                6
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="col-md-2"></div>
+                                                        <div class="col-md-8">
+                                                            <div class="form-group row justify-content-center">
+                                                                <button class="btn btn-primary" type="submit" id="save"><i class="fa fa-check-circle"></i> Enregistrer</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2"></div>
+                                                    </div><br />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="preinscription" role="tabpanel" aria-labelledby="nav-preinscription-tab">
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-10">
+
+                                                    <button style="float:right" class="btn-primary btn-sm" id="ajouter" data-toggle="modal" data-target="#mediumModalAdd" data-placement="top" title="Ajouter"><i class="fa fa-plus-circle">Ajouter</i></button>
+
+                                                    <div class="table_section padding_infor_info">
+
+                                                        <div class="table-responsive-sm">
+                                                            @if (@Model.lstLancerPreinscriptions == null || Model.lstLancerPreinscriptions.Count() == 0)
+                                                            {
+                                                                <h3 class="text-center">Aucune pré-inscription disponible </h3>
+                                                            }
+                                                            else
+                                                            {
+                                                                <table class="table table-striped" style="border: 1px solid #ff5722;">
+                                                                    <thead style="background: #ff5722;">
+                                                                        <tr style="text-align: center; color: #15283c; font-weight: bold;">
+                                                                            <th>Année académique</th>
+                                                                            <th>Filière</th>
+                                                                            <th>Classe</th>
+                                                                            <th>Date de début</th>
+                                                                            <th>Date de fin</th>
+                                                                            <th>Date de prolongement</th>
+                                                                            <th></th>
+                                                                            <th>Action</th>
+                                                                            <th></th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var lancerPreinscription in Model.lstLancerPreinscriptions)
+                                                                        {
+                                                                            <tr style="text-align: center; color: #15283c;">
+                                                                                <td>@Model.lstAnneeScolaires.Where(o => o.id == lancerPreinscription.anneeScolaireID).Select(p => p.libelle).FirstOrDefault()  </td>
+                                                                                <td>@Model.lstFilieres.Where(o => o.id == lancerPreinscription.filiereID).Select(p => p.titre).FirstOrDefault()</td>
+                                                                                <td>@Model.lstClasses.Where(o => o.id == lancerPreinscription.classeID).Select(p => p.nom).FirstOrDefault()</td>
+                                                                                @{
+                                                                                    var datedebut = (new DateTime(1970, 1, 1)).AddMilliseconds(lancerPreinscription.dateDebut.Value);
+                                                                                }
+                                                                                <td>@datedebut  </td>
+                                                                                @{
+                                                                                    var dateFin = (new DateTime(1970, 1, 1)).AddMilliseconds(lancerPreinscription.dateFin.Value);
+                                                                                }
+                                                                                <td>@dateFin</td>
+                                                                                @{
+                                                                                    var datePrologement = (lancerPreinscription.dateDebut.Value != 0) ? (new DateTime(1970, 1, 1)).AddMilliseconds(lancerPreinscription.dateDebut.Value) : dateFin;
+                                                                                }
+                                                                                <td>@datePrologement</td>
+                                                                                <td>
+                                                                                    <button class="btn-primary btn-sm" id="@lancerPreinscription.id" data-toggle="modal" onclick="ouvrirLancerPreinscriptionIDModal(this.id)" data-target="#mediumModalUpdate" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button class="btn-primary btn-sm" id="@lancerPreinscription.id" onclick="ouvrirProlonger(this.id)" title="Prolonger"><i class="fa fa-sort-amount-up"></i></button>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button class="btn-primary btn-sm" id="ajouter" data-toggle="modal" onclick="ajouterPreinscription(this.id)" data-target="#mediumModalAdd" data-placement="top" title="Ajouter"><i class="fa fa-plus-circle"></i></button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+
+                                                                    </tbody>
+                                                                </table>
+
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+<!-- PROLONGER LANCER UNE PREINSCRIPTION POPUP-->
+<div class="modal" id="mediumModalProlongerPreinscription" style=" overflow: auto;  background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4); " tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelProlongerPreinscription" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #15283c;">
+                <h5 class="modal-title" id="mediumModalLabelProlongerPreinscription" style="color:#fff;">Prolonger une pré-inscription</h5>
+                <button type="button" class="close" onclick="document.getElementById('mediumModalProlongerPreinscription').style.display = 'none'" aria-label="Close">
+                    <span aria-hidden="true" style="color:red;">&times;</span>
+                </button>
+            </div>
+            <center>
+                <p id="messageProlonger" style="color: green"></p>
+                <p id="smsProlonger" style="color:red"></p>
+            </center>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input id="dateProlonger" name="dateProlonger" type="date" class="form-control">
+                        </div>
+                    </div>
+                    <input id="idProlonger" name="idProlonger" type="text" class="form-control" hidden>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button class="btn btn-primary" onclick="dateProlonger()"><i class="fa fa-sort-amount-up"></i>Prolonger</button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--END PROLONGER LANCER UNE PREINSCRIPTION POPUP-->
+<!--  AJOUTER ANNEE SCOLAIRE  POPUP-->
+<div class="modal fade" id="mediumModalAddAnneScolaire" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelAddAnneScolaire" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #15283c;">
+                <h5 class="modal-title" id="mediumModalLabelAddAnneScolaire" style="color:#fff;">Créer une année scolaire</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:red;">&times;</span>
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input id="annee_scolaire" name="annee_scolaire" type="text" class="form-control" placeholder="Année academique">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit" id="enregistrerAnneeScolaire"><i class="fa fa-send"></i>Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END AJOUTER ANNEE SCOLAIRE POPUP-->
+<!-- MODIFIER LANCER UNE PREINSCRIPTION POPUP-->
+<div class="modal fade" id="mediumModalUpdate" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelUpdate" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #15283c;">
+                <h5 class="modal-title" id="mediumModalLabelUpdate" style="color:#fff;">Modifier Lancer une préinscription</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:red;">&times;</span>
+                </button>
+            </div>
+            <center>
+                <p id="messageLancerPreinscriptionM" style="color: green"></p>
+                <p id="smsLancerPreinscriptionM" style="color:red"></p>
+            </center>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="departementIDM" class="control-label mb-1">Département </label>
+                            <select class="form-control" name="departementIDM" id="departementIDM">
+                                @if (Model.lstDepartements == null)
+                                {
+                                    <option value="0">----------</option>
+
+                                }
+                                else
+                                {
+                                    foreach (var depart in Model.lstDepartements.FindAll(u => u.status == true).ToList())
+                                    {
+                                        <option value="@depart.id">@depart.nom</option>
+
+                                    }
+
+                                }
+
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="anneeScolaireIDM" class="control-label mb-1">Année académique </label>
+                            <select class="form-control" name="anneeScolaireIDM" id="anneeScolaireIDM">
+                                @if (Model.lstAnneeScolaires == null)
+                                {
+                                    <option value="0">----------</option>
+
+                                }
+                                else
+                                {
+                                    foreach (var anneeScolaire in Model.lstAnneeScolaires.FindAll(u => u.status == true).ToList())
+                                    {
+                                        <option value="@anneeScolaire.id">@anneeScolaire.libelle</option>
+
+                                    }
+
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="filiereIDM" class="control-label mb-1">Filière </label>
+                            <select class="form-control" name="filiereID" id="filiereIDM">
+                                @if (Model.lstFilieres == null)
+                                {
+                                    <option value="0">----------</option>
+
+                                }
+                                else
+                                {
+                                    foreach (var anneeScolaire in Model.lstFilieres.FindAll(u => u.status == true).ToList())
+                                    {
+                                        <option value="@anneeScolaire.id">@anneeScolaire.titre</option>
+
+                                    }
+
+                                }
+
+                            </select>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="classeIDM" class="control-label mb-1">Classe </label>
+                            <select class="form-control" name="classeIDM" id="classeIDM">
+                                @if (Model.lstClasses == null)
+                                {
+                                    <option value="0">----------</option>
+
+                                }
+                                else
+                                {
+                                    foreach (var anneeScolaire in Model.lstClasses.FindAll(u => u.status == true).ToList())
+                                    {
+                                        <option value="@anneeScolaire.id">@anneeScolaire.nom</option>
+
+                                    }
+
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="dateDebutM" class="control-label mb-1">Date de début </label>
+                            <input id="dateDebutM" name="dateDebutM" type="date" class="form-control" placeholder="Date de début">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="dateFinM" class="control-label mb-1">Date de fin </label>
+                            <input id="dateFinM" name="dateFinM" type="date" class="form-control" placeholder="Date de fin">
+                        </div>
+                        <input id="lancerPreinscriptionID" name="lancerPreinscriptionID" type="text" class="form-control" hidden>
+
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group row justify-content-center">
+                            <button class="btn btn-primary" onclick="modifierLancerPreinscription()" ><i class="fa fa-send"></i> Lancer</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div><br />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODIFIER LANCER UNE PREINSCRIPTION POPUP-->
+<!-- AJOUTER LANCER UNE PREINSCRIPTION POPUP-->
+<div class="modal fade" id="mediumModalAdd" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelAdd" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #15283c;">
+                <h5 class="modal-title" id="mediumModalLabelAdd" style="color:#fff;">Lancer une préinscription</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:red;">&times;</span>
+                </button>
+            </div>
+            <center>
+                <p id="messagePreinscriptionB" style="color: green"></p>
+                <p id="smsPreinscriptionB" style="color:red"></p>
+            </center>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="departementID" class="control-label mb-1">Département </label>
+                            <select class="form-control" name="departementID" id="departementID">
+                                @if (Model.lstDepartements == null)
+                                {
+                                    <option value="0">----------</option>
+
+                                }
+                                else
+                                {
+                                    foreach (var depart in Model.lstDepartements.FindAll(u => u.status == true).ToList())
+                                    {
+                                        <option value="@depart.id">@depart.nom</option>
+
+                                    }
+
+                                }
+
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="anneeScolaireID" class="control-label mb-1">Année académique </label>
+                            <select class="form-control" name="anneeScolaireID" id="anneeScolaireID">
+                                @if (Model.lstAnneeScolaires == null)
+                                {
+                                    <option value="0">----------</option>
+
+                                }
+                                else
+                                {
+                                    foreach (var anneeScolaire in Model.lstAnneeScolaires.FindAll(u => u.status == true).ToList())
+                                    {
+                                        <option value="@anneeScolaire.id">@anneeScolaire.libelle</option>
+
+                                    }
+
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="filiereID" class="control-label mb-1">Filière </label>
+                            <select class="form-control" name="filiereID" id="filiereID">
+                                @if (Model.lstFilieres == null)
+                                {
+                                    <option value="0">----------</option>
+
+                                }
+                                else
+                                {
+                                    foreach (var anneeScolaire in Model.lstFilieres.FindAll(u => u.status == true).ToList())
+                                    {
+                                        <option value="@anneeScolaire.id">@anneeScolaire.titre</option>
+
+                                    }
+
+                                }
+
+                            </select>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="classeID" class="control-label mb-1">Classe </label>
+                            <select class="form-control" name="classeID" id="classeID">
+                                @if (Model.lstClasses == null)
+                                {
+                                    <option value="0">----------</option>
+
+                                }
+                                else
+                                {
+                                    foreach (var anneeScolaire in Model.lstClasses.FindAll(u => u.status == true).ToList())
+                                    {
+                                        <option value="@anneeScolaire.id">@anneeScolaire.nom</option>
+
+                                    }
+
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="dateDebut" class="control-label mb-1">Date de début </label>
+                            <input id="dateDebut" name="dateDebut" type="date" class="form-control" placeholder="Date de début">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="dateFin" class="control-label mb-1">Date de fin </label>
+                            <input id="dateFin" name="dateFin" type="date" class="form-control" placeholder="Date de fin">
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group row justify-content-center">
+                            <button class="btn btn-primary" onclick="ajouterPreinscription()" id="lancer_preinscription"><i class="fa fa-send"></i> Lancer une préinscription</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div><br />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END AJOUTER LANCER UNE PREINSCRIPTION POPUP-->
+<!-- CREER ANNEE SCOLAIRE POPUP-->
+<div class="modal fade" id="mediumModalCreate" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelCreate" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabelCreate">Ajouter une année scolaire</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:red;">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <center>
+                            <p id="messadeAjouterAnneeScolaire" style="color: green"></p>
+                            <p id="smsAjouterAnneeScolaire" style="color:red"></p>
+                        </center>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nom" class="control-label mb-1">Nom </label>
+                                    <input id="nom" name="nom" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="ajouterAnneeScolaire()"><span id="spinner" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="document.getElementById('mediumModalCreate').style.display = 'none'">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="anneeScolaireID" name="anneeScolaireID" type="text" class="form-control" hidden>
+
+<!-- END CREER PERSONNEL POPUP-->
+<!-- MODIFIER PERSONNEL POPUP-->
+<div id="mediumModalModify" class="modal container-fluid ">
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabelModify">Modifier une année scolaire</h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <center>
+                            <p id="messadeAjouterAnneeScolaireM" style="color: green"></p>
+                            <p id="smsAjouterAnneeScolaireM" style="color:red"></p>
+                        </center>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nom" class="control-label mb-1">Nom </label>
+                                    <input id="nomM" name="nomM" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="modifierAnneeScolaire()"><span id="spinnerM" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                <button type="button" class="btn btn-danger" onclick="document.getElementById('mediumModalModify').style.display = 'none';window.location.reload()">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODIFIER PERSONNEL POPUP-->
+<!-- BLOQUER PERSONNEL POPUP-->
+<div id="mediumModalBloquer" class="modal container-fluid ">
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content align-content-center">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabelBloquer">Bloquer une année scolaire</h5>
+
+            </div>
+            <div class="modal-body align-content-center">
+                <center>
+                    <p id="messageAnneeScolaireB" style="color: green"></p>
+                    <p id="smsAnneeScolaireB" style="color:red"></p>
+                </center>
+                <center>
+                    <h5 class="text-center">Voulez-vous bloquer cette année scolaire ?</h5>
+                </center>
+
+
+                <div class="container">
+                    <div class="row">
+                        <button type="button" class="btn btn-primary" onclick="bloquerAnneeScolaire()"><span id="spinnerB" class="spinner-border text-light" role="status" hidden></span>Oui</button>
+                        <button type="button" style="float:right" class="btn btn-danger" onclick="document.getElementById('mediumModalBloquer').style.display = 'none';window.location.reload()">Non</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODIFIER PERSONNEL POPUP-->
+<!-- ANNNEE SCOLAIRE JS-->
+<script>
+
+    function ajouterAnneeScolaire()
+    {
+        document.getElementById("spinner").hidden = false
+        document.getElementById("messadeAjouterAnneeScolaire").innerText = null
+        document.getElementById("smsAjouterAnneeScolaire").innerText = null
+         $.post('@Url.Action("ajouterAnneeScolaire")',
+            {
+                 nom: document.getElementById('nom').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("messadeAjouterAnneeScolaire").innerText = rep.message;
+                    document.getElementById("smsAjouterAnneeScolaire").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalCreate').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("smsAjouterAnneeScolaire").innerText = rep.message ;
+                    document.getElementById("messadeAjouterAnneeScolaire").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinner").hidden = true
+                document.getElementById("smsAjouterAnneeScolaire").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterAnneeScolaire").innerText = null
+
+            });
+
+
+
+    }
+    function modifierAnneeScolaire()
+    {
+        document.getElementById("spinnerM").hidden = false
+        document.getElementById("messadeAjouterAnneeScolaireM").innerText = null
+        document.getElementById("smsAjouterAnneeScolaireM").innerText = null
+         $.post('@Url.Action("ajouterAnneeScolaire")',
+            {
+
+                nom: document.getElementById('nomM').value,
+
+                id: document.getElementById('anneeScolaireID').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("messadeAjouterAnneeScolaireM").innerText = rep.message;
+                    document.getElementById("smsAjouterAnneeScolaireM").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalModify').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("smsAjouterAnneeScolaireM").innerText = rep.message ;
+                    document.getElementById("messadeAjouterAnneeScolaireM").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinnerM").hidden = true
+                document.getElementById("smsAjouterAnneeScolaireM").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterAnneeScolaireM").innerText = null
+
+            });
+
+
+
+    }
+    function ouvrirAnneeScolaireModal(anneeScolaireID)
+    {
+        document.getElementById("messadeAjouterAnneeScolaireM").innerText = null
+        document.getElementById("smsAjouterAnneeScolaireM").innerText = null
+
+        var anneeScolaires = @Html.Raw(Json.Encode(Model.lstAnneeScolaires));
+        var anneeScolaire = anneeScolaires.filter(e => e.id == anneeScolaireID)[0];
+        document.getElementById('anneeScolaireID').value = anneeScolaireID
+        document.getElementById('nomM').value = anneeScolaire.libelle,
+
+        document.getElementById('mediumModalModify').style.display = 'block'
+
+
+
+
+     }
+    function ouvrirBloquerModal(anneeScolaireID)
+    {
+        document.getElementById('mediumModalBloquer').style.display = 'block'
+        document.getElementById('anneeScolaireID').value = anneeScolaireID
+
+
+
+    }
+    function bloquerAnneeScolaire()
+    {
+        document.getElementById("messageAnneeScolaireB").innerText = null
+        document.getElementById("smsAnneeScolaireB").innerText = null
+
+             $.post('@Url.Action("bloquerAnneeScolaire")',
+
+                {
+                    id: document.getElementById('anneeScolaireID').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+                    document.getElementById("messageAnneeScolaireB").innerText = rep.message;
+                    document.getElementById("smsAnneeScolaireB").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("smsAnneeScolaireB").innerText = rep.message;
+                    document.getElementById("messageAnneeScolaireB").innerText = null
+                }
+            }
+            ).fail(function (xhr, status, error)
+            {
+                                //Ajax request failed.
+                document.getElementById("smsAnneeScolaireB").innerText = " une erreur interne est survenue coté client";
+                document.getElementById("messageAnneeScolaireB").innerText = null
+
+            });
+    }
+
+
+</script>
+
+<!--JS LANCER PREINSCRIPTION-->
+<script>
+
+    function ajouterPreinscription()
+    {
+
+
+            document.getElementById("spinner").hidden = false
+            document.getElementById("messagePreinscriptionB").innerText = null
+           document.getElementById("smsPreinscriptionB").innerText = null
+            $.post('@Url.Action("ajouterLancerPreinscription")',
+            {
+                anneeScolaireID: document.getElementById('anneeScolaireID').value,
+                classeID: document.getElementById('classeID').value,
+                dateDebut: new Date($('#dateDebut').val()).getTime(),
+                dateFin:new Date($('#dateFin').val()).getTime(),
+                datePrologement: new Date($('#datePrologement').val()).getTime(),
+                departementID: document.getElementById('departementID').value,
+                filiereID: document.getElementById('filiereID').value
+
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("messagePreinscriptionB").innerText = rep.message;
+                    document.getElementById("smsPreinscriptionB").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalAdd').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("smsPreinscriptionB").innerText = rep.message ;
+                    document.getElementById("messagePreinscriptionB").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinner").hidden = true
+                document.getElementById("smsPreinscriptionB").innerText = " une erreur interne est survenue";
+                document.getElementById("messagePreinscriptionB").innerText = null
+
+            });
+
+
+
+    }
+    function modifierLancerPreinscription()
+    {
+        document.getElementById("spinnerM").hidden = false
+        document.getElementById("messageLancerPreinscriptionM").innerText = null
+        document.getElementById("smsLancerPreinscriptionM").innerText = null
+         $.post('@Url.Action("ajouterLancerPreinscription")',
+            {
+
+                anneeScolaireID: document.getElementById('anneeScolaireIDM').value,
+                classeID: document.getElementById('classeIDM').value,
+                dateDebut: new Date($('#dateDebutM').val()).getTime(),
+                dateFin: new Date($('#dateFinM').val()).getTime(),
+                datePrologement: new Date($('#datePrologementM').val()).getTime(),
+                departementID: document.getElementById('departementIDM').value,
+                filiereID: document.getElementById('filiereIDM').value,
+                id: document.getElementById('lancerPreinscriptionID').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("messageLancerPreinscriptionM").innerText = rep.message;
+                    document.getElementById("smsLancerPreinscriptionM").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalUpdate').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("smsLancerPreinscriptionM").innerText = rep.message ;
+                    document.getElementById("messageLancerPreinscriptionM").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("smsLancerPreinscriptionM").innerText = " une erreur interne est survenue";
+                document.getElementById("messageLancerPreinscriptionM").innerText = null
+
+            });
+
+
+
+    }
+    function ouvrirLancerPreinscriptionIDModal(lancerPreinscriptionID)
+    {
+          var listePreinscriptions =@Html.Raw(Json.Encode(Model.lstLancerPreinscriptions));
+          var preinscription = listePreinscriptions.filter(p => p.id == lancerPreinscriptionID)[0];
+
+        // DATE DEBUT
+        var day = ("0" + new Date(preinscription.dateDebut).getDate()).slice(-2);
+        var month = ("0" + (new Date(preinscription.dateDebut).getMonth() + 1)).slice(-2);
+        var dateDebut = new Date(preinscription.dateDebut).getFullYear() + "-" + (month) + "-" + (day);
+
+        // DATE FIN
+        var day = ("0" + new Date(preinscription.dateFin).getDate()).slice(-2);
+        var month = ("0" + (new Date(preinscription.dateFin).getMonth() + 1)).slice(-2);
+        var dateFin = new Date(preinscription.dateFin).getFullYear() + "-" + (month) + "-" + (day);
+
+        // DATE FIN
+        var day = ("0" + new Date(preinscription.datePrologement).getDate()).slice(-2);
+        var month = ("0" + (new Date(preinscription.datePrologement).getMonth() + 1)).slice(-2);
+        var datePrologement = new Date(preinscription.datePrologement).getFullYear() + "-" + (month) + "-" + (day);
+
+           document.getElementById('anneeScolaireIDM').value = preinscription.anneeScolaireID,
+           document.getElementById('classeIDM').value = preinscription.classeID,
+
+            $('#dateDebutM').val(dateDebut)
+            $('#dateFinM').val(dateFin)
+            document.getElementById('departementIDM').value = preinscription.departementID,
+            document.getElementById('filiereIDM').value = preinscription.filiereID,
+            $('#datePrologementM').val(datePrologement)
+            document.getElementById('lancerPreinscriptionID').value = lancerPreinscriptionID
+
+
+
+     }
+    function ouvrirBloquerModal(anneeScolaireID)
+    {
+        document.getElementById('mediumModalBloquer').style.display = 'block'
+        document.getElementById('anneeScolaireID').value = anneeScolaireID
+
+
+
+    }
+    function bloquerLancerPreinscriptionr()
+    {
+        document.getElementById("messageAnneeScolaireB").innerText = null
+        document.getElementById("smsAnneeScolaireB").innerText = null
+
+             $.post('@Url.Action("bloquerAnneeScolaire")',
+
+                {
+                    id: document.getElementById('anneeScolaireID').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+                    document.getElementById("messageAnneeScolaireB").innerText = rep.message;
+                    document.getElementById("smsAnneeScolaireB").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("smsAnneeScolaireB").innerText = rep.message;
+                    document.getElementById("messageAnneeScolaireB").innerText = null
+                }
+            }
+            ).fail(function (xhr, status, error)
+            {
+                                //Ajax request failed.
+                document.getElementById("smsAnneeScolaireB").innerText = " une erreur interne est survenue coté client";
+                document.getElementById("messageAnneeScolaireB").innerText = null
+
+            });
+    }
+
+    function ouvrirProlonger(idProlonger)
+    {
+        document.getElementById('idProlonger').value = idProlonger
+        var listePreinscriptions =@Html.Raw(Json.Encode(Model.lstLancerPreinscriptions));
+        var preinscription = listePreinscriptions.filter(p => p.id == idProlonger)[0];
+
+        // DATE DEBUT
+        var day = ("0" + new Date(preinscription.datePrologement).getDate()).slice(-2);
+        var month = ("0" + (new Date(preinscription.datePrologement).getMonth() + 1)).slice(-2);
+        var dateDebut = new Date(preinscription.datePrologement).getFullYear() + "-" + (month) + "-" + (day);
+
+
+        $('#dateProlonger').val(dateDebut)
+
+        document.getElementById('mediumModalProlongerPreinscription').style.display = 'block'
+    }
+
+
+    function dateProlonger()
+    {
+
+        var listePreinscriptions =@Html.Raw(Json.Encode(Model.lstLancerPreinscriptions));
+        var preinscription = listePreinscriptions.filter(p => p.id == document.getElementById('idProlonger').value)[0];
+
+
+            document.getElementById("messageProlonger").innerText = null
+            document.getElementById("smsProlonger").innerText = null
+            $.post('@Url.Action("ajouterLancerPreinscription")',
+            {
+                anneeScolaireID: preinscription.anneeScolaireID,
+                classeID: preinscription.classeID,
+                dateDebut: preinscription.dateDebut,
+                dateFin: preinscription.dateFin,
+                datePrologement: new Date($('#dateProlonger').val()).getTime(),
+                departementID: preinscription.departementID,
+                filiereID: preinscription.filiereID,
+                id:preinscription.id
+
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("messageProlonger").innerText = rep.message;
+                    document.getElementById("smsProlonger").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalAdd').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("smsProlonger").innerText = rep.message ;
+                    document.getElementById("messageProlonger").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("smsProlonger").innerText = " une erreur interne est survenue";
+                document.getElementById("messageProlonger").innerText = null
+
+            });
+
+
+
+    }
+</script>

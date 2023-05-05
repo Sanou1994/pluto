@@ -1,0 +1,396 @@
+﻿@model PagedList.IPagedList<NiveauEtude>
+@{
+    ViewBag.Title = "Departements";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+@using Pluto.Models;
+@using PagedList.Mvc;
+<style>
+    #modifier, #details, #supprimer {
+        border-radius: 100px;
+    }
+
+    .modal-header {
+        background: #15283c;
+    }
+
+    .modal-title {
+        color: #fff;
+    }
+</style>
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Gestion pédagogique
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Départements
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span class="text-capitalize" ><i class="fa fa-university"></i> NIVEAUX éTUDES</span></h3>
+                        </div><br />
+                        <p class="text-capitalize  text-center" style="color: red">
+                            @ViewBag.sms
+                        </p>
+                        <!-- table section -->
+                        <div class="col-md-12">
+                            <div class="white_shd full margin_bottom_30">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="inbox-head">
+                                            <div class="col-md-6">
+                                                <div class="button_block"><button type="button" class="btn cur-p btn-outline-success" data-toggle="modal" data-target="#mediumModalCreate">Cliquer ici pour ajouter un niveau</button></div>
+                                            </div>
+                                            <div class="col-md-6">
+
+                                                @using (Html.BeginForm("niveau_etudes", "Admins", FormMethod.Get))
+                                                {
+                                                    <div class="row">
+                                                        <input type="text" class="form-control" value="@ViewBag.CurrentFilter" style="width:60%" name="searching" placeholder="Rechercher...">
+                                                        <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                }
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <p id="messageDepartementB" style="color: green"></p>
+                                    <p id="smsDepartementB" style="color:red"></p>
+                                </center>
+                                <div class="table_section padding_infor_info">
+                                    <div class="table-responsive-sm">
+                                        <a type="button" href="@Url.Action("niveau_etudes","Admins")" class="btn cur-p btn-outline-success" style="float:right">Cliquer ici pour initialiser la liste</a>
+
+                                        @if (@Model == null || @Model.Count() == 0)
+                                        {
+                                            <h3 class="text-center ">Aucun niveau disponible</h3>
+                                        }
+                                        else
+                                        {
+                                            <table class="table table-bordered" style="border:1px solid #15283c;">
+                                                <thead style="background: #15283c;">
+                                                    <tr style="text-align:center; color:#fff; font-weight:bold;">
+                                                        <th>N° Niveau</th>
+                                                        <th>Intitulé</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var departement in Model)
+                                                    {
+
+                                                        <tr style="text-align:center; color:#000000;">
+                                                            <td>@departement.id</td>
+                                                            <td>@departement.nom</td>
+
+                                                            @if (departement.status)
+                                                            {
+                                                                <td style="color:green"> Active</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="color:red">Desactive</td>
+
+                                                            }
+                                                            
+                                                            <td>
+                                                                
+                                                                <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="  ouvrirDepartementModal(@departement.id)" data-target="#mediumModalModify" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                <button class="btn-danger btn-sm" onclick="ouvrirBloquerModal(@departement.id)" id="supprimer" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        }
+
+                                    </div>
+                                </div>
+                                <center>
+                                    <div class="pagination" style="width:200px;margin-right:2.5%;margin-left:2.5%">
+                                        @Html.PagedListPager(Model, page => Url.Action("niveau_etudes", new { page, searching = ViewBag.CurrentFilter }) + "#Product", new PagedListRenderOptions { MaximumPageNumbersToDisplay = 4, ContainerDivClasses = new List<string> { "MenuTab", "MenuTab" }, LiElementClasses = new List<string> { "pagination-bar", "pagination-bar" }, DelimiterBetweenPageNumbers = "-" })
+                                    </div>
+                                </center>
+                                <!-- CREER PERSONNEL POPUP-->
+                                <div class="modal fade" id="mediumModalCreate" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelCreate" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelCreate">Ajouter un département</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <center>
+                                                            <p id="messadeAjouterDepartement" style="color: green"></p>
+                                                            <p id="smsAjouterDepartement" style="color:red"></p>
+                                                        </center>
+                                                        <div class="row">
+                                                            
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nom" class="control-label mb-1">Nom </label>
+                                                                    <input id="nom" name="nom" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="ajouterDepartement()"><span id="spinner" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="document.getElementById('mediumModalCreate').style.display = 'none'">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input id="departementID" name="departementID" type="text" class="form-control" hidden>
+
+                                <!-- END CREER PERSONNEL POPUP-->
+                                <!-- MODIFIER PERSONNEL POPUP-->
+                                <div id="mediumModalModify" class="modal container-fluid ">
+
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelModify">Modifier un département</h5>
+
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <center>
+                                                            <p id="messadeAjouterDepartementM" style="color: green"></p>
+                                                            <p id="smsAjouterDepartementM" style="color:red"></p>
+                                                        </center>
+                                                       
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nom" class="control-label mb-1">Nom </label>
+                                                                    <input id="nomM" name="nomM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>                                                          
+                                                        </div>                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="modifierDepartement()"><span id="spinnerM" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                <button type="button" class="btn btn-danger" onclick="document.getElementById('mediumModalModify').style.display = 'none';window.location.reload()">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER PERSONNEL POPUP-->
+                                <!-- BLOQUER PERSONNEL POPUP-->
+                                <div id="mediumModalBloquer" class="modal container-fluid ">
+
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content align-content-center">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelBloquer">Bloquer un département</h5>
+
+                                            </div>
+                                            <div class="modal-body align-content-center">
+                                                <center>
+                                                    <h5 class="text-center">Voulez-vous bloquer ce département ?</h5>
+                                                </center>
+
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <button type="button" class="btn btn-primary" onclick="bloquerDepartement()"><span id="spinnerB" class="spinner-border text-light" role="status" hidden></span>Oui</button>
+                                                        <button type="button" style="float:right" class="btn btn-danger" onclick="document.getElementById('mediumModalBloquer').style.display = 'none';window.location.reload()">Non</button>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER PERSONNEL POPUP-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+
+<script>
+    
+    function ajouterDepartement()
+    {
+        document.getElementById("spinner").hidden = false
+        document.getElementById("messadeAjouterDepartement").innerText = null
+        document.getElementById("smsAjouterDepartement").innerText = null
+         $.post('@Url.Action("ajouterNiveauEtude")',
+            {
+                 nom: document.getElementById('nom').value
+               
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("messadeAjouterDepartement").innerText = rep.message;
+                    document.getElementById("smsAjouterDepartement").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalCreate').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("smsAjouterDepartement").innerText = rep.message ;
+                    document.getElementById("messadeAjouterDepartement").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinner").hidden = true
+                document.getElementById("smsAjouterDepartement").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterDepartement").innerText = null
+
+            });
+
+
+
+    }
+    function modifierDepartement()
+    {
+        document.getElementById("spinnerM").hidden = false
+        document.getElementById("messadeAjouterDepartementM").innerText = null
+        document.getElementById("smsAjouterDepartementM").innerText = null
+         $.post('@Url.Action("ajouterNiveauEtude")',
+            {
+           
+                nom: document.getElementById('nomM').value,
+               
+                id: document.getElementById('departementID').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("messadeAjouterDepartementM").innerText = rep.message;
+                    document.getElementById("smsAjouterDepartementM").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalModify').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("smsAjouterDepartementM").innerText = rep.message ;
+                    document.getElementById("messadeAjouterDepartementM").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinnerM").hidden = true
+                document.getElementById("smsAjouterDepartementM").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterDepartementM").innerText = null
+
+            });
+
+
+
+    }
+    function ouvrirDepartementModal(departementID)
+    {
+        document.getElementById("messadeAjouterDepartementM").innerText = null
+        document.getElementById("smsAjouterDepartementM").innerText = null
+
+        var departements = @Html.Raw(Json.Encode(Model));
+        var departement = departements.filter(e => e.id == departementID)[0];
+       
+        document.getElementById('departementID').value = departementID
+            document.getElementById('nomM').value = departement.nom,          
+
+            document.getElementById('mediumModalModify').style.display = 'block'
+
+
+
+
+     }
+    function ouvrirBloquerModal(departementID)
+    {
+        document.getElementById('mediumModalBloquer').style.display = 'block'
+        document.getElementById('departementID').value = departementID
+
+
+
+    }
+    function bloquerDepartement()
+    {
+        document.getElementById("messageDepartementB").innerText = null
+        document.getElementById("smsDepartementB").innerText = null
+
+             $.post('@Url.Action("bloquerNiveauEtude")',
+
+                {
+                    id: document.getElementById('departementID').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+                    document.getElementById("messageDepartementB").innerText = rep.message;
+                    document.getElementById("smsDepartementB").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("smsDepartementB").innerText = rep.message;
+                    document.getElementById("messageDepartementB").innerText = null
+                }
+            }
+            ).fail(function (xhr, status, error)
+            {
+                                //Ajax request failed.
+                document.getElementById("smsDepartementB").innerText = " une erreur interne est survenue coté client";
+                document.getElementById("messageDepartementB").innerText = null
+
+            });
+    }
+
+
+</script>
+

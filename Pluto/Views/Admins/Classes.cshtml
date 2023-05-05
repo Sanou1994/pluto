@@ -1,0 +1,436 @@
+﻿
+
+@model Tuple<PagedList.IPagedList<ClasseList>, List<FiliereList>>
+@{
+    ViewBag.Title = "Departements";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+@using Pluto.Models;
+@using PagedList.Mvc;
+<style>
+    #modifier, #details, #supprimer {
+        border-radius: 100px;
+    }
+
+    .modal-header {
+        background: #15283c;
+    }
+
+    .modal-title {
+        color: #fff;
+    }
+</style>
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Gestion pédagogique
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Classes
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-university"></i> CLASSES</span></h3>
+                        </div><br />
+                        <p class="text-capitalize  text-center" style="color: red">
+                            @ViewBag.sms
+                        </p>
+                        <!-- table section -->
+                        <div class="col-md-12">
+                            <div class="white_shd full margin_bottom_30">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="inbox-head">
+                                            <div class="col-md-6">
+                                                <div class="button_block"><button type="button" class="btn cur-p btn-outline-success" data-toggle="modal" data-target="#mediumModalCreate">Cliquer ici pour ajouter une classe</button></div>
+                                            </div>
+                                            <div class="col-md-6">
+
+                                                @using (Html.BeginForm("Classes", "Admins", FormMethod.Get))
+                                                {
+                                                    <div class="row">
+                                                        <input type="text" class="form-control" value="@ViewBag.CurrentFilter" style="width:60%" name="searching" placeholder="Rechercher...">
+                                                        <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                }
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <p id="messageClasseB" style="color: green"></p>
+                                    <p id="smsClasseB" style="color:red"></p>
+                                </center>
+                                <div class="table_section padding_infor_info">
+                                    <div class="table-responsive-sm">
+                                        <a type="button" href="@Url.Action("Classes","Admins")" class="btn cur-p btn-outline-success" style="float:right">Cliquer ici pour initialiser la liste</a>
+
+                                        @if (Model.Item1.Count() < 1)
+                                        {
+                                            <h3 class="text-center">Aucune classe disponible</h3>
+                                        }
+                                        else
+                                        {
+                                            <table class="table table-bordered" style="border:1px solid #15283c;">
+                                                <thead style="background: #15283c;">
+                                                    <tr style="text-align:center; color:#fff; font-weight:bold;">
+                                                        <th>N° Classe</th>
+                                                        <th>Intitulé</th>
+                                                        <th>Filière</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var classe in Model.Item1)
+                                                    {
+
+                                                        <tr style="text-align:center; color:#000000;">
+                                                            <td>@classe.id</td>
+                                                            <td>@classe.nom</td>
+                                                            <td>
+                                                                @if (classe.filiere != 0)
+                                                                {
+                                                                    @Model.Item2.Where(p => p.id == classe.filiere).Select(r => r.titre).FirstOrDefault()
+
+                                                                }
+                                                                else
+                                                                {
+                                                                <span>Néant</span>  
+                                                                }
+                                                            </td>
+                                                            @if (classe.status)
+                                                            {
+                                                                <td style="color:green"> Active</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="color:red">Desactive</td>
+
+                                                            }
+
+                                                            <td>
+
+                                                                <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="ouvrirClasseModal(@classe.id)" data-target="#mediumModalModify" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                <button class="btn-danger btn-sm" onclick="ouvrirBloquerModal(@classe.id)" id="supprimer" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        }
+
+                                    </div>
+                                </div>
+                                <center>
+                                    <div class="pagination" style="width:200px;margin-right:2.5%;margin-left:2.5%">
+                                        @Html.PagedListPager(Model.Item1, page => Url.Action("Classes", new { page, searching = ViewBag.CurrentFilter }) + "#Product", new PagedListRenderOptions { MaximumPageNumbersToDisplay = 4, ContainerDivClasses = new List<string> { "MenuTab", "MenuTab" }, LiElementClasses = new List<string> { "pagination-bar", "pagination-bar" }, DelimiterBetweenPageNumbers = "-" })
+                                    </div>
+                                </center>
+                                <!-- CREER Classe POPUP-->
+                                <div class="modal fade" id="mediumModalCreate" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelCreate" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelCreate">Ajouter une Classe</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <center>
+                                                            <p id="messadeAjouterClasse" style="color: green"></p>
+                                                            <p id="smsAjouterClasse" style="color:red"></p>
+                                                        </center>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="filiere" class="control-label mb-1">Filière </label>
+                                                                    <select class="form-control" name="filiere" id="filiere">
+                                                                        <option value="0" selected>Aucun</option>
+                                                                        @foreach (var poste in Model.Item2)
+                                                                        {
+                                                                            <option value="@poste.id">@poste.titre</option>
+
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nom" class="control-label mb-1">Nom </label>
+                                                                    <input id="nom" name="nom" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="ajouterClasse()"><span id="spinner" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="document.getElementById('mediumModalCreate').style.display = 'none'">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input id="classeID" name="classeID" type="text" class="form-control" hidden>
+
+                                <!-- END CREER Classe POPUP-->
+                                <!-- MODIFIER Classe POPUP-->
+                                <div id="mediumModalModify" class="modal container-fluid ">
+
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelModify">Modifier une Classe</h5>
+
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <center>
+                                                            <p id="messadeAjouterClasseM" style="color: green"></p>
+                                                            <p id="smsAjouterClasseM" style="color:red"></p>
+                                                        </center>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="filiere" class="control-label mb-1">Filière </label>
+                                                                <select class="form-control" name="filiere" id="filiere">
+                                                                    <option value="0" selected>Aucun</option>
+                                                                    @foreach (var poste in Model.Item2)
+                                                                    {
+                                                                        <option value="@poste.id">@poste.titre</option>
+
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nom" class="control-label mb-1">Nom </label>
+                                                                    <input id="nomM" name="nomM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="modifierClasse()"><span id="spinnerM" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                <button type="button" class="btn btn-danger" onclick="document.getElementById('mediumModalModify').style.display = 'none';window.location.reload()">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER Classe POPUP-->
+                                <!-- BLOQUER Classe POPUP-->
+                                <div id="mediumModalBloquer" class="modal container-fluid ">
+
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content align-content-center">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelBloquer">Bloquer une Classe</h5>
+
+                                            </div>
+                                            <div class="modal-body align-content-center">
+                                                <center>
+                                                    <h5 class="text-center">Voulez-vous bloquer cette Classe ?</h5>
+                                                </center>
+
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <button type="button" class="btn btn-primary" onclick="bloquerClasse()"><span id="spinnerB" class="spinner-border text-light" role="status" hidden></span>Oui</button>
+                                                        <button type="button" style="float:right" class="btn btn-danger" onclick="document.getElementById('mediumModalBloquer').style.display = 'none';window.location.reload()">Non</button>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER Classe POPUP-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+
+<script>
+
+    function ajouterClasse()
+    {
+        document.getElementById("spinner").hidden = false
+        document.getElementById("messadeAjouterClasse").innerText = null
+        document.getElementById("smsAjouterClasse").innerText = null
+         $.post('@Url.Action("ajouterClasse")',
+            {
+                nom: document.getElementById('nom').value,
+                filiere: document.getElementById('filiere').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("messadeAjouterClasse").innerText = rep.message;
+                    document.getElementById("smsAjouterClasse").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalCreate').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("smsAjouterClasse").innerText = rep.message ;
+                    document.getElementById("messadeAjouterClasse").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinner").hidden = true
+                document.getElementById("smsAjouterClasse").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterClasse").innerText = null
+
+            });
+
+
+
+    }
+    function modifierClasse()
+    {
+        document.getElementById("spinnerM").hidden = false
+        document.getElementById("messadeAjouterClasseM").innerText = null
+        document.getElementById("smsAjouterClasseM").innerText = null
+         $.post('@Url.Action("ajouterClasse")',
+            {
+
+                nom: document.getElementById('nomM').value,
+                filiere: document.getElementById('filiereM').value,
+                id: document.getElementById('classeID').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("messadeAjouterClasseM").innerText = rep.message;
+                    document.getElementById("smsAjouterClasseM").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalModify').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("smsAjouterClasseM").innerText = rep.message ;
+                    document.getElementById("messadeAjouterClasseM").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinnerM").hidden = true
+                document.getElementById("smsAjouterClasseM").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterClasseM").innerText = null
+
+            });
+
+
+
+    }
+    function ouvrirClasseModal(classeID)
+    {
+        document.getElementById("messadeAjouterClasseM").innerText = null
+        document.getElementById("smsAjouterClasseM").innerText = null
+
+        var classes = @Html.Raw(Json.Encode(Model.Item1));
+        var classe = classes.filter(e => e.id == classeID)[0];
+
+        document.getElementById('classeID').value = classeID
+        document.getElementById('nomM').value = classe.nom,
+            document.getElementById('filiereM').value = classe.filiere
+            document.getElementById('mediumModalModify').style.display = 'block'
+
+
+
+
+     }
+    function ouvrirBloquerModal(classeID)
+    {
+        document.getElementById('mediumModalBloquer').style.display = 'block'
+        document.getElementById('classeID').value = classeID
+
+
+
+    }
+    function bloquerClasse()
+    {
+        document.getElementById("messageClasseB").innerText = null
+        document.getElementById("smsClasseB").innerText = null
+
+             $.post('@Url.Action("bloquerClasse")',
+
+                {
+                    id: document.getElementById('classeID').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+                    document.getElementById("messageClasseB").innerText = rep.message;
+                    document.getElementById("smsClasseB").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("smsClasseB").innerText = rep.message;
+                    document.getElementById("messageClasseB").innerText = null
+                }
+            }
+            ).fail(function (xhr, status, error)
+            {
+                                //Ajax request failed.
+                document.getElementById("smsClasseB").innerText = " une erreur interne est survenue coté client";
+                document.getElementById("messageClasseB").innerText = null
+
+            });
+    }
+
+
+</script>
+
+

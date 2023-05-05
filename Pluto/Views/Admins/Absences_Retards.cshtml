@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Absences_Retards";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Gestion pédagogique
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Absences/Retards
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-clock-o"></i> ABSENCES/RETARDS</span></h3>
+                        </div><br />
+                        <div class="task_list_main">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="white_shd full margin_bottom_30">
+                                            <div class="full graph_head" style="background-color:lightseagreen;">
+                                                <div class="heading1 margin_0">
+                                                    <h2>
+                                                        <i style="color:white;">
+                                                            <i class="fa fa-clock-o"></i>
+                                                            Liste des absences & retards
+                                                        </i>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="ex1">
+                                                    <hr />
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-11" id="note">
+                                                            <div class="row justify-content-center" style="margin-top:5px;">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <small class="text-muted pull-left">
+                                                                            <b>
+                                                                                <em>
+                                                                                    <i class="fa fa-user"></i> Abdoulaye KANE
+                                                                                </em>
+                                                                            </b>
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="badge badge-danger">Absence</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-md-2"></div>
+                                                                <div class="col-md-6">
+                                                                    <div class="row justify-content-center">
+                                                                        <span><b style="color:#000;">Sociologie des organisations</b></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2"></div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <small class="text-muted pull-left">
+                                                                            <b>
+                                                                                <i class="fa fa- fa-calendar"></i> Date :
+
+                                                                            </b>&nbsp;26/10/2022
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="badge badge-secondary">Non justifiée</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+<style>
+    div.ex1 {
+        height: 250px;
+        width: 1920px;
+        overflow-y: scroll;
+    }
+
+    #note {
+        border: 1px solid;
+        border-radius: 5px;
+    }
+
+    .badge {
+        border-radius: 20px;
+        height: 18px;
+        font-size: 12px;
+    }
+
+    .dash_blog_inner {
+        border: 1px solid #15283c;
+        border-radius: 8px;
+    }
+</style>

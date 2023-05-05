@@ -1,0 +1,760 @@
+﻿@model Tuple<PagedList.IPagedList<Personnal>, List<Poste>, List<Contrat>>
+@{
+    ViewBag.Title = "Administration";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+@using Pluto.Models;
+@using PagedList.Mvc;
+@using Pluto.Controllers;
+<style>
+    #modifier, #details, #supprimer {
+        border-radius: 100px;
+    }
+
+    .modal-header {
+        background: #15283c;
+    }
+
+    .modal-title {
+        color: #fff;
+    }
+</style>
+
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Administration
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-university"></i> ADMINISTRATION </span></h3>
+                        </div><br />
+                        
+                              <p class="text-capitalize  text-center" style="color: red">
+                                 @ViewBag.sms
+                              </p>
+
+                        <!-- table section -->
+                        <div class="col-md-12">
+                            <div class="white_shd full margin_bottom_30">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="inbox-head">
+                                            <div class="col-md-6">
+                                                <div class="button_block"><button type="button" class="btn cur-p btn-outline-success" data-toggle="modal" data-target="#mediumModalCreate">Cliquer ici pour ajouter un personnel</button></div>
+                                            </div>
+                                            <div class="col-md-6">
+
+                                                @using (Html.BeginForm("Administration", "Admins", FormMethod.Get))
+                                                {
+                                                    <div class="row">
+                                                        <input type="text" class="form-control" value="@ViewBag.CurrentFilter" style="width:60%" name="searching" placeholder="Rechercher...">
+                                                        <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                }
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <p id="messagePersonnalB" style="color: green"></p>
+                                    <p id="smsPersonnalB" style="color:red"></p>
+                                </center>
+                                <div class="table_section padding_infor_info">
+                                    <div class="table-responsive-sm">
+                                        @if (@Model.Item1 == null || @Model.Item1.Count() == 0)
+                                        {
+                                            <h3 class="text-center">Aucun personnel disponible</h3>
+                                        }
+                                        else
+                                        {
+                                            <a type="button" href="@Url.Action("Administration","Admins")" class="btn cur-p btn-outline-success" style="float:right">Cliquer ici pour initialiser la liste</a>
+
+                                            <table class="table table-bordered" style="border:1px solid #15283c;">
+                                                <thead style="background: #15283c;">
+                                                    <tr style="text-align:center; color:#fff; font-weight:bold;">
+                                                        <th>Photo</th>
+                                                        <th>Prénom</th>
+                                                        <th>Nom</th>
+                                                        <th>Sexe</th>
+                                                        <th>Téléphone</th>
+                                                        <th>Adresse</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var personnal in Model.Item1)
+                                                    {
+                                                        <tr style="text-align:center; color:#000000;">
+
+                                                            <td>
+
+                                                                @{
+                                                                    var result = ((AdminsController)this.ViewContext.Controller).Photo(@personnal.name_logo);
+                                                                    if (@result != null)
+                                                                    {
+                                                                        <div class="user_profle_side">
+                                                                            <div class="user_img"><img class="img-responsive" style="width:100%;height:100%" src="@result" alt="#" /></div>
+
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="user_profle_side">
+                                                                            <i class="fa fa-image" style="width:100%;height:100%"></i>
+
+                                                                        </div>
+                                                                    }
+
+                                                                }
+
+
+                                                            </td>
+                                                            <td>@personnal.prenom</td>
+                                                            <td>@personnal.nom</td>
+
+                                                            @if (@personnal.sexe == "F")
+                                                            {
+                                                                <td> Féminin</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>Masculin</td>
+
+                                                            }
+
+                                                            <td>@personnal.telephone</td>
+                                                            <td>@personnal.adresse</td>
+                                                            @if (personnal.status)
+                                                            {
+                                                                <td style="color:green"> Actif</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="color:red">Inactif</td>
+
+                                                            }
+
+                                                            <td>
+                                                                <button class="btn-info btn-sm" id="details" data-toggle="modal" onclick="ouvrirPaiementModal(@personnal.id)" data-target="#mediumModalDetails" data-placement="top" title="Détails"><i class="fa fa-eye"></i></button>
+                                                                <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="  ouvrirPersonnalModal(@personnal.id)" data-target="#mediumModalModify" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                <button class="btn-danger btn-sm" onclick="ouvrirBloquerModal(@personnal.id)" id="supprimer" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </div>
+                                    <center>
+                                        <div class="pagination" style="width:200px;margin-right:2.5%;margin-left:2.5%">
+                                            @Html.PagedListPager(Model.Item1, page => Url.Action("Administration", new { page, searching = ViewBag.CurrentFilter }) + "#Product", new PagedListRenderOptions { MaximumPageNumbersToDisplay = 4, ContainerDivClasses = new List<string> { "MenuTab", "MenuTab" }, LiElementClasses = new List<string> { "pagination-bar", "pagination-bar" }, DelimiterBetweenPageNumbers = "-" })
+                                        </div>
+                                    </center>
+                                </div>
+                                <!-- CREER PERSONNEL POPUP-->
+                                <div class="modal fade" id="mediumModalCreate" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelCreate" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelCreate">Ajouter un personnel</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <center>
+                                                            <p id="messadeAjouterPersonnal" style="color: green"></p>
+                                                            <p id="smsAjouterPersonnal" style="color:red"></p>
+                                                        </center>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="prenom" class="control-label mb-1">Prénom </label>
+                                                                    <input id="prenomProf" name="prenomProf" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nom" class="control-label mb-1">Nom </label>
+                                                                    <input id="nomProf" name="nomProf" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="date_naissance" class="control-label mb-1">Date de naissance </label>
+                                                                    <input id="date_naissance" name="date_naissance" type="date" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="lieu_naissance" class="control-label mb-1">Lieu de naissance </label>
+                                                                    <input id="lieu_naissance" name="lieu_naissance" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="profession" class="control-label mb-1">Choisir la profession </label>
+                                                                    <select class="form-control" name="profession" id="profession">
+                                                                        @foreach (var poste in Model.Item2)
+                                                                        {
+                                                                            <option value="@poste.id">@poste.nom</option>
+
+                                                                        }
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="type_contrat" class="control-label mb-1">Choisir le Type de contrat </label>
+                                                                    <select class="form-control" name="type_contrat" id="type_contrat">
+                                                                        @foreach (var contrat in Model.Item3)
+                                                                        {
+
+
+                                                                            switch (contrat.type)
+                                                                            {
+                                                                                case "CS":
+
+                                                                                    <option value="@contrat.id">Contrat de stage</option>
+
+                                                                                    break;
+                                                                                case "CDI":
+                                                                                    <option value="@contrat.id">Contrat de travail à durée indéterminée (CDI)</option>
+
+                                                                                    break;
+                                                                                case "CDD":
+
+                                                                                    <option value="@contrat.id">Contrat à durée déterminée (CDD)</option>
+
+                                                                                    break;
+                                                                                case "CE":
+                                                                                    <option value="@contrat.id">Contrat d’engagement à l’essai</option>
+
+                                                                                    break;
+                                                                                case "CA":
+
+                                                                                    <option value="@contrat.id">Contrat d’apprentissage</option>
+
+                                                                                    break;
+
+
+                                                                                default:
+                                                                                    <option value="@contrat.id">-</option>
+
+                                                                                    break;
+                                                                            }
+
+
+
+                                                                        }
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="phone" class="control-label mb-1">Téléphone </label>
+                                                                    <input id="phone" onkeypress="return isNumberKey2(this.id);" name="phone" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="adresse" class="control-label mb-1">Adresse </label>
+                                                                    <input id="adresse" name="adresse" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="sexe" class="control-label mb-1">Choisir le sexe </label>
+                                                                    <select class="form-control" name="sexe" id="sexe">
+                                                                        <option value="F" selected>Féminin</option>
+                                                                        <option value="M">Masculin</option>
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="email" class="control-label mb-1">Email </label>
+                                                                    <input id="email" name="email" type="email" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nationalite" class="control-label mb-1">Nationalité </label>
+                                                                    <input id="nationalite" name="nationalite" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="sexe" class="control-label mb-1">Compte bancaire </label>
+                                                                        <input id="compteBancaire" name="compteBancaire" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="image" class="control-label mb-1">Photo </label>
+                                                                        <input id="file" name="file" type="file" class="form-control cc-cvc">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="ajouterPersonnal()"><span id="spinner" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input id="personnalID" name="personnalID" type="text" class="form-control" hidden>
+
+                                <!-- END CREER PERSONNEL POPUP-->
+                                <!-- MODIFIER PERSONNEL POPUP-->
+                                <div id="mediumModalModify" class="modal container-fluid ">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelModify">Modifier un personnel</h5>
+
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <center>
+                                                            <p id="messadeAjouterPersonnalM" style="color: green"></p>
+                                                            <p id="smsAjouterPersonnalM" style="color:red"></p>
+                                                        </center>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="prenomM" class="control-label mb-1">Prénom </label>
+                                                                    <input id="prenomProfM" name="prenomProfM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nomM" class="control-label mb-1">Nom </label>
+                                                                    <input id="nomProfM" name="nomProfM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="date_naissanceM" class="control-label mb-1">Date de naissance </label>
+                                                                    <input id="date_naissanceM" name="date_naissanceM" type="date" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="lieu_naissanceM" class="control-label mb-1">Lieu de naissance </label>
+                                                                    <input id="lieu_naissanceM" name="lieu_naissanceM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="professionM" class="control-label mb-1">Choisir la profession </label>
+                                                                    <select class="form-control" name="professionM" id="professionM">
+                                                                        @foreach (var poste in Model.Item2)
+                                                                        {
+                                                                            <option value="@poste.id">@poste.nom</option>
+
+                                                                        }
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <select class="form-control" name="type_contratM" id="type_contratM">
+                                                                        <option selected>Choisir le Type de contrat</option>
+                                                                        @foreach (var contrat in Model.Item3)
+                                                                        {
+
+
+                                                                            switch (contrat.type)
+                                                                            {
+                                                                                case "CS":
+
+                                                                                    <option value="@contrat.id">Contrat de stage</option>
+
+                                                                                    break;
+                                                                                case "CDI":
+                                                                                    <option value="@contrat.id">Contrat de travail à durée indéterminée (CDI)</option>
+
+                                                                                    break;
+                                                                                case "CDD":
+
+                                                                                    <option value="@contrat.id">Contrat à durée déterminée (CDD)</option>
+
+                                                                                    break;
+                                                                                case "CE":
+                                                                                    <option value="@contrat.id">Contrat d’engagement à l’essai</option>
+
+                                                                                    break;
+                                                                                case "CA":
+
+                                                                                    <option value="@contrat.id">Contrat d’apprentissage</option>
+
+                                                                                    break;
+
+
+                                                                                default:
+                                                                                    <option value="@contrat.id">-</option>
+
+                                                                                    break;
+                                                                            }
+
+
+
+                                                                        }
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="phoneM" class="control-label mb-1">Téléphone </label>
+                                                                    <input id="phoneM" onkeypress="return isNumberKey2(this.id);" name="phoneM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="adresseM" class="control-label mb-1">Adresse </label>
+                                                                    <input id="adresseM" name="adresseM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="sexeM" class="control-label mb-1">Choisir le sexe </label>
+                                                                    <select class="form-control" name="sexeM" id="sexeM">
+                                                                        <option value="F">Féminin</option>
+                                                                        <option value="M">Masculin</option>
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="emailM" class="control-label mb-1">Email </label>
+                                                                    <input id="emailM" name="emailM" type="email" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="compteBancaireM" class="control-label mb-1">Compte bancaire </label>
+                                                                    <input id="compteBancaireM" name="compteBancaireM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="nationaliteM" class="control-label mb-1">Nationalité </label>
+                                                                    <input id="nationaliteM" name="nationaliteM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" onclick="modifierPersonnal()"><span id="spinnerM" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                <button type="button" class="btn btn-danger" onclick="document.getElementById('mediumModalModify').style.display = 'none';window.location.reload()">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER PERSONNEL POPUP-->
+                                <!-- BLOQUER PERSONNEL POPUP-->
+                                <div id="mediumModalBloquer" class="modal container-fluid ">
+
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content align-content-center">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelBloquer">Bloquer un personnel</h5>
+
+                                            </div>
+                                            <div class="modal-body align-content-center">
+                                                <center>
+                                                    <h5 class="text-center">Voulez-vous bloquer ce compte ?</h5>
+                                                </center>
+
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <button type="button" class="btn btn-primary" onclick="bloquerPersonnal()"><span id="spinnerB" class="spinner-border text-light" role="status" hidden></span>Oui</button>
+                                                        <button type="button" style="float:right" class="btn btn-danger" onclick="document.getElementById('mediumModalBloquer').style.display = 'none';window.location.reload()">Non</button>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER PERSONNEL POPUP-->
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script>
+
+
+     function modifierPersonnal()
+    {
+        document.getElementById("spinnerM").hidden = false
+        document.getElementById("messadeAjouterPersonnalM").innerText = null
+        document.getElementById("smsAjouterPersonnalM").innerText = null
+         $.post('@Url.Action("ajouterUser")',
+            {
+                prenom: document.getElementById('prenomProfM').value,
+                nom: document.getElementById('nomProfM').value,
+                naissance: document.getElementById('date_naissanceM').value,
+                profession: document.getElementById('professionM').value,
+                email: document.getElementById('emailM').value,
+                type_contrat: document.getElementById('type_contratM').value,
+                telephone: document.getElementById('phoneM').value,
+                adresse: document.getElementById('adresseM').value,
+                sexe: document.getElementById('sexeM').value,
+                type: 1,
+                id: document.getElementById('personnalID').value,
+                compteBancaire: document.getElementById('compteBancaireM').value,
+                lieu_naissance: document.getElementById('lieu_naissanceM').value,
+                nationalite:document.getElementById('nationaliteM').value,
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("messadeAjouterPersonnalM").innerText = rep.message;
+                    document.getElementById("smsAjouterPersonnalM").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalModify').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("smsAjouterPersonnalM").innerText = rep.message ;
+                    document.getElementById("messadeAjouterPersonnalM").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinnerM").hidden = true
+                document.getElementById("smsAjouterPersonnalM").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterPersonnalM").innerText = null
+
+            });
+
+
+
+    }
+    function ouvrirPersonnalModal(personnalID)
+    {
+        document.getElementById("messadeAjouterPersonnalM").innerText = null 
+        document.getElementById("smsAjouterPersonnalM").innerText = null
+            var personnals = @Html.Raw(Json.Encode(Model.Item1));
+        var personnal = personnals.filter(e => e.id == personnalID)[0];
+            document.getElementById('nationaliteM').value = personnal.nationalite,
+            document.getElementById('personnalID').value = personnalID
+            document.getElementById('prenomProfM').value = personnal.prenom,
+            document.getElementById('nomProfM').value = personnal.nom,
+            document.getElementById('date_naissanceM').value = personnal.naissance,
+            document.getElementById('professionM').value = personnal.type,
+            document.getElementById('emailM').value = personnal.email,
+            document.getElementById('type_contratM').value = personnal.contratID,
+            document.getElementById('phoneM').value = personnal.telephone,
+            document.getElementById('adresseM').value = personnal.adresse,
+            document.getElementById('sexeM').value = personnal.sexe,
+            document.getElementById('lieu_naissanceM').value = personnal.lieu_naissance, 
+            document.getElementById('compteBancaireM').value = personnal.compteBancaire,
+
+            document.getElementById('mediumModalModify').style.display = 'block'
+
+     }
+    function ouvrirBloquerModal(personnalID)
+    {
+        document.getElementById('mediumModalBloquer').style.display = 'block'
+        document.getElementById('personnalID').value = personnalID
+
+
+
+    }
+    function bloquerPersonnal()
+    {
+        document.getElementById("messagePersonnalB").innerText = null
+        document.getElementById("smsPersonnalB").innerText = null
+
+             $.post('@Url.Action("bloquerUser")',
+
+                {
+                    id: document.getElementById('personnalID').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+                    document.getElementById("messagePersonnalB").innerText = rep.message;
+                    document.getElementById("smsPersonnalB").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("smsPersonnalB").innerText = rep.message;
+                    document.getElementById("messagePersonnalB").innerText = null
+                }
+            }
+            ).fail(function (xhr, status, error)
+            {
+                                //Ajax request failed.
+                document.getElementById("smsPersonnalB").innerText = " une erreur interne est survenue coté client";
+                document.getElementById("messagePersonnalB").innerText = null
+
+            });
+    }
+    function isNumberKey2(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+<script>
+  
+    function ajouterPersonnal() {
+        document.getElementById("spinner").hidden = false
+        document.getElementById("messadeAjouterPersonnal").innerText = null
+        document.getElementById("smsAjouterPersonnal").innerText = null
+        // Checking whether FormData is available in browser
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $("#file").get(0);
+            var files = fileUpload.files;
+            var file = files[0]
+            // Create FormData object
+
+            var fileData = new FormData();
+            fileData.append("file", file);
+            fileData.append("prenom", $('#prenomProf').val());
+            fileData.append("nom", $('#nomProf').val());
+            fileData.append("naissance", $('#date_naissance').val());
+            fileData.append("profession", $('#profession').val());
+            fileData.append("email", $('#email').val());
+            fileData.append("type_contrat", $('#type_contrat').val());
+            fileData.append("telephone", $('#phone').val());
+            fileData.append("adresse", $('#adresse').val());
+            fileData.append("sexe", $('#sexe').val());
+            fileData.append("nationalite", $('#nationalite').val());
+            fileData.append("type", 1);
+            fileData.append("compteBancaire", $('#compteBancaire').val());
+
+            $.ajax({
+                method: 'post',
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: fileData,
+                enctype: 'multipart/form-data',
+                url: "/Admins/ajouterUser",
+                success: function (reponse) {
+                    if (reponse.code == 200) {
+                        document.getElementById("spinner").hidden = true
+                        document.getElementById("messadeAjouterPersonnal").innerText = reponse.message;
+                        document.getElementById("smsAjouterPersonnal").innerText = null
+                        setTimeout(() => { document.getElementById('mediumModalCreate').style.display = 'none'; window.location.reload() }, 1000);
+                    }
+                    else {
+                        document.getElementById("spinner").hidden = true
+                        document.getElementById("smsAjouterPersonnal").innerText = reponse.message;
+                        document.getElementById("messadeAjouterPersonnal").innerText = null
+
+                    }
+                },
+                error: function (reponse) {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("smsAjouterPersonnal").innerText = " une erreur interne est survenue";
+                    document.getElementById("messadeAjouterPersonnal").innerText = null
+                }
+            });
+
+        } else {
+
+            document.getElementById("spinner").hidden = true
+            document.getElementById("smsAjouterPersonnal").innerText = "FormData is not supported.";
+            document.getElementById("messadeAjouterPersonnal").innerText = null
+        }
+
+    };
+</script>
+
+

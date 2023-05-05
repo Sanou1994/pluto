@@ -1,0 +1,657 @@
+﻿@model PagedList.IPagedList<Contrat>
+@{
+    ViewBag.Title = "Contrat";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+@using Pluto.Models;
+@using PagedList.Mvc;
+<style>
+    #suspendre, #details, #supprimer {
+        border-radius: 100px;
+    }
+
+
+    #legend {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 35%;
+        border: 2px double #15283c;
+        border-radius: 8px;
+        padding: 5px 5px 5px 10px;
+        color: #15283c;
+        background-color: #fff;
+        text-align: center;
+    }
+
+    #fieldset {
+        border: 1px solid #15283c !important;
+        margin: 0;
+        min-width: 0;
+        padding: 10px;
+        position: relative;
+        border-radius: 8px;
+        background-color: #fff;
+        padding-left: 10px !important;
+    }
+
+    #nav-admission-tab, #nav-dossiers-tab, #nav-preinscription-tab, #nav-inscription-tab {
+        border-radius: 100px;
+    }
+
+    .horizontal-line {
+        border-bottom: 1px dashed #ff5722;
+        display: inline-block;
+        width: 65%;
+    }
+
+    #title_infos_activite {
+        color: #ff5722;
+        font-size: 16px;
+    }
+</style>
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Paramètres
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Contrat
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-list-alt"></i> CONTRAT</span></h3>
+                        </div><br />
+                        <p class="text-capitalize  text-center" style="color: red">
+                            @ViewBag.sms
+                        </p>
+                        <div class="col-md-12">
+                            <div class="white_shd full margin_bottom_30">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="inbox-head">
+                                            <div class="col-md-6">
+                                                <div class="button_block"><button type="button" class="btn cur-p btn-outline-success" data-toggle="modal" data-target="#mediumModalCreate">Cliquer ici pour ajouter un contrat</button></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @using (Html.BeginForm("Contrat", "Admins", FormMethod.Get))
+                                                {
+                                                    <div class="row">
+                                                        <input type="text" class="form-control" value="@ViewBag.CurrentFilter" style="width:60%" name="searching" placeholder="CS,CDD,CDI,CA,CE...">
+                                                        <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <p id="messageContratB" style="color: green"></p>
+                                    <p id="smsContratB" style="color:red"></p>
+                                </center>
+                                <div class="table_section padding_infor_info">
+                                    <div class="table-responsive-sm">
+                                        <a type="button" href="@Url.Action("Contrat","Admins")" class="btn cur-p btn-outline-success" style="float:right">Cliquer ici pour initialiser la liste</a>
+
+                                        @if (@Model == null || @Model.Count() == 0)
+                                        {
+                                            <h3 class="text-center">Aucun Contrat disponible</h3>
+                                        }
+                                        else
+                                        {
+                                            <table class="table table-bordered" style="border:1px solid #15283c;">
+                                                <thead style="background: #15283c;">
+                                                    <tr style="text-align:center; color:#fff; font-weight:bold;">
+                                                        <th>N° Contrat</th>
+                                                        <th>Type Contrat</th>
+                                                        <th>Catégorie</th>
+                                                        <th>Etat</th>
+                                                        <th>Montant</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var contrat in Model)
+                                                    {
+
+                                                        <tr style="text-align:center; color:#000000;">
+                                                            <td>@contrat.id</td>
+                                                            <td>
+                                                                @{
+                                                                    switch (contrat.type)
+                                                                    {
+                                                                        case "CS":
+
+                                                                            <span>Contrat de stage</span>
+
+                                                                            break;
+                                                                        case "CDI":
+                                                                            <span>Contrat de travail à durée indéterminée (CDI)</span>
+
+                                                                            break;
+                                                                        case "CDD":
+
+                                                                            <span>Contrat à durée déterminée (CDD) </span>
+
+                                                                            break;
+                                                                        case "CE":
+                                                                            <span>Contrat d’engagement à l’essai </span>
+
+                                                                            break;
+                                                                        case "CA":
+
+                                                                            <span>Contrat d’apprentissage </span>
+
+                                                                            break;
+
+
+                                                                        default:
+                                                                            <span>-</span>
+
+                                                                            break;
+                                                                    }
+                                                                }
+
+                                                            </td>
+                                                            <td>
+
+                                                                @{
+                                                                    switch (contrat.categorie)
+                                                                    {
+                                                                        case "1B":
+
+                                                                            <span>1ère B</span>
+
+                                                                            break;
+                                                                        case "1A":
+                                                                            <span>1ère A</span>
+
+                                                                            break;
+                                                                        case "2":
+
+                                                                            <span>2ère </span>
+
+                                                                            break;
+                                                                        case "3":
+                                                                            <span>3ère </span>
+
+                                                                            break;
+                                                                        case "4":
+
+                                                                            <span>4ère </span>
+
+                                                                            break;
+                                                                        case "5":
+                                                                            <span>5ère </span>
+
+                                                                            break;
+                                                                        case "6":
+                                                                            <span>6ère </span>
+
+                                                                            break;
+                                                                        case "7B":
+
+                                                                            <span>7ère B</span>
+
+                                                                            break;
+                                                                        case "7A":
+                                                                            <span>7ère A</span>
+
+                                                                            break;
+                                                                        case "8B":
+
+                                                                            <span>8ère B</span>
+
+                                                                            break;
+                                                                        case "8A":
+                                                                            <span>8ère A</span>
+
+                                                                            break;
+                                                                        case "8C":
+                                                                            <span>8ère C</span>
+
+                                                                            break;
+                                                                        case "9B":
+
+                                                                            <span>9ère B</span>
+
+                                                                            break;
+                                                                        case "9A":
+                                                                            <span>9ère A</span>
+
+                                                                            break;
+                                                                        case "10A":
+                                                                            <span>10ère A</span>
+
+                                                                            break;
+                                                                        case "10C":
+                                                                            <span>10ère C</span>
+
+                                                                            break;
+                                                                        case "10B":
+
+                                                                            <span>10ère B</span>
+
+                                                                            break;
+                                                                        default:
+                                                                            <span>-</span>
+
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            </td>
+                                                            @if (contrat.status == true)
+                                                            {
+                                                                <td style="color:green"> Active</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="color:red">Desactive</td>
+
+                                                            }
+                                                            <td>@contrat.montant</td>
+
+                                                            <td>
+                                                                <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="ouvrirContratModal(@contrat.id)" data-target="#mediumModalModify" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                <button class="btn-danger btn-sm" onclick="ouvrirBloquerModal(@contrat.id)" id="supprimer" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+
+
+                                        }
+
+                                    </div>
+                                    <center>
+                                        <div class="pagination" style="width:200px;margin-right:2.5%;margin-left:2.5%">
+                                            @Html.PagedListPager(Model, page => Url.Action("Contrat", new { page, searching = ViewBag.CurrentFilter }) + "#Product", new PagedListRenderOptions { MaximumPageNumbersToDisplay = 4, ContainerDivClasses = new List<string> { "MenuTab", "MenuTab" }, LiElementClasses = new List<string> { "pagination-bar", "pagination-bar" }, DelimiterBetweenPageNumbers = "-" })
+                                        </div>
+                                    </center>
+                                </div>
+
+
+
+                                <!-- AJOUTER CONTRAT POPUP-->
+                                <div class="modal fade" id="mediumModalCreate" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelCreate" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelCreate">Ajouter un contrat</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <center>
+                                                    <p id="messadeAjouterContrat" style="color: green"></p>
+                                                    <p id="smsAjouterContrat" style="color:red"></p>
+                                                </center>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="numero" class="control-label mb-1">N° contrat</label>
+                                                                    <input id="numero" name="numero" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="intitule" class="control-label mb-1">Type de contrat</label>
+                                                                    <select name="intitule" id="intitule" class="form-control">
+                                                                        <option value="choose">-- Choisir un type de contrat --</option>
+                                                                        <option value="CS">Contrat de stage</option>
+                                                                        <option value="CDI">Contrat de travail à durée indéterminée (CDI)</option>
+                                                                        <option value="CDD">Contrat à durée déterminée (CDD)</option>
+                                                                        <option value="CE">Contrat d’engagement à l’essai</option>
+                                                                        <option value="CA">Contrat d’apprentissage</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="categorie" class="control-label mb-1">Catégorie</label>
+                                                                    <select name="categorie" id="categorie" class="form-control">
+                                                                        <option value="choose">-- Choisir un type de contrat --</option>
+                                                                        <option value="1A">1ère A</option>
+                                                                        <option value="1B">1ère B</option>
+                                                                        <option value="2">2ème</option>
+                                                                        <option value="3">3ème</option>
+                                                                        <option value="4">4ème</option>
+                                                                        <option value="5">5ème</option>
+                                                                        <option value="6">6ème</option>
+                                                                        <option value="7A">7ème A</option>
+                                                                        <option value="7B">7ème B</option>
+                                                                        <option value="8A">8ème A</option>
+                                                                        <option value="8B">8ème B</option>
+                                                                        <option value="8C">8ème C</option>
+                                                                        <option value="9A">9ème A</option>
+                                                                        <option value="9B">9ème B</option>
+                                                                        <option value="10A">10ème A</option>
+                                                                        <option value="10B">10ème B</option>
+                                                                        <option value="10C">10ème C</option>
+                                                                        <option value="11">11ème</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="montant" class="control-label mb-1">Montant</label>
+                                                                    <input id="montant" name="montant" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row justify-content-center">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" onclick="ajouterContrat()"><span id="spinner" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="document.getElementById('mediumModalCreate').style.display = 'none';window.location.reload()">Annuler</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END AJOUTER CONTRAT POPUP-->
+                                <!-- MODIFIER CONTRAT POPUP-->
+                                <div class="modal fade" id="mediumModalModify" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelModify" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelModify">Modifier un contrat</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <center>
+                                                    <p id="messadeAjouterContratM" style="color: green"></p>
+                                                    <p id="smsAjouterContratM" style="color:red"></p>
+                                                </center>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="numeroM" class="control-label mb-1">N° contrat</label>
+                                                                    <input id="numeroM" name="numeroM" type="text" class="form-control">
+                                                                    <input id="contratID" name="contratID" type="text" class="form-control" hidden>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="intituleM" class="control-label mb-1">Type de contrat</label>
+                                                                    <select name="intituleM" id="intituleM" class="form-control">
+                                                                        <option value="choose">-- Choisir un type de contrat --</option>
+                                                                        <option value="CS">Contrat de stage</option>
+                                                                        <option value="CDI">Contrat de travail à durée indéterminée (CDI)</option>
+                                                                        <option value="CDD">Contrat à durée déterminée (CDD)</option>
+                                                                        <option value="CE">Contrat d’engagement à l’essai</option>
+                                                                        <option value="CA">Contrat d’apprentissage</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="categorieM" class="control-label mb-1">Catégorie</label>
+                                                                    <select name="categorieM" id="categorieM" class="form-control">
+                                                                        <option value="choose">-- Choisir un type de contrat --</option>
+                                                                        <option value="1A">1ère A</option>
+                                                                        <option value="1B">1ère B</option>
+                                                                        <option value="2">2ème</option>
+                                                                        <option value="3">3ème</option>
+                                                                        <option value="4">4ème</option>
+                                                                        <option value="5">5ème</option>
+                                                                        <option value="6">6ème</option>
+                                                                        <option value="7A">7ème A</option>
+                                                                        <option value="7B">7ème B</option>
+                                                                        <option value="8A">8ème A</option>
+                                                                        <option value="8B">8ème B</option>
+                                                                        <option value="8C">8ème C</option>
+                                                                        <option value="9A">9ème A</option>
+                                                                        <option value="9B">9ème B</option>
+                                                                        <option value="10A">10ème A</option>
+                                                                        <option value="10B">10ème B</option>
+                                                                        <option value="10C">10ème C</option>
+                                                                        <option value="11">11ème</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="montantM" class="control-label mb-1">Montant</label>
+                                                                    <input id="montantM" name="montantM" type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" onclick="modifierContrat()">Enregistrer</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="document.getElementById('mediumModalModify').style.display = 'none';window.location.reload()">Annuler</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER CONTRAT POPUP-->
+                                <!-- BLOQUER ETUDIANT POPUP-->
+                                <div id="mediumModalBloquer" class="modal container-fluid ">
+
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content align-content-center">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelBloquer">Bloquer un contrat</h5>
+
+                                            </div>
+                                            <div class="modal-body align-content-center">
+                                                <center>
+                                                    <h5 class="text-center">Voulez-vous bloquer ce contrat ?</h5>
+                                                </center>
+
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <button type="button" class="btn btn-primary" onclick="bloquerContrat()"><span id="spinnerB" class="spinner-border text-light" role="status" hidden></span>Oui</button>
+                                                        <button type="button" style="float:right" class="btn btn-danger" onclick="document.getElementById('mediumModalBloquer').style.display = 'none';window.location.reload()">Non</button>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END BLOQUER ETUDIANT POPUP-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+
+
+<script>
+
+    function ajouterContrat()
+    {
+        document.getElementById("spinner").hidden = false
+        document.getElementById("messadeAjouterContrat").innerText = null
+        document.getElementById("smsAjouterContrat").innerText = null
+         $.post('@Url.Action("ajouterContrat")',
+            {
+                numero: document.getElementById('numero').value,
+                type: document.getElementById('intitule').value,
+                categorie: document.getElementById('categorie').value,
+                montant: document.getElementById('montant').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("messadeAjouterContrat").innerText = rep.message;
+                    document.getElementById("smsAjouterContrat").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalCreate').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("smsAjouterContrat").innerText = rep.message ;
+                    document.getElementById("messadeAjouterContrat").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinner").hidden = true
+                document.getElementById("smsAjouterContrat").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterContrat").innerText = null
+
+            });
+
+
+
+    }
+    function modifierContrat()
+    {
+        document.getElementById("messadeAjouterContratM").innerText = null
+        document.getElementById("smsAjouterContratM").innerText = null
+         $.post('@Url.Action("ajouterContrat")',
+            {
+
+                numero: document.getElementById('numeroM').value,
+                type: document.getElementById('intituleM').value,
+                categorie: document.getElementById('categorieM').value,
+                montant: document.getElementById('montantM').value,
+                id: document.getElementById('contratID').value
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("messadeAjouterContratM").innerText = rep.message;
+                    document.getElementById("smsAjouterContratM").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalModify').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("smsAjouterContratM").innerText = rep.message ;
+                    document.getElementById("messadeAjouterContratM").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("smsAjouterContratM").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterContratM").innerText = null
+
+            });
+
+
+
+    }
+    function ouvrirContratModal(contratID)
+    {
+        document.getElementById("messadeAjouterContrat").innerText = null
+        document.getElementById("smsAjouterContrat").innerText = null
+
+        var contrats = @Html.Raw(Json.Encode(Model));
+        var contrat = contrats.filter(e => e.id == contratID)[0];
+
+        document.getElementById('contratID').value = contratID
+        document.getElementById('intituleM').value = contrat.type,
+        document.getElementById('categorieM').value = contrat.categorie,
+        document.getElementById('montantM').value = contrat.montant,
+        document.getElementById('mediumModalModify').style.display = 'block'
+
+
+
+
+     }
+    function ouvrirBloquerModal(contratID)
+    {
+        document.getElementById('mediumModalBloquer').style.display = 'block'
+        document.getElementById('contratID').value = contratID
+
+
+
+    }
+    function bloquerContrat()
+    {
+        document.getElementById("messageContratB").innerText = null
+        document.getElementById("smsContratB").innerText = null
+
+             $.post('@Url.Action("bloquerContrat")',
+
+                {
+                    id: document.getElementById('contratID').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+                    document.getElementById("messageContratB").innerText = rep.message;
+                    document.getElementById("smsContratB").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("smsContratB").innerText = rep.message;
+                    document.getElementById("messageContratB").innerText = null
+                }
+            }
+            ).fail(function (xhr, status, error)
+            {
+                                //Ajax request failed.
+                document.getElementById("smsContratB").innerText = " une erreur interne est survenue coté client";
+                document.getElementById("messageContratB").innerText = null
+
+            });
+    }
+
+
+</script>

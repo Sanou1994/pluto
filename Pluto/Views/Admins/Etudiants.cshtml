@@ -1,0 +1,856 @@
+﻿@model Tuple<PagedList.IPagedList<StudentList>, List<DepartementList>, List<FiliereList>, List<NiveauEtude>>
+@{
+    ViewBag.Title = "Etudiants";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+@using Pluto.Models;
+@using PagedList.Mvc;
+@using Pluto.Controllers;
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Gestion pédagogique
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Étudiants/Élèves
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fas fa-user-graduate"></i> ÉTUDIANTS/ÉLÈVES</span></h3>
+                        </div><br />
+                        <p class="text-capitalize  text-center" style="color: red">
+                            @ViewBag.sms
+                        </p>
+                        <!-- table section -->
+                        <div class="col-md-12">
+                            <div class="white_shd full margin_bottom_30">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="inbox-head">
+                                            <div class="col-md-6">
+                                                <div class="button_block"><button type="button" class="btn cur-p btn-outline-success" data-toggle="modal" data-target="#mediumModalCreate">Cliquer ici pour ajouter un(e) étudiant(e)/élève</button></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @using (Html.BeginForm("Etudiants", "Admins", FormMethod.Get))
+                                                {
+                                                    <div class="row">
+                                                        <input type="text" class="form-control" value="@ViewBag.CurrentFilter" style="width:60%" name="searching" placeholder="Rechercher...">
+                                                        <button class="btn sr-btn" type="submit"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <p id="messageEtudiantB" style="color: green"></p>
+                                    <p id="smsEtudiantB" style="color:red"></p>
+                                </center>
+                                <div class="table_section padding_infor_info">
+                                    <div class="table-responsive-sm">
+                                        <a type="button" href="@Url.Action("Etudiants","Admins")" class="btn cur-p btn-outline-success" style="float:right">Cliquer ici pour initialiser la liste</a>
+
+                                        @if (@Model == null || @Model.Item1.Count() == 0)
+                                        {
+                                            <h3 class="text-center">Aucun étudiant/élève disponible</h3>
+                                        }
+                                        else
+                                        {
+                                            <table class="table table-bordered" style="border:1px solid #15283c;">
+                                                <thead style="background: #15283c;">
+                                                    <tr style="text-align:center; color:#fff; font-weight:bold;">
+                                                        <th>Photo</th>
+                                                        <th>Matricule</th>
+                                                        <th>Prénom</th>
+                                                        <th>Nom</th>
+                                                        <th>Sexe</th>
+                                                        <th>Nationalité</th>
+                                                        <th>Status</th>
+                                                        <th>Adresse</th>
+                                                        <th>Département</th>
+                                                        <th>Filière</th>
+                                                        <th>Niveau</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var etudiant in Model.Item1)
+                                                    {
+
+                                                        <tr style="text-align:center; color:#000000;">
+                                                            <td>
+                                                                @{
+                                                                    var result = ((AdminsController)this.ViewContext.Controller).Photo(etudiant.name_logo);
+                                                                    if (@result != null)
+                                                                    {
+                                                                        <div class="user_profle_side">
+                                                                            <div class="user_img"><img class="img-responsive" style="width:100%;height:100%" src="@result" alt="#" /></div>
+
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="user_profle_side">
+                                                                            <i class="fa fa-image" style="width:100%;height:100%"></i>
+
+                                                                        </div>
+                                                                    }
+
+                                                                }
+
+                                                            </td>
+                                                            <td>@etudiant.numeroMatriciule</td>
+                                                            <td>@etudiant.prenom</td>
+                                                            <td>@etudiant.nom</td>
+                                                            <td>@etudiant.sexe</td>
+                                                            <td>@etudiant.nationalite</td>
+                                                            @if (etudiant.status)
+                                                            {
+                                                                <td style="color:green"> Active</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="color:red">Desactive</td>
+
+                                                            }
+                                                            <td>@etudiant.adresse</td>
+
+                                                            <td>@Model.Item2.Where(n => n.id == etudiant.departementID).Select(p => p.nom).FirstOrDefault()</td>
+                                                            <td>@Model.Item3.Where(n => n.id == etudiant.filiereID).Select(p => p.titre).FirstOrDefault()</td>
+                                                            <td>@Model.Item4.Where(n => n.id == etudiant.niveauEtudeID).Select(p => p.nom).FirstOrDefault()</td>
+                                                            <td>
+                                                                <a class="btn-info btn-sm" href="@Url.Action("Details_Etudiants","Admins",new {No=etudiant.id})" id="details" title="Détails"><i class="fa fa-eye"></i></a>
+                                                                <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="ouvrirEtudiantModal(@etudiant.id)" data-target="#mediumModalModify" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                                <button class="btn-danger btn-sm" onclick="ouvrirBloquerModal(@etudiant.id)" id="supprimer" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                            </td>
+
+
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+
+
+                                        }
+
+                                    </div>
+                                    <center>
+                                        <div class="pagination" style="width:200px;margin-right:2.5%;margin-left:2.5%">
+                                            @Html.PagedListPager(Model.Item1, page => Url.Action("Etudiants", new { page, searching = ViewBag.CurrentFilter }) + "#Product", new PagedListRenderOptions { MaximumPageNumbersToDisplay = 4, ContainerDivClasses = new List<string> { "MenuTab", "MenuTab" }, LiElementClasses = new List<string> { "pagination-bar", "pagination-bar" }, DelimiterBetweenPageNumbers = "-" })
+                                        </div>
+                                    </center>
+                                </div>
+                                <!-- CREER ETUDIANT POPUP-->
+                                <div class="modal fade" id="mediumModalCreate" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelCreate" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelCreate">Fiche étudiant(e) /élève</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <fieldset id="fieldset">
+                                                            <legend id="legend">
+                                                                Informations Etudiant
+                                                            </legend>
+                                                            <center>
+                                                                <p id="messadeAjouterEtudiant" style="color: green"></p>
+                                                                <p id="smsAjouterEtudiant" style="color:red"></p>
+                                                            </center>
+
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="sexe" class="control-label mb-1">Choisir le sexe </label>
+                                                                        <select class="form-control" name="sexe" id="sexe">
+                                                                            <option value="F" selected>Féminin</option>
+                                                                            <option value="M">Masculin</option>
+                                                                        </select>
+
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="prenom" class="control-label mb-1">Prénom </label>
+                                                                        <input id="prenom" name="prenom" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="nom" class="control-label mb-1">Nom </label>
+                                                                        <input id="nom" name="nom" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="date_naissance" class="control-label mb-1">Date de naissance </label>
+                                                                        <input id="date_naissance" name="date_naissance" type="date" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="lieu_naissance" class="control-label mb-1">Lieu de naissance </label>
+                                                                        <input id="lieu_naissance" name="lieu_naissance" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="nationalite" class="control-label mb-1">Nationalité </label>
+                                                                        <input id="nationalite"  name="nationalite" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="telephone" class="control-label mb-1">Téléphone </label>
+                                                                        <input id="telephone" onkeypress="return isNumberKey2(this.id);" name="telephone" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="adresse" class="control-label mb-1">Adresse </label>
+                                                                        <input id="adresse" name="adresse" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="email" class="control-label mb-1">E-mail </label>
+                                                                        <input id="email" name="email" type="email" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="professionM" class="control-label mb-1">Choisir le département </label>
+                                                                        <select class="form-control" name="departementID" id="departementID">
+                                                                            <option ></option>
+
+                                                                            @foreach (var departement in Model.Item2)
+                                                                            {
+                                                                                <option value="@departement.id">@departement.nom</option>
+
+                                                                            }
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="professionM" class="control-label mb-1">Choisir la filière </label>
+                                                                        <select class="form-control" name="filiereID" id="filiereID">
+                                                                            <option></option>
+
+                                                                            @foreach (var departement in Model.Item3)
+                                                                            {
+                                                                                <option value="@departement.id">@departement.titre</option>
+
+                                                                            }
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="niveauEtudeID" class="control-label mb-1">Choisir le niveau étude </label>
+                                                                        <select class="form-control" name="niveauEtudeID" id="niveauEtudeID">
+                                                                            @foreach (var niveauEtude in Model.Item4)
+                                                                            {
+                                                                                <option value="@niveauEtude.id">@niveauEtude.nom</option>
+
+                                                                            }
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="image" class="control-label mb-1">Image </label>
+                                                                        <input id="file" name="file" onchange="loadFile(event)" type="file" accept="image/*" class="form-control cc-cvc">
+                                                                        <div class="row justify-content-center" style="margin-top:5px;">
+                                                                            <img id="output" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </fieldset>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" onclick="ajouterEtudiant()"><span id="spinner" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END CREER ETUDIANT POPUP-->
+                                <!-- MODIFIER ETUDIANT POPUP-->
+                                <div class="modal fade" id="mediumModalModify" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelModify" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelModify">Fiche étudiant(e) /élève</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <fieldset id="fieldset">
+                                                            <legend id="legend">
+                                                                Informations personnelles
+                                                            </legend>
+                                                            <center>
+                                                                <p id="messadeAjouterEtudiantM" style="color: green"></p>
+                                                                <p id="smsAjouterEtudiantM" style="color:red"></p>
+                                                            </center>
+                                                            <div class="row">
+                                                                <div class="col-md-3"></div>
+                                                                <div class="col-md-6">
+
+                                                                </div>
+                                                                <div class="col-md-3"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4"></div>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="numeroMatriciuleM" class="control-label mb-1">Matricule </label>
+                                                                        <input id="numeroMatriciuleM" name="numeroMatriciuleM" type="text" class="form-control" disabled>
+                                                                    </div>
+
+                                                                </div>
+                                                                <input id="etudiantID" name="etudiantID" type="text" class="form-control" hidden>
+
+                                                                <div class="col-md-4"></div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="sexeM" class="control-label mb-1">Choisir le sexe </label>
+                                                                        <select class="form-control" name="sexeM" id="sexeM">
+                                                                            <option value="F" selected>Féminin</option>
+                                                                            <option value="M">Masculin</option>
+                                                                        </select>
+                                                                    </div>                                                                    
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="prenomM" class="control-label mb-1">Prénom </label>
+                                                                        <input id="prenomM" name="prenomM" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="nomM" class="control-label mb-1">Nom </label>
+                                                                        <input id="nomM" name="nomM" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <input id="etudiantID" name="etudiantID" type="text" class="form-control" hidden>
+
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="date_naissanceM" class="control-label mb-1">Date de naissance </label>
+                                                                        <input id="date_naissanceM" name="date_naissanceM" type="date" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="lieu_naissanceM" class="control-label mb-1">Lieu de naissance </label>
+                                                                        <input id="lieu_naissanceM" name="lieu_naissanceM" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="nationaliteM" class="control-label mb-1">Nationalité </label>
+                                                                        <input id="nationaliteM" name="nationaliteM" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="telephoneM" class="control-label mb-1">Téléphone </label>
+                                                                        <input id="telephoneM" onkeypress="return isNumberKey2(this.id);" name="telephoneM" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="adresseM" class="control-label mb-1">Adresse </label>
+                                                                        <input id="adresseM" name="adresseM" type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="emailM" class="control-label mb-1">E-mail </label>
+                                                                        <input id="emailM" name="emailM" type="email" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="professionM" class="control-label mb-1">Choisir le département </label>
+                                                                        <select class="form-control" name="departementIDM" id="departementIDM">
+                                                                            @foreach (var poste in Model.Item2)
+                                                                            {
+                                                                                <option value="@poste.id">@poste.nom</option>
+
+                                                                            }
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="professionM" class="control-label mb-1">Choisir la filière </label>
+                                                                        <select class="form-control" name="filiereIDM" id="filiereIDM">
+                                                                            <option></option>
+
+                                                                            @foreach (var departement in Model.Item3)
+                                                                            {
+                                                                                <option value="@departement.id">@departement.titre</option>
+
+                                                                            }
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="professionM" class="control-label mb-1">Choisir le niveau étude </label>
+                                                                        <select class="form-control" name="niveauEtudeIDM" id="niveauEtudeIDM">
+                                                                            @foreach (var poste in Model.Item4)
+                                                                            {
+                                                                                <option value="@poste.id">@poste.nom</option>
+
+                                                                            }
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" onclick="modifierEtudiant()"><span id="spinnerM" class="spinner-border text-light" role="status" hidden></span>Enregistrer</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END MODIFIER ETUDIANT POPUP-->
+                                <!-- BLOQUER ETUDIANT POPUP-->
+                                <div id="mediumModalBloquer" class="modal container-fluid ">
+
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content align-content-center">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelBloquer">Bloquer un étudiant/élève</h5>
+
+                                            </div>
+
+                                            <center>
+                                                <p id="messageEtudiantB" style="color: green"></p>
+                                                <p id="smsEtudiantB" style="color:red"></p>
+                                            </center>
+                                            <div class="modal-body align-content-center">
+                                                <center>
+                                                    <h5 class="text-center">Voulez-vous bloquer ce compte ?</h5>
+                                                </center>
+
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <button type="button" class="btn btn-primary" onclick="bloquerEtudiant()"><span id="spinnerB" class="spinner-border text-light" role="status" hidden></span>Oui</button>
+                                                        <button type="button" style="float:right" class="btn btn-danger" onclick="document.getElementById('mediumModalBloquer').style.display = 'none';window.location.reload()">Non</button>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END BLOQUER ETUDIANT POPUP-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script>
+  
+
+    $(function () {
+
+        var filieres = @Html.Raw(Json.Encode(Model.Item3));
+        var niveau_etudes = @Html.Raw(Json.Encode(Model.Item4));
+
+        const inputDepartement = document.getElementById('departementID');
+        inputDepartement.addEventListener('change', choisirDepartement);
+        function choisirDepartement(e) {
+            $('#filiereID').empty()
+            filieres.filter(p => p.departementID == $('#departementID').val()).forEach(s => $('#filiereID').append(`<option  value="${s.id}" > ${s.titre}</option>`))
+
+        };
+
+        const inputDepartementM = document.getElementById('departementIDM');
+        inputDepartementM.addEventListener('change', choisirDepartementM);
+        function choisirDepartementM(e) {
+            $('#filiereIDM').empty()
+            filieres.filter(p => p.departementID == $('#departementIDM').val()).forEach(s => $('#filiereIDM').append(`<option  value="${s.id}" > ${s.titre}</option>`))
+
+        };
+
+
+
+        // CALL LISTE MEDICAMENTS
+        const inputMedicament = document.getElementById('medicamentText');
+
+        inputMedicament.addEventListener('input', choisirMedicament);
+
+        function choisirMedicament(c) {
+            $('#medicaments').empty()
+            var url = "https://api.vidal.fr/rest/api/products?startwith=" + $('#medicamentText').val() + "&app_id=58a55672&app_key=6be54b573e991d8cc28b03b74e8922b9";
+            $.get(url, function (response) {
+
+                var json = $.xml2json(response);
+                jQuery.each(json.entry, function (i, val) {
+                    $('#medicaments').append(`<option class="medicament" id="${val.id[0]}" value="${val.id[0]}" > ${val.title}</option>`)
+                });
+
+
+            });
+
+        };
+
+        //REMPLIR LISTE POSOLOGIE
+        $('#allergiesItem').on('click', '#allergie', function () {
+            // Removing the current row.
+            $(this).closest('li').remove();
+            // Decreasing total number of rows by 1.
+            delete allergies[id]
+
+        });
+
+
+    });
+
+
+
+    function modifierEtudiant()
+    {
+
+         document.getElementById("spinnerM").hidden = false
+         document.getElementById("messadeAjouterEtudiantM").innerText = null
+         document.getElementById("smsAjouterEtudiantM").innerText = null
+
+
+         $.post('@Url.Action("ajouterUser")',
+             {
+
+                 sexe: document.getElementById('sexeM').value,
+                 prenom: document.getElementById('prenomM').value,
+                 nom: document.getElementById('nomM').value,
+                 naissance: document.getElementById('date_naissanceM').value,
+                 lieu_naissance: document.getElementById('lieu_naissanceM').value,
+                 nationalite: document.getElementById('nationaliteM').value,
+                 telephone: document.getElementById('telephoneM').value,
+                 adresse: document.getElementById('adresseM').value,
+                 email: document.getElementById('emailM').value,
+                 type: 2,
+                 id: document.getElementById('etudiantID').value,
+                 numeroMatriciule:document.getElementById('numeroMatriciuleM').value,
+                 departementID:document.getElementById('departementIDM').value,
+                 filiereID:document.getElementById('filiereIDM').value ,
+                 niveauEtudeID:document.getElementById('niveauEtudeIDM').value,
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("messadeAjouterEtudiantM").innerText = rep.message;
+                    document.getElementById("smsAjouterEtudiantM").innerText = null
+                    setTimeout(() => { document.getElementById('mediumModalModify').style.display = 'none'; window.location.reload() }, 1000);
+                }
+                else
+                {
+                    document.getElementById("spinnerM").hidden = true
+                    document.getElementById("smsAjouterEtudiantM").innerText = rep.message ;
+                    document.getElementById("messadeAjouterEtudiantM").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("spinnerM").hidden = true
+                document.getElementById("smsAjouterEtudiantM").innerText = " une erreur interne est survenue";
+                document.getElementById("messadeAjouterEtudiantM").innerText = null
+
+            });
+
+
+
+    }
+    function ouvrirEtudiantModal(etudiantID)
+    {
+            document.getElementById("messadeAjouterEtudiantM").innerText = null
+            document.getElementById("smsAjouterEtudiantM").innerText = null
+            var etudiants = @Html.Raw(Json.Encode(Model.Item1));
+            var etudiant = etudiants.filter(e => e.id == etudiantID)[0];
+            document.getElementById('nationaliteM').value = etudiant.nationalite,
+            document.getElementById('etudiantID').value = etudiantID
+            document.getElementById('prenomM').value = etudiant.prenom,
+            document.getElementById('nomM').value = etudiant.nom,
+            document.getElementById('date_naissanceM').value = etudiant.naissance,
+            document.getElementById('emailM').value = etudiant.email,
+            document.getElementById('telephoneM').value = etudiant.telephone,
+            document.getElementById('adresseM').value = etudiant.adresse,
+            document.getElementById('sexeM').value = etudiant.sexe,
+            document.getElementById('lieu_naissanceM').value = etudiant.lieu_naissance,
+            document.getElementById('numeroMatriciuleM').value = etudiant.numeroMatriciule,
+            document.getElementById('departementIDM').value = etudiant.departementID,
+            document.getElementById('filiereIDM').value = etudiant.filiereID,
+            document.getElementById('niveauEtudeIDM').value = etudiant.niveauEtudeID,
+
+            document.getElementById('mediumModalModify').style.display = 'block'
+
+     }
+    function ouvrirBloquerModal(etudiantID)
+    {
+        document.getElementById('mediumModalBloquer').style.display = 'block'
+        document.getElementById('etudiantID').value = etudiantID
+
+
+
+    }
+    function bloquerEtudiant()
+    {
+        document.getElementById("messageEtudiantB").innerText = null
+        document.getElementById("smsEtudiantB").innerText = null
+
+
+
+             $.post('@Url.Action("bloquerUser")',
+
+                {
+                    id: document.getElementById('etudiantID').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+                    document.getElementById("messageEtudiantB").innerText = rep.message;
+                    document.getElementById("smsEtudiantB").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("smsEtudiantB").innerText = rep.message;
+                    document.getElementById("messageEtudiantB").innerText = null
+                }
+            }
+            ).fail(function (xhr, status, error)
+            {
+                                //Ajax request failed.
+                document.getElementById("smsEtudiantB").innerText = " une erreur interne est survenue coté client";
+                document.getElementById("messageEtudiantB").innerText = null
+
+            });
+    }
+    function isNumberKey2(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+
+<script>
+
+    function ajouterEtudiant() {
+        document.getElementById("spinner").hidden = false
+        document.getElementById("messadeAjouterEtudiant").innerText = null
+        document.getElementById("smsAjouterEtudiant").innerText = null
+        // Checking whether FormData is available in browser
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $("#file").get(0);
+            var files = fileUpload.files;
+            var file = files[0]
+            // Create FormData object
+
+            var fileData = new FormData();
+            fileData.append("file", file);
+            fileData.append("sexe", $('#sexe').val());
+            fileData.append("prenom", $('#prenom').val());
+            fileData.append("nom", $('#nom').val());
+
+            fileData.append("departementID", $('#departementID').val());
+            fileData.append("filiereID", $('#filiereID').val());
+            fileData.append("niveauEtudeID", $('#niveauEtudeID').val());
+
+            fileData.append("naissance", $('#date_naissance').val());
+            fileData.append("lieu_naissance", $('#lieu_naissance').val());
+            fileData.append("nationalite", $('#nationalite').val());
+            fileData.append("telephone", $('#telephone').val());
+            fileData.append("adresse", $('#adresse').val());
+            fileData.append("email", $('#email').val());
+            fileData.append("type", 2);
+
+
+            $.ajax({
+                method: 'post',
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: fileData,
+                enctype: 'multipart/form-data',
+                url: "/Admins/ajouterUser",
+                success: function (reponse) {
+
+                    if (reponse.code == 200) {
+                        document.getElementById("spinner").hidden = true
+                        document.getElementById("messadeAjouterEtudiant").innerText = reponse.message;
+                        document.getElementById("smsAjouterEtudiant").innerText = null
+                        setTimeout(() => { document.getElementById('mediumModalCreate').style.display = 'none'; window.location.reload() }, 1000);
+                    }
+                    else {
+                        document.getElementById("spinner").hidden = true
+                        document.getElementById("smsAjouterEtudiant").innerText = reponse.message;
+                        document.getElementById("messadeAjouterEtudiant").innerText = null
+
+                    }
+                },
+                error: function (reponse) {
+                    document.getElementById("spinner").hidden = true
+                    document.getElementById("smsAjouterEtudiant").innerText = " une erreur interne est survenue ";
+                    document.getElementById("messadeAjouterEtudiant").innerText = null
+                }
+            });
+
+        } else {
+
+            document.getElementById("spinner").hidden = true
+            document.getElementById("smsAjouterEtudiant").innerText = "FormData is not supported.";
+            document.getElementById("messadeAjouterEtudiant").innerText = null
+        }
+
+    };
+</script>
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+
+<style>
+    #output {
+        border-radius: 100%;
+        width: 20%;
+        height: 10%;
+    }
+
+    #modifier, #details, #bloquer {
+        border-radius: 100px;
+    }
+
+    #legend {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 35%;
+        border: 2px double #15283c;
+        border-radius: 8px;
+        padding: 5px 5px 5px 10px;
+        color: #15283c;
+        background-color: #fff;
+        text-align: center;
+    }
+
+    #fieldset {
+        border: 1px solid #15283c !important;
+        margin: 0;
+        min-width: 0;
+        padding: 10px;
+        position: relative;
+        border-radius: 8px;
+        background-color: #fff;
+        padding-left: 10px !important;
+    }
+
+    .modal-header {
+        background: #15283c;
+    }
+
+    .modal-title {
+        color: #fff;
+    }
+
+    label {
+        color: #000000;
+    }
+</style>
+

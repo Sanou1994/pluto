@@ -1,0 +1,574 @@
+﻿@model Tempon.Mettre_a_jour_profilData
+@{
+    ViewBag.fullName = ViewBag.Fullname;
+    ViewBag.name_logo = ViewBag.Name_logo;
+    ViewBag.Title = "Mettre_a_jour_profil";
+    Layout = "~/Views/Shared/EtudiantsLayout.cshtml";
+}
+@using Pluto.Models;
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Etudiants/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        <a href="~/Etudiants/Profil">Mon profil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Mettre à jour mon profil
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-refresh"></i> METTRE À JOUR MON PROFIL</span></h3>
+                        </div>
+                        <center>
+                            <p id="message" style="color: green"></p>
+                            <p id="sms" style="color:red"></p>
+                        </center>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset id="fieldset">
+                                        <div class="row">
+                                            <div class="col-md-4"><h5>INFORMATIONS PERSONNELLLES</h5></div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4">
+                                            </div>
+                                        </div>
+
+
+                                        <hr id="line" />
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input id="prenom" name="prenom" value="@Model.student.prenom" type="text" class="form-control" placeholder="Prénom *">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input id="nom" name="nom" value="@Model.student.nom" type="text" class="form-control" placeholder="Nom *">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <select name="sexe" id="sexe" class="form-control">
+                                                        @if (Model.student.sexe == "F")
+                                                        {
+                                                            <option value="H">Homme</option>
+                                                            <option value="F" selected>Femme</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="H" selected>Homme</option>
+                                                            <option value="F">Femme</option>
+                                                        }
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input id="date_naissance" name="date_naissance" value="@Model.student.naissance" type="date" class="form-control" placeholder="Date de naissance *">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input id="email" name="email" value="@Model.student.email" type="email" class="form-control" placeholder="Adresse E-mail ">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input id="phone" name="phone" type="text" value="@Model.student.telephone" class="form-control" placeholder="Numéro de téléphone ">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input id="adresse" name="adresse" type="text" value="@Model.student.adresse" class="form-control" placeholder="adresse">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input id="nationalite" name="nationalite" value="@Model.student.nationalite" type="text" class="form-control" placeholder="nationalité">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <br />
+                                       
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+
+                                            </div>
+                                            <div class="col-md-3">
+
+                                            </div>
+                                            <div class="col-md-3">
+
+                                            </div>
+                                            <div class="col-md-3 justify-content-end ">
+                                                <div class="form-group  justify-content-end" style="float:right">
+                                                    <button class="btn btn-primary" onclick="modifierEtudiant()"><i class="fa fa-check-circle"></i> Mettre à jour</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br /><br />
+                                        <h5>INFORMATIONS PARENTALES</h5><p style="color:red;"> *après la première saisie seul l'administration pourra modifié</p>
+                                        <hr id="line" />
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="white_shd full margin_bottom_30">
+                                                    <div class="table_section padding_infor_info">
+                                                        <div class="table-responsive-sm">
+
+                                                            <table class="table table-light">
+                                                                <tbody style="font-family: 'Lucida Calligraphy';">
+                                                                    <tr style="border-bottom:1px solid;">
+                                                                        <td width="650" style="text-align: left; color: #15283c;">
+                                                                            <div class="form-group">
+                                                                                <label for="nomParent" class="control-label mb-1"><i class="fa fa-user"></i> Nom  :</label>
+                                                                                @if (Model.parent == null || Model.parent.id == null)
+                                                                                {
+                                                                                    <input id="nomParent" name="nomParent" type="text" class="form-control">
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <input id="nomParent" value="@Model.parent.nom" name="nomParent" type="text" class="form-control" disabled>
+
+                                                                                }
+                                                                            </div>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr style="border-bottom:1px solid;">
+                                                                        <td width="650" style="text-align: left; color: #15283c;">
+                                                                            <div class="form-group">
+                                                                                <label for="prenomParent" class="control-label mb-1"><i class="fa fa-user"></i>Prénom  :</label>
+                                                                                @if (Model.parent == null || Model.parent.id == null)
+                                                                                {
+                                                                                    <input id="prenomParent" name="prenomParent" type="text" class="form-control">
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <input id="prenomParent" value="@Model.parent.prenom" name="prenomParent" type="text" class="form-control" disabled>
+
+                                                                                }
+                                                                            </div>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr style="border-bottom:1px solid;">
+                                                                        <td width="650" style="text-align: left; color: #15283c;">
+                                                                            <div class="form-group">
+                                                                                <label for="sexeParent" class="control-label mb-1"><i class="fa fa-user"></i>Genre  :</label>
+                                                                                @{ var genre = (Model.parent != null && Model.parent.sexe != null && Model.parent.sexe == "M") ? "Homme" : "Femme"; }
+
+
+                                                                                @if (Model.parent == null || Model.parent.id == null)
+                                                                                {
+                                                                                    <select class="form-control" name="sexeParent" id="sexeParent">
+                                                                                        <option value="M">Homme</option>
+                                                                                        <option value="F">Femme</option>
+                                                                                    </select>
+                                                                                }
+                                                                                else
+                                                                                {
+
+
+                                                                                    <input id="emailParent" value="@genre" name="emailParent" type="text" class="form-control" disabled>
+
+                                                                                }
+
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="border-bottom:1px solid;">
+                                                                        <td width="650" style="text-align: left; color: #15283c;">
+                                                                            <div class="form-group">
+                                                                                <label for="emailParent" class="control-label mb-1"><i class="fa fa-send"></i> Email :</label>
+                                                                                @if (Model.parent == null || Model.parent.id == null)
+                                                                                {
+                                                                                    <input id="emailParent" name="emailParent" type="text" class="form-control">
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <input id="emailParent" value="@Model.parent.email" name="emailParent" type="text" class="form-control" disabled>
+
+                                                                                }
+                                                                            </div>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr style="border-bottom:1px solid;">
+                                                                        <td width="650" style="text-align: left; color: #15283c;">
+                                                                            <div class="form-group">
+                                                                                <label for="profParent" class="control-label mb-1"><i class="fa fa-suitcase"></i> Profession :</label>
+                                                                                @if (Model.parent == null || Model.parent.id == null)
+                                                                                {
+                                                                                    <input id="profParent" name="profParent" type="text" class="form-control">
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <input id="profParent" value="@Model.parent.professionParent" name="profParent" type="text" class="form-control" disabled>
+
+                                                                                }
+                                                                            </div>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr style="border-bottom:1px solid;">
+                                                                        <td width="650" style="text-align: left; color: #15283c;">
+                                                                            <div class="form-group">
+                                                                                <label for="phoneParent" class="control-label mb-1"><i class="fa fa-phone"></i> Numéro de téléphone :</label>
+                                                                                @if (Model.parent == null || Model.parent.id == null)
+                                                                                {
+                                                                                    <input id="phoneParent" name="phoneParent" type="text" class="form-control">
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <input id="phoneParent" value="@Model.parent.telephone" name="phoneParent" type="text" class="form-control" disabled>
+
+                                                                                }
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="border-bottom:1px solid;">
+                                                                        <td width="650" style="text-align: left; color: #15283c;">
+
+
+                                                                            <div class="form-group">
+                                                                                <label for="relationParent" class="control-label mb-1"><i class="fa fa-user"></i>Relation  :</label>
+                                                                                @if (Model.parent == null || Model.parent.id == null)
+                                                                                {
+                                                                                    <select class="form-control" name="relationParent" id="relationParent">
+                                                                                        <option value="PERE">Père</option>
+                                                                                        <option value="MERE">Mère</option>
+                                                                                        <option value="FRERE">Frère</option>
+                                                                                        <option value="SOEUR">Soeur</option>
+                                                                                        <option value="TANTE">Tante</option>
+                                                                                        <option value="ONCLE">Oncle</option>
+                                                                                        <option value="EPOUX">Epoux</option>
+                                                                                        <option value="EPOUSE">Epouse</option>
+                                                                                        <option value="CONJOINTE">Conjointe</option>
+                                                                                        <option value="CONJOINT">Conjoint</option>
+                                                                                        <option value="TUTEUR">Tuteur</option>
+                                                                                        <option value="AUTRE">Autre</option>
+                                                                                    </select>
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <input id="relationParent" value="@Model.parent.typeParent" name="relationParent" type="text" class="form-control" disabled>
+
+                                                                                }
+                                                                            </div>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr style="border-bottom:1px solid;">
+                                                                        <td width="650" style="text-align: left; color: #15283c;">
+
+
+                                                                            <div class="form-group">
+                                                                                <label for="pieceParent" class="control-label mb-1"><i class="fa fa-upload"></i>Passeport ou Carte d''identité(PDF) :</label>
+                                                                                @if (Model.parent == null || Model.parent.id == null)
+                                                                                {
+                                                                                    <input id="pieceParent" name="pieceParent" type="file" class="form-control">
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <input id="pieceParent" name="pieceParent" type="file" class="form-control" disabled>
+
+                                                                                }
+                                                                            </div>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr style="border-bottom:1px solid;">
+                                                                        <td width="650" style="text-align: left; color: #15283c;">
+                                                                            <div class="form-group row justify-content-end">
+                                                                                @if (Model.parent == null || Model.parent.id == null)
+                                                                                {
+                                                                                    <button class="btn btn-primary" onclick="ajouterParent()"><i class="fa fa-check-circle"></i> Mettre à jour</button>
+
+                                                                                }
+
+                                                                            </div>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <br />
+
+                                    </fieldset>
+                                    <br />
+                                    <br />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+    function ajouterParent()
+    {
+        document.getElementById("message").innerText = null
+        document.getElementById("sms").innerText = null
+        var etudiantID = @Html.Raw(Json.Encode(ViewBag.etudiantID));
+        // Checking whether FormData is available in browser
+        if (window.FormData !== undefined)
+        {
+
+            var fileUpload = $("#pieceParent").get(0);
+            var files = fileUpload.files;
+            var file = files[0]
+            // Create FormData object
+            var fileData = new FormData();
+            fileData.append("file", file);
+            fileData.append("sexe", $('#sexeParent').val());
+            fileData.append("prenom", $('#prenomParent').val());
+            fileData.append("nom", $('#nomParent').val());
+            fileData.append("telephone", $('#phoneParent').val());
+            fileData.append("email", $('#emailParent').val());
+            fileData.append("type", 3);
+            fileData.append("studentID", etudiantID);
+            fileData.append("typeParent", $('#relationParent').val());
+            fileData.append("professionParent", $('#profParent').val());
+            $.ajax({
+                method: 'post',
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: fileData,
+                enctype: 'multipart/form-data',
+                url: "/Etudiants/ajouterUser",
+                success: function (reponse) {
+
+                    if (reponse.code == 200) {
+                        document.getElementById("message").innerText = reponse.message;
+                        document.getElementById("smsAjouterEtudiant").innerText = null
+                        window.location.reload()
+                    }
+                    else {
+                        document.getElementById("sms").innerText = reponse.message;
+                        document.getElementById("message").innerText = null
+
+                    }
+                },
+                error: function (reponse) {
+                    document.getElementById("sms").innerText = " une erreur interne est survenue ";
+                    document.getElementById("message").innerText = null
+                }
+            });
+
+        } else {
+
+            document.getElementById("sms").innerText = "FormData is not supported.";
+            document.getElementById("message").innerText = null
+        }
+
+    };
+    function modifierEtudiant()
+    {
+
+            document.getElementById("message").innerText = null
+            document.getElementById("sms").innerText = null
+            var etudiant = @Html.Raw(Json.Encode(Model.student));
+            var etudiantID = @Html.Raw(Json.Encode(ViewBag.etudiantID));
+             $.post('@Url.Action("ajouterUser")',
+             {
+
+                 sexe: document.getElementById('sexe').value,
+                 prenom: document.getElementById('prenom').value,
+                 nom: document.getElementById('nom').value,
+                 nationalite: document.getElementById('nationalite').value,
+                 telephone: document.getElementById('phone').value,
+                 adresse: document.getElementById('adresse').value,
+                 email: document.getElementById('email').value,
+                 naissance: document.getElementById('date_naissance').value,
+                 lieu_naissance: etudiant.lieu_naissance,
+                 type: 2,
+                 id: etudiantID,
+                 numeroMatriciule: etudiant.numeroMatriciule,
+                 departementID: etudiant.departementID,
+                 filiereID: etudiant.filiereID,
+                 niveauEtudeID: etudiant.niveauEtudeID
+
+            },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+                    document.getElementById("message").innerText = rep.message;
+                    document.getElementById("sms").innerText = null
+                    window.location.reload()
+                }
+                else
+                {
+                    document.getElementById("sms").innerText = rep.message ;
+                    document.getElementById("message").innerText = null
+
+                }
+
+
+
+            }).fail(function (xhr, status, error) {
+                document.getElementById("sms").innerText = " une erreur interne est survenue";
+                document.getElementById("message").innerText = null
+
+            });
+
+
+
+    }
+
+</script>
+<script>
+    $('.select2').select2();
+</script>
+<script>
+    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+        var name = document.getElementById("customFileInput").files[0].name;
+        var nextSibling = e.target.nextElementSibling
+        nextSibling.innerText = name
+    })
+</script>
+
+<!-- AJOUTER PERE-->
+
+<style>
+    h5 {
+        font-size: 14px;
+    }
+
+    #line {
+        background: #15283c;
+    }
+
+    .custom-file-input.selected:lang(en)::after {
+        content: "" !important;
+    }
+
+    .custom-file {
+        overflow: hidden;
+    }
+
+    .custom-file-input {
+        white-space: nowrap;
+    }
+
+    #annee_academique, #classer, #section, #numero_admission, #prenom, #nom, #sexe, #date_naissance, #photo,
+    #groupe_sanguin, #religion, #email, #phone, #date_admission, #categorie, #groupe, #hauteur, #poids,
+    #nom_pere, #nom_mere, #profession_pere, #profession_mere, #phone_pere, #phone_mere, #photo_pere, #photo_mere,
+    #nom_tuteur, #phone_tuteur, #email_tuteur, #adresse_tuteur, #profession_tuteur, #relation_tuteur, #photo_tuteur,
+    #adresse_actuelle, #adresse_permanente, #liste_itineraire, #numero_vehicule, #nom_dortoir, #numero_chambre,
+    #cin, #acte_naissance, #compte_bancaire, #nom_banque, #details_ecole_precedente, #notes_complementaires,
+    #document1, #document2, #document3, #document4, #file1, #file2, #file3, #file4, #frere_soeur {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        /*height:10px;*/
+    }
+
+    #create {
+        border-radius: 20px;
+    }
+
+    #valider_etudiant {
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 16px;
+        height: 45px;
+    }
+
+    #modifier, #details, #supprimer {
+        border-radius: 100px;
+    }
+
+    #legend {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 35%;
+        border: 2px double #15283c;
+        border-radius: 8px;
+        padding: 5px 5px 5px 10px;
+        color: #15283c;
+        background-color: #fff;
+        text-align: center;
+    }
+
+    #fieldset {
+        border: 1px solid #15283c !important;
+        margin: 0;
+        min-width: 0;
+        padding: 10px;
+        position: relative;
+        border-radius: 8px;
+        background-color: #fff;
+        padding-left: 10px !important;
+    }
+
+    #nav-admission-tab, #nav-dossiers-tab, #nav-preinscription-tab, #nav-inscription-tab {
+        border-radius: 100px;
+    }
+
+    .horizontal-line {
+        border-bottom: 1px dashed #ff5722;
+        display: inline-block;
+        width: 65%;
+    }
+
+    #title_infos_activite {
+        color: #ff5722;
+        font-size: 16px;
+    }
+</style>
+
+

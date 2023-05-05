@@ -1,0 +1,878 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- site icon -->
+    <link rel="icon" href="images/fevicon.png" type="image/png" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- site css -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="css/responsive.css" />
+    <!-- color css -->
+    <link rel="stylesheet" href="css/colors.css" />
+    <!-- select bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap-select.css" />
+    <!-- scrollbar css -->
+    <link rel="stylesheet" href="css/perfect-scrollbar.css" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/custom.css" />
+    <!-- calendar file css -->
+    <link rel="stylesheet" href="js/semantic.min.css" />
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <title>Pluto | Home</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-grad-school.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/lightbox.css">
+    <!--
+
+    TemplateMo 557 Grad School
+
+    https://templatemo.com/tm-557-grad-school
+
+    -->
+    <style>
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+</head>
+
+<body>
+
+
+    <!--header-->
+    <header class="main-header clearfix" role="header">
+        <div class="logo">
+            @*<a href="#"><em>Pl</em>u<em>to</em>*@
+            <a href="#section1">
+                <img width="210" src="images/logo/logo.png" alt="#" />
+            </a>
+        </div>
+        <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
+        <nav id="menu" class="main-nav" role="navigation">
+            <ul class="main-menu">
+                <li><a href="#section1">Accueil</a></li>
+                <li><a href="#section2">Nos écoles</a></li>
+                <li>
+                    <a href="#section4">Cours</a>
+                    <ul class="sub-menu">
+                        <li><a href="#section4">Informatique</a></li>
+                        <li><a href="#section4">Finance</a></li>
+                        <li><a href="#section4">Droit</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section5">À propos de nous</a></li>
+                <li><a href="#section6">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <section class="section main-banner" id="top" data-section="section1">
+        <video autoplay muted loop id="bg-video">
+            <source src="assets/images/course-video.mp4" type="video/mp4" />
+        </video>
+        <div class="video-overlay header-text">
+            <div class="caption" style="margin-top:-325px;">
+                <h2>Connectez-vous à votre <br /><em> Établissement</em></h2>
+            </div><br />
+            <div class="full_container">
+                <div class="container">
+                    <div class="center verticle_center full_height">
+                        <div class="login_section">
+                            <div class="logo_login">
+                                <div class="center">
+                                    <img width="210" src="images/logo/logo.png" alt="#" />
+                                </div>
+                            </div>
+                            <div class="container">
+                                
+                                <center>
+                                    <p id="messadeConnexion" style="color:red"> </p>
+                                    <p  style="color:red">@TempData["sms"] </p>
+
+                                </center>
+
+                                <div class="styled-input">
+                                    <label>Téléphone</label>
+                                    <input type="text" class="form-control" onkeypress="return isNumberKey2(this.id);" placeholder="Veuillez entrer votre numéro téléphone" name="phone" id="phone" required="">
+                                    <span></span>
+                                </div>
+                                <div class="styled-input agile-styled-input-top">
+                                    <label>Mot de passe</label>
+                                    <input type="password" class="form-control" placeholder="Veuillez entrer votre Mot de passe" name="pwd" id="pwd" required="">
+                                    <span></span>
+                                </div>
+                                <div class="styled-input">
+                                    <label class="label_field hidden">hidden label</label>
+                                    <label class="form-check-label"><input type="checkbox" class="form-check-input"> Souviens-toi de moi</label>
+                                    <a class="forgot" href="">Mot de passe oublié?</a>
+                                </div>
+
+                                <button class="main_bt" onclick="seConnecter()"><span id="spinner" class="spinner-border text-light" role="status" hidden></span> Connexion</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Main Banner Area End ***** -->
+    <!-- ACTIVATION-->
+    <div id="activation" class="modal">
+        <div class="container">
+            <div class="center verticle_center full_height">
+                <div class="login_section">
+                    <div class="logo_login">
+                        <div class="center">
+                            <img width="210" src="images/logo/logo.png" alt="#" />
+                            <a class="btn btn-primary" onclick="document.getElementById('activation').style.display='none'" style=" float:right;background-color:white;color:black;margin-top:5px;">X</a>
+
+                        </div>
+                    </div>
+                    <div class="container">
+                        <center>
+                            <p id="messageActivation" style="color:red"> </p>
+
+                        </center>
+
+                        <div class="styled-input agile-styled-input-top">
+                            <label>Code d'activation</label>
+                            <input type="text" class="form-control" placeholder="Veuillez entrer votre code" name="code" id="code" required="">
+                            <span></span>
+                        </div>
+                        <button class="main_bt" onclick="activer()"> <span id="spinnerA" class="spinner-border text-light" role="status" hidden></span>Activer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <section class="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    <div class="features-post">
+                        <div class="features-content">
+                            <div class="content-show">
+                                <h4><i class="fa fa-book"></i>Tous les cours</h4>
+                            </div>
+                            <div class="content-hide">
+                                <p>Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet. Donec maximus elementum ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula libero.</p>
+                                <p class="hidden-sm">Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
+                                <div class="scroll-to-section"><a href="#section2">Lire plus</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="features-post second-features">
+                        <div class="features-content">
+                            <div class="content-show">
+                                <h4><i class="fa fa-graduation-cap"></i>Tous les diplômes</h4>
+                            </div>
+                            <div class="content-hide">
+                                <p>Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet. Donec maximus elementum ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula libero.</p>
+                                <p class="hidden-sm">Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
+                                <div class="scroll-to-section"><a href="#section3">Lire plus</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="features-post third-features">
+                        <div class="features-content">
+                            <div class="content-show">
+                                <h4><i class="fa fa-pencil"></i>Real Meeting</h4>
+                            </div>
+                            <div class="content-hide">
+                                <p>Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet. Donec maximus elementum ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula libero.</p>
+                                <p class="hidden-sm">Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
+                                <div class="scroll-to-section"><a href="#section4">Lire plus</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section why-us" data-section="section2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Tous nos écoles</h2>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div id='tabs'>
+                        <ul>
+                            <li><a href='#tabs-1'>Public</a></li>
+                            <li><a href='#tabs-2'>Privé</a></li>
+                            <li><a href='#tabs-3'>Formation professionnelle</a></li>
+                        </ul>
+                        <section class='tabs-content'>
+                            <article id='tabs-1'>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="assets/images/choose-us-image-01.png" alt="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>Public</h4>
+                                        <a href="">Université Cheikh Anta Diop (UCAD)</a><br />
+                                        <a href="">Université Gaston Berger (UGB)</a><br />
+                                        <a href="">Lycée Seydina Limamoulaye</a>
+                                    </div>
+                                </div>
+                            </article>
+                            <article id='tabs-2'>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="assets/images/choose-us-image-02.png" alt="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>Privé</h4>
+                                        <a href="">Université Catholique de l'Afrique de l'Ouest (UCA0)</a><br />
+                                        <a href="">École Supérieure de Technologie et de Management (ESTM)</a><br />
+                                        <a href="">Immaculée Conception</a>
+                                    </div>
+                                </div>
+                            </article>
+                            <article id='tabs-3'>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="assets/images/choose-us-image-03.png" alt="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>Formation professionelle</h4>
+                                        <a href="">Hekima</a><br />
+                                        <a href="">La source</a><br />
+                                        <a href="">Institution Sainte-Jeanne d’Arc Post-Bac</a>
+                                    </div>
+                                </div>
+                            </article>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section coming-soon" data-section="section3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="continer centerIt">
+                        <div>
+                            <h4>Inscrivez-vous et<em> accédez immédiatement</em> au plate-forme</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @*<div class="col-md-7 col-xs-12">
+                        <div class="continer centerIt">
+                            <div>
+                                <h4>Take <em>any online course</em> and win $326 for your next class</h4>
+                                <div class="counter">
+
+                                    <div class="days">
+                                        <div class="value">00</div>
+                                        <span>Days</span>
+                                    </div>
+
+                                    <div class="hours">
+                                        <div class="value">00</div>
+                                        <span>Hours</span>
+                                    </div>
+
+                                    <div class="minutes">
+                                        <div class="value">00</div>
+                                        <span>Minutes</span>
+                                    </div>
+
+                                    <div class="seconds">
+                                        <div class="value">00</div>
+                                        <span>Seconds</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="col-md-12">
+                    <div class="right-content">
+                        <div class="top-content">
+                            <h6 style="font-size: 18px; color: #f5a425; font-weight:bold;">
+                                Inscription
+                            </h6>
+                        </div>
+                        <form id="contact" action="" method="get">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input name="surname" type="text" class="form-control" id="surname" placeholder="Prénom" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input name="name" type="text" class="form-control" id="name" placeholder="Nom" required="">
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input name="school" type="text" class="form-control" id="school" placeholder="Nom de l'établissement" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <select name="type" type="text" class="form-control" id="type" placeholder="Type d'établissement" required="">
+                                            <option selected>Choisir...</option>
+                                            <option>Privé</option>
+                                            <option>Public</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input name="phone" type="text" class="form-control" id="email" placeholder="Téléphone" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input name="email" type="email" class="form-control" id="email" placeholder="E-mail" required="">
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section courses" data-section="section4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Tous vos filières</h2>
+                    </div>
+                </div>
+                <div class="owl-carousel owl-theme">
+                    <div class="item">
+                        <img src="assets/images/courses-01.jpg" alt="Course #1">
+                        <div class="down-content">
+                            <h4>Marketing Digital</h4>
+                            <p>
+                                À la fin de la première partie de ce cours, vous apprendrez à élaborer une stratégie web marketing actionnable, et à l'intégrer dans le livrable par excellence du marketeur : le plan marketing.
+                            </p>
+                            @*<div class="author-image">
+                                    <img src="assets/images/author-01.png" alt="Author 1">
+                                </div>
+                                <div class="text-button-pay">
+                                    <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-02.jpg" alt="Course #2">
+                        <div class="down-content">
+                            <h4>Développement Web/Mobile</h4>
+                            <p>
+                                Dans ce cours de développement web/mobile en ligne, vous découvrirez toutes les bases du développement web/mobile (HTML, JavaScript, CSS ou encore CSharp) et du codage informatique.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-03.jpg" alt="Course #3">
+                        <div class="down-content">
+                            <h4>Droit</h4>
+                            <p>
+                                Des cours ayant pour but de saisir les principales notions juridiques et donner aux étudiants les bases nécessaires à la découverte des diverses branches spécialisées qui composent le droit.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-04.jpg" alt="Course #4">
+                        <div class="down-content">
+                            <h4>Communications</h4>
+                            <p>
+                                Ce module a pour but d'acquérir les notions permettant à l'entreprise de gèrer ses relations avec les clients et dessine son offre de façon à optimiser sa position dans l'univers concurrentiel.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-05.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Médecine</h4>
+                            <p>
+                                Ces cours de médecine vous donneront une introduction à la science de l'établissement du diagnostic, du traitement et de la prévention des maladies telles pratiquées par les médecins.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-06.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Comptabilité</h4>
+                            <p>Apprenez la comptabilité sans peine. Maîtrisez les débits et les crédits sans mystère et les étapes simples conduisant du journal au bilan passant par le compte de résultat</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-07.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Finances</h4>
+                            <p>Ce cours permettra à l'étudiant de comprendre et d'appliquer dans différents contextes les principes de base de la finance. Lui permettre d'appréhender les liens entre la finance et la comptabilité.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-08.jpg" alt="">
+
+                        <div class="down-content">
+                            <h4>Intelligence Artificielle</h4>
+                            <p>Faites un bond en plein cœur du plus grand mythe de notre temps. Avec ce cours sur l'intelligence artificielle, apprenez maintenant les bases du deep et machine learning à travers des projets concrets.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-09.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Stylisme</h4>
+                            <p>Passionné de mode? Apprenez à concevoir des styles et à agencer des produits, en stylisme personnel ou stylisme commercial, avec cette formation professionnelle. Commencez dès aujourd'hui</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-10.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Mécanique Générale</h4>
+                            <p>A l’issue de cette formation, l’apprenant aura acquis une connaissance des concepts clés de la mécanique générale, il sera capable d’étudier le mouvement de mécanismes et de l'appliquer</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-11.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Hôtellerie & Restauration</h4>
+                            <p>Ce cours vise à rendre l'étudiant capable de reconnaître les principales techniques utilisées par le personnel des secteurs de l'hébergement et de la restauration en utilisant une terminologie appropriée.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-12.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Esthétique</h4>
+                            <p>Ce domaine traite de divers aspects de la beauté et des soins personnels comme la coupe des cheveux, les soins du visage, la manucure, la pédicure et les thérapies des ongles, etc.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-13.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Transport-Logistique</h4>
+                            <p>Ce cours est conçu pour les personnes qui portent un intérêt à la gestion en transport et à la chaîne d’approvisionnement, souhaitant faire une carrière riche et dynamique à l’échelle internationale.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-14.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Commerce International</h4>
+                            <p>Ce cours permettra à l’étudiant de développer une vision globale des échanges commerciaux en examinant les facteurs qui contribuent au succès commercial sur les marchés internationaux.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/courses-15.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Réseaux & Télécoms</h4>
+                            <p>Ce cours présente les principes qui permettent de distinguer les couches afin de pouvoir interconnecter des systèmes terminaux (par exemple des ordinateurs) et de gérer leurs communications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section video" data-section="section5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 align-self-center">
+                    <div class="left-content">
+                        <span>Regardez la vidéo pour en savoir plus sur Pluto</span>
+                        <h4>Pourquoi choisir la plate-forme<em> Pluto</em> ?</h4>
+                        <p style="color:#ffffff;">
+                            La meilleure solution pour la gestion des écoles maternelles, primaires, collèges, lycées, enseignements supérieurs ou centres de formation privée ou publique. Une plate-forme tout en un pour piloter la gestion quotidienne de votre établissement scolaire.
+                            <br><br>Un système puissant et un soutien exceptionnel pour vous aider à rassembler tout votre personnel et l’organisation de votre école dans un système qui intègre la gestion de toutes les informations nécessaires.
+                        </p>
+                        @*<div class="main-button"><a rel="nofollow" href="https://fb.com/templatemo" target="_parent">External URL</a></div>*@
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <article class="video-item">
+                        <div class="video-caption">
+                            <h4>Power HTML Template</h4>
+                        </div>
+                        <figure>
+                            <a href="https://www.youtube.com/watch?v=r9LtOG6pNUw" class="play"><img src="assets/images/main-thumb.png"></a>
+                        </figure>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact" data-section="section6">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Restons en contact</h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <!-- Do you need a working HTML contact-form script?
+
+                                Please visit https://templatemo.com/contact page -->
+
+                    <form id="contact" action="" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <input name="name" type="text" class="form-control" id="name" placeholder="Votre nom" required="">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <input name="email" type="text" class="form-control" id="email" placeholder="Votre E-mail" required="">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <textarea name="message" rows="6" class="form-control" id="message" placeholder="Votre message..." required=""></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <button type="submit" id="form-submit" class="button">Envoyer le message maintenant</button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div id="map">
+                        <iframe src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="422px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        Copyright © 2022 Conçu par Rassoul Technologie. Tous les droits sont réservés.<br><br>
+                        <a href="https://rassoultechnologie.com/">www.rassoultechnologie.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/isotope.min.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/lightbox.js"></script>
+    <script src="assets/js/tabs.js"></script>
+    <script src="assets/js/video.js"></script>
+    <script src="assets/js/slick-slider.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- wow animation -->
+    <script src="js/animate.js"></script>
+    <!-- select country -->
+    <script src="js/bootstrap-select.js"></script>
+    <!-- nice scrollbar -->
+    <script src="js/perfect-scrollbar.min.js"></script>
+    <script>
+        var ps = new PerfectScrollbar('#sidebar');
+    </script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script>
+        //according to loftblog tut
+        $('.nav li:first').addClass('active');
+
+        var showSection = function showSection(section, isAnimate) {
+            var
+                direction = section.replace(/#/, ''),
+                reqSection = $('.section').filter('[data-section="' + direction + '"]'),
+                reqSectionPos = reqSection.offset().top - 0;
+
+            if (isAnimate) {
+                $('body, html').animate({
+                    scrollTop: reqSectionPos
+                },
+                    800);
+            } else {
+                $('body, html').scrollTop(reqSectionPos);
+            }
+
+        };
+
+        var checkSection = function checkSection() {
+            $('.section').each(function () {
+                var
+                    $this = $(this),
+                    topEdge = $this.offset().top - 80,
+                    bottomEdge = topEdge + $this.height(),
+                    wScroll = $(window).scrollTop();
+                if (topEdge < wScroll && bottomEdge > wScroll) {
+                    var
+                        currentId = $this.data('section'),
+                        reqLink = $('a').filter('[href*=\\#' + currentId + ']');
+                    reqLink.closest('li').addClass('active').
+                        siblings().removeClass('active');
+                }
+            });
+        };
+
+        $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
+            if ($(e.target).hasClass('external')) {
+                return;
+            }
+            e.preventDefault();
+            $('#menu').removeClass('active');
+            showSection($(this).attr('href'), true);
+        });
+
+        $(window).scroll(function () {
+            checkSection();
+        });
+    </script>
+    <script>
+
+        function checkPassword() {
+            var password = document.getElementById("password").value;
+            var confirmPwd = document.getElementById("confirmPwd").value;
+
+            if (confirmPwd == password) {
+                document.getElementById("envoyer").hidden = false;
+                document.getElementById("messadeVerification").innerText = null;
+            }
+            else {
+                document.getElementById("messadeVerification").innerText = "le mot de passe et celui de la confirmation est différent";
+                document.getElementById("envoyer").hidden = true;
+
+            }
+
+
+        }
+        function activer()
+        {
+            document.getElementById("spinnerA").hidden = false
+
+            document.getElementById("messageActivation").innerText = null;
+            $.ajax({
+                url: "Home/activation",
+                type: 'POST',
+                data: { code: document.getElementById('code').value},
+                success: function (result) {
+                    if (result.code == 200)
+                    {
+                        switch (result.role) {
+                            case "Manager":
+                                document.getElementById("spinnerA").hidden = true
+
+                              window.location.href = "/Admins/Index"
+                                break;
+                            default:
+                                document.getElementById("spinnerA").hidden = true
+
+                               window.location.href = "/Admins/Index"
+                        }
+
+                    }
+                    else
+                    {
+                        document.getElementById("spinnerA").hidden = true
+
+                        document.getElementById("messageActivation").innerText = result.message;
+                    }
+
+                }
+                ,
+                error: function (error) {
+                    document.getElementById("spinnerA").hidden = false
+                }
+
+
+            });
+
+
+
+        }
+        function inscrire() {
+
+            document.getElementById("messadeInscription").innerText = null
+            document.getElementById("sms").innerText = null
+
+            $.post('@Url.Action("Sinscrire")',
+
+                {
+                    nom: document.getElementById('nom').value,
+                    prenom: document.getElementById('prenom').value,
+                    adresse: document.getElementById('adresse').value,
+                    email: document.getElementById('emailI').value,
+                    phone: document.getElementById('phone').value,
+                    pwd: document.getElementById('password').value
+                },
+            function (rep)
+            {
+                if (rep.code == 200)
+                {
+
+
+                    document.getElementById("messadeInscription").innerText = rep.message;
+                    setTimeout(() => { document.getElementById('myModal2').style.display = 'none'; window.location.href = "/Admin/Index"}, 1000);
+                }
+                else
+                {
+                    document.getElementById("sms").innerText = rep.message;
+                }
+            }
+            ).fail(function (xhr, status, error) {
+                                //Ajax request failed.
+                document.getElementById("sms").innerText = " une erreur interne est survenue";
+
+                            });
+        }
+        function seConnecter() 
+        {
+            document.getElementById("spinner").hidden = false
+
+            document.getElementById("messadeConnexion").innerText = null;
+            $.ajax({
+                url: "Home/Seconnecter",
+                type: 'POST',
+                data: { pwd: document.getElementById('pwd').value, phone: document.getElementById('phone').value },
+                success: function (result)
+                {
+                    if (result.code == 200) {
+
+                        document.getElementById('activation').style.display = 'block'
+                        document.getElementById("spinner").hidden = true
+
+                    }
+                    else
+                    {
+                        document.getElementById("messadeConnexion").innerText = result.message;
+                        document.getElementById("spinner").hidden = true
+
+                    }
+
+                },
+                error: function (error)
+                {
+                    document.getElementById("spinner").hidden = false
+                 }
+                
+
+            });
+
+
+        }
+        function isNumberKey2(evt)
+        {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+    </script>
+</body>
+</html>

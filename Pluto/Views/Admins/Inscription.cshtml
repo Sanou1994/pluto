@@ -1,0 +1,217 @@
+﻿
+@{
+    ViewBag.Title = "Inscription";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Gestion scolaire
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Inscription
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-home"></i> INSCRIPTION</span></h3>
+                        </div><br />
+                        <div class="full inner_elements margin_top_30">
+                            <div class="col-md-12">
+                                <div class="white_shd full margin_bottom_30">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="inbox-head">
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <select name="annee_academique" id="annee_academique" class="form-control">
+                                                            <option value="choose">Année Académique</option>
+                                                            <option value="an1">2022 [Jan-Déc]</option>
+                                                            <option value="an2">2023 [2022/2023]</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <select name="departement" id="departement" class="form-control">
+                                                            <option value="choose">Rechercher par département</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <select name="filiere" id="filiere" class="form-control">
+                                                            <option value="choose">Rechercher par filière</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <select name="classe" id="classe" class="form-control">
+                                                            <option value="choose">Rechercher par classe</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <form action="#" class="pull-right position search_inbox">
+                                                        <div class="input-append">
+                                                            <input type="text" class="sr-input" placeholder="Rechercher...">
+                                                            <button class="btn sr-btn" type="button"><i class="fa fa-search"></i></button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table_section padding_infor_info">
+                                        <div class="table-responsive-sm">
+                                            <table class="table table-bordered" style="border:1px solid #15283c;">
+                                                <thead style="background: #15283c;">
+                                                    <tr style="text-align:center; color:#fff; font-weight:bold;">
+                                                        <th>Matricule</th>
+                                                        <th>Prénom</th>
+                                                        <th>Nom</th>
+                                                        <th>Filière</th>
+                                                        <th>Classe</th>
+                                                        <th>Coût scolarité</th>
+                                                        <th>Mode paiement</th>
+                                                        <th>Frais payés</th>
+                                                        <th>Frais impayés</th>
+                                                        <th>État scolarité</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr style="text-align:center; color:#000000;">
+                                                        <td>1</td>
+                                                        <td>Youssou</td>
+                                                        <td>Ndour</td>
+                                                        <td>M</td>
+                                                        <td>1ère année</td>
+                                                        <td>45000</td>
+                                                        <td>Mensuelle</td>
+                                                        <td>40000</td>
+                                                        <td>5000</td>
+                                                        <td>Réglé</td>
+                                                        <td>
+                                                            <a href="~/Admins/Details_inscription" type="button" class="btn-info btn-sm" id="details" title="Détails"><i class="fa fa-eye"></i></a>
+                                                            <button class="btn-dark btn-sm" id="modifier" data-toggle="modal" onclick="modifierProf(this.id)" data-target="#mediumModalModify" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></button>
+                                                            <button class="btn-danger btn-sm" id="supprimer" title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+<script>
+    $('.select2').select2();
+</script>
+<script>
+    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+        var name = document.getElementById("customFileInput").files[0].name;
+        var nextSibling = e.target.nextElementSibling
+        nextSibling.innerText = name
+    })
+</script>
+<style>
+    h5 {
+        font-size: 14px;
+    }
+
+    #line {
+        background: #15283c;
+    }
+
+    .custom-file-input.selected:lang(en)::after {
+        content: "" !important;
+    }
+
+    .custom-file {
+        overflow: hidden;
+    }
+
+    .custom-file-input {
+        white-space: nowrap;
+    }
+
+    #legend {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 35%;
+        border: 2px double #15283c;
+        border-radius: 8px;
+        padding: 5px 5px 5px 10px;
+        color: #15283c;
+        background-color: #fff;
+        text-align: center;
+    }
+
+    #fieldset {
+        border: 1px solid #15283c !important;
+        margin: 0;
+        min-width: 0;
+        padding: 10px;
+        position: relative;
+        border-radius: 8px;
+        background-color: #fff;
+        padding-left: 10px !important;
+    }
+
+    #annee_academique, #departement, #filiere, #classe {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 5px;
+        /*height:10px;*/
+    }
+
+    #create {
+        border-radius: 20px;
+    }
+
+    #valider_etudiant {
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 16px;
+        height: 45px;
+    }
+
+    #details, #modifier, #supprimer {
+        border-radius: 20px;
+    }
+</style>
+
+

@@ -1,0 +1,217 @@
+﻿
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- calendar file css -->
+    <link rel="stylesheet" href="~/AdminStyle/js/semantic.min.css" />
+    <!--[if lt IE 9]>
+    <![endif]-->
+</head>
+<body class="inner_page profile_page">
+    <div class="full_container">
+        <div class="inner_container">
+                <div class="midde_cont">
+                    <div class="container-fluid">
+                        <div class="row column_title">
+                            <div class="col-md-12">
+                                <div class="page_title">
+                                    <h2>
+                                        <a href="~/Admins/Index">Accueil</a>
+                                        <span>
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        Profil
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row -->
+                        <div class="row column1">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div class="white_shd full margin_bottom_30">
+                                    <div class="dash_head" style="text-align:center;">
+                                        <h3 style="font-weight:bold;"><span><i class="fa fa-user"></i> FICHE UTILISATEUR</span></h3>
+                                    </div><br />
+                                    <div class="full price_table padding_infor_info">
+                                        <div class="row justify-content-center">
+                                            <!-- user profile section -->
+                                            <!-- profile image -->
+                                            <div class="col-lg-12">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-4">
+                                                            <div class="full dis_flex center_text">
+                                                                <div class="profile_img">
+                                                                    <img width="180" class="rounded-circle" src="~/AdminStyle/images/layout_img/user_img.jpg" alt="#" />
+                                                                    <br />
+                                                                    <br />
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="profile-usertitle">
+                                                                            <div class="profile-usertitle-job" style="text-transform: lowercase !important; text-align: center; color: #000000;">
+                                                                                <i class="fa fa-qrcode"></i>
+                                                                                501919
+                                                                            </div>
+
+                                                                            <div class="profile-usertitle-name" style="font-size: 15px; font-weight: 600; text-align: center; color:#000000;">
+                                                                                Hassane Diatta
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
+                                                </div>
+                                                <!-- profile contant section -->
+                                                <div class="full inner_elements margin_top_30">
+                                                    <div class="tab_style2">
+                                                        <div class="tabbar">
+                                                            <div class="row justify-content-center">
+                                                                <nav>
+                                                                    <div class="nav nav-tabs" id="nav-tab" role="tablist" style="color:#000000;">
+                                                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#recent_activity" role="tab" aria-selected="true">Informations personelles</a>
+                                                                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#profile_section" role="tab" aria-selected="false">Informations complémentaires</a>
+                                                                    </div>
+                                                                </nav>
+                                                            </div>
+                                                            <div class="tab-content" id="nav-tabContent">
+                                                                <div class="tab-pane fade show active" id="recent_activity" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                                    <div class="col-md-12">
+                                                                        <div class="white_shd full margin_bottom_30">
+                                                                            <div class="table_section padding_infor_info">
+                                                                                <div class="table-responsive-sm">
+                                                                                    <table class="table table-light">
+                                                                                        <tbody>
+                                                                                            <tr style="border-bottom:1px solid;">
+                                                                                                <td width="650">
+                                                                                                    <i class="fa fa-bookmark"></i>
+                                                                                                    Étudiant
+                                                                                                </td>
+                                                                                                <td width="650"></td>
+                                                                                            </tr>
+                                                                                            <tr style="border-bottom:1px solid;">
+                                                                                                <td width="800">
+                                                                                                    <i class="fa fa-calendar"></i>
+                                                                                                    Né(e) le 03/01/1998 à Kaolack / SÉNÉGAL
+                                                                                                </td>
+                                                                                                <td width="500" style="text-align:right;">
+                                                                                                    <i class="fa fa-flag"></i>
+                                                                                                    Nationalité SENEGALAISE
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr style="border-bottom:1px solid;">
+                                                                                                <td width="650">
+                                                                                                    <i class="fa fa-home p-r-10"></i>
+                                                                                                    Cité Keur Damel
+                                                                                                </td>
+                                                                                                <td width="650"></td>
+                                                                                            </tr>
+                                                                                            <tr style="border-bottom:1px solid;">
+                                                                                                <td width="800">
+                                                                                                    <i class="fa fa-envelope-o"></i>
+                                                                                                    diattahassane@gmail.com
+                                                                                                </td>
+                                                                                                <td width="500" style="text-align:right;">
+                                                                                                    <i class="fa fa-phone"></i>
+                                                                                                    +221770658702
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td width="800">
+                                                                                                    Activé par
+                                                                                                    <div class="profile-usertitle-name" style="font-size: 13px;font-weight: 600; display: inline">
+                                                                                                        sanou.arouna -  SANOU Arouna
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td width="500" style="text-align:right;">
+                                                                                                    le <span>08/06/2021 12:25</span>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="profile_section" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                                                    <div class="col-md-12">
+                                                                        <div class="white_shd full margin_bottom_30">
+                                                                            <div class="table_section padding_infor_info">
+                                                                                <div class="table-responsive-sm">
+                                                                                    <table class="table table-dark">
+                                                                                        <tbody>
+                                                                                            <tr style="border-bottom:1px solid;">
+                                                                                                <td width="800" style="color: #fff;">
+                                                                                                    <i class="fa fa-briefcase p-r-10"></i>
+                                                                                                    Inscrite en LPG / 2021-2022 / Licence 3 / L.3-B-Soir-Iman.1
+                                                                                                </td>
+                                                                                                <td width="500" style="color: #fff;">
+                                                                                                    <a class="pull-right" href="#" style="text-decoration: none;color: #9aa8b5!important;cursor: pointer; " data-toggle="modal" data-target="#myModal" onclick="showInfoPopup()" id="PRINT">
+                                                                                                        <i class="fa fa-print"></i>
+                                                                                                    </a>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end user profile section -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <!-- end row -->
+                        </div>
+                        <!-- model popup -->
+                        <!-- The Modal -->
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header" style="background: #15283c;">
+                                        <h4 class="modal-title" style="color: #fff;">
+                                            <i class="fa fa-info-circle"></i>
+                                            Information
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" style="color:red;">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body" style="color:#000000;">
+                                        Veuillez-vous rapprocher de l’administration pour l’activation de cette fonctionnalité.
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end model popup -->
+                        <!-- end dashboard inner -->
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

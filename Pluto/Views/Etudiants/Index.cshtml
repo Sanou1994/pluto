@@ -1,0 +1,513 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.fullName = ViewBag.Fullname;
+    ViewBag.name_logo = ViewBag.Name_logo;
+    Layout = "~/Views/Shared/EtudiantsLayout.cshtml";
+}
+
+<!-- dashboard inner -->
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>Accueil</h2>
+                </div>
+            </div>
+        </div><br />
+        <div class="row column1">
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div>
+                            <i class="fa fa-edit red_color"></i>
+                        </div>
+                    </div>
+                    <div class="counter_no">
+                        <div>
+                            <p class="total_no">14</p>
+                            <p class="head_couter">Cours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div>
+                            <i class="fa fa-graduation-cap orange_color"></i>
+                        </div>
+                    </div>
+                    <div class="counter_no">
+                        <div>
+                            <p class="total_no">16</p>
+                            <p class="head_couter">Examens</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div>
+                            <i class="fa fa-home green_color"></i>
+                        </div>
+                    </div>
+                    <div class="counter_no">
+                        <div>
+                            <p class="total_no">08</p>
+                            <p class="head_couter">Devoirs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div>
+                            <i class="fa fa-user-secret blue1_color"></i>
+                        </div>
+                    </div>
+                    <div class="counter_no">
+                        <div>
+                            <p class="total_no">10</p>
+                            <p class="head_couter">Professeurs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-home"></i> ACCUEIL</span></h3>
+                        </div><br />
+                        <div class="task_list_main">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="white_shd full margin_bottom_30">
+                                            <div class="full graph_head" style="background-color:lightseagreen;">
+                                                <div class="heading1 margin_0">
+                                                    <h2>
+                                                        <i style="color:white;">
+                                                            <i class="fa fa-edit"></i>
+                                                            Les dernières notes obtenues
+                                                        </i>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="ex1">
+                                                    <hr />
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-11" id="note">
+                                                            <div class="row justify-content-center" style="margin-top:5px;">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span><strong style="color:#000;">Fiscalité</strong></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="badge badge-success">16.0</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-md-5" style="text-align:center;">
+                                                                    <div class="row justify-content-center">
+                                                                        <span class="text-muted small">
+                                                                            <em>
+                                                                                <i class="fa fa-user"></i> Gora BEYE
+                                                                            </em>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="text-muted small pull-right">
+                                                                            <em>
+                                                                                <i class="fa fa-calendar"></i>
+                                                                                05/12/2022 - Semestre 5
+                                                                            </em>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row justify-content-center" style="margin-bottom:5px;">
+                                                        <div class="col-md-11" id="note">
+                                                            <div class="row justify-content-center" style="margin-top:5px;">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span><b style="color:#000;">Droit des affaires</b></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="badge badge-danger">6.0</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-md-5" style="text-align:center;">
+                                                                    <div class="row justify-content-center">
+                                                                        <span class="text-muted small">
+                                                                            <em>
+                                                                                <i class="fa fa-user"></i> Aïssata Tall SALL
+                                                                            </em>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="text-muted small pull-right">
+                                                                            <em>
+                                                                                <i class="fa fa-calendar"></i>
+                                                                                05/12/2022 - Semestre 5
+                                                                            </em>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="white_shd full margin_bottom_30">
+                                            <div class="full graph_head" style="background-color:palevioletred;">
+                                                <div class="heading1 margin_0">
+                                                    <h2>
+                                                        <i style="color:white;">
+                                                            <i class="fa fa-money"></i>
+                                                            Paiements récents
+                                                        </i>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="ex1">
+                                                    <hr />
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-11" id="note">
+                                                            <div class="row justify-content-center" style="margin-top:5px;">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span style="color:#000;">
+                                                                            <em class="text-muted small">N° reçu : </em>
+                                                                            RECU-1-2022-11-23492
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="badge badge-secondary">50 000 encaissé</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center" style="margin-top:5px;">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span style="margin-top: 3px; color: #000;">
+                                                                            <em class="text-muted small">Paiement :</em> Espéce
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="pull-right" style="margin-top: 3px; color: #000;">
+                                                                            <em class="text-muted small">Payé le :</em>
+                                                                            04/11/2022 13:17
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover table-striped table-condensed">
+                                                                    <thead>
+                                                                        <tr class="bg-dark" style="color:#fff;">
+                                                                            <th class="text-left">Frais</th>
+                                                                            <th class="text-left">Mois</th>
+                                                                            <th class="text-right">Montant</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td class="text-left small">
+                                                                                Frais de scolarité
+                                                                            </td>
+
+                                                                            <td class="text-left small">
+                                                                                Novembre
+                                                                            </td>
+
+                                                                            <td class="text-right small">
+                                                                                <b>50 000</b>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-11" id="note">
+                                                            <div class="row justify-content-center" style="margin-top:5px;">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span style="color:#000;">
+                                                                            <em class="text-muted small">N° reçu : </em>
+                                                                            RECU-1-2022-10-22490
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="badge badge-secondary">25 000 encaissé</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center" style="margin-top:5px;">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span style="margin-top: 3px; color: #000;">
+                                                                            <em class="text-muted small">Paiement :</em> Espéce
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="pull-right" style="margin-top: 3px; color: #000;">
+                                                                            <em class="text-muted small">Payé le :</em>
+                                                                            10/10/2022 17:31
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover table-striped table-condensed">
+                                                                    <thead>
+                                                                        <tr class="bg-dark">
+                                                                            <th class="text-left">Frais</th>
+                                                                            <th class="text-left">Mois</th>
+                                                                            <th class="text-right">Montant</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td class="text-left small">
+                                                                                Frais de scolarité
+                                                                            </td>
+
+                                                                            <td class="text-left small">
+                                                                                Octobre
+                                                                            </td>
+
+                                                                            <td class="text-right small">
+                                                                                <b>25 000</b>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="white_shd full margin_bottom_30">
+                                            <div class="full graph_head" style="background-color:orange;">
+                                                <div class="heading1 margin_0">
+                                                    <h2>
+                                                        <i style="color:white;">
+                                                            <i class="fa fa-clock-o"></i>
+                                                            Les derniers absences/retards
+                                                        </i>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="ex1">
+                                                    <hr />
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-11" id="note">
+                                                            <div class="row justify-content-center" style="margin-top:5px;">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span class="badge badge-danger">Absence</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="badge badge-secondary">Non justifiée</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-md-2"></div>
+                                                                <div class="col-md-6">
+                                                                    <div class="row justify-content-center">
+                                                                        <span><b style="color:#000;">Management stratégique</b></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2"></div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span class="text-muted small pull-left">
+                                                                            <em>
+                                                                                <i class="fa fa-user"></i> Babacar DIALLO
+                                                                            </em>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="text-muted small pull-right">
+                                                                            <em>
+                                                                                <i class="fa fa-calendar"></i>
+                                                                                26/10/2022
+                                                                            </em>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-11" id="note">
+                                                            <div class="row justify-content-center" style="margin-top:5px;">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span class="badge badge-danger">Retard</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="badge badge-secondary">Justifié</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-md-2"></div>
+                                                                <div class="col-md-6">
+                                                                    <div class="row justify-content-center">
+                                                                        <span><b style="color:#000;">Informatique</b></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2"></div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-md-5">
+                                                                    <div class="float-left">
+                                                                        <span class="text-muted small pull-left">
+                                                                            <em>
+                                                                                <i class="fa fa-user"></i> Philippe MEYA
+                                                                            </em>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="row justify-content-end">
+                                                                        <span class="text-muted small pull-right">
+                                                                            <em>
+                                                                                <i class="fa fa-calendar"></i>
+                                                                                07/10/2022
+                                                                            </em>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="white_shd full margin_bottom_30">
+                                            <div class="full graph_head" style="background-color:deepskyblue;">
+                                                <div class="heading1 margin_0">
+                                                    <h2>
+                                                        <i style="color:white;">
+                                                            <i class="fa fa-calendar"></i>
+                                                            Plannings de la semaines du 12/12/2022 au 18/12/2022
+                                                        </i>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="ex1">
+                                                    <hr />
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-11" id="note">
+                                                            Aucun planning à afficher
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+
+<style>
+    div.ex1 {
+        height: 250px;
+        width: 740px;
+        overflow-y: scroll;
+    }
+
+    #note {
+        border: 1px solid;
+        border-radius: 5px;
+    }
+
+    .badge {
+        border-radius: 20px;
+        height: 18px;
+        font-size: 12px;
+    }
+
+    .dash_blog_inner {
+        border: 1px solid #15283c;
+        border-radius: 8px;
+    }
+</style>
+

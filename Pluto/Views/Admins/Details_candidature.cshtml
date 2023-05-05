@@ -1,0 +1,623 @@
+﻿
+@{
+    ViewBag.Title = "Details_candidature";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Candidature
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        <a href="~/Admins/Etudiants">Étudiants/Élèves</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Détails fiche candidature
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-id-card"></i> INFORMATIONS GÉNÉRALES</span></h3>
+                        </div><br />
+                        <!-- profile contant section -->
+                        <div class="full inner_elements margin_top_30">
+                            <div class="tab_style2">
+                                <div class="tabbar">
+                                    <div class="row justify-content-center">
+                                        <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist" style="color:#000000;">
+                                                <a class="nav-item nav-link active" id="nav-admission-tab" data-toggle="tab" href="#admission_section" role="tab" aria-selected="true">1</a>
+                                                <a class="nav-item nav-link" id="nav-dossiers-tab" data-toggle="tab" href="#dossiers_section" role="tab" aria-selected="false">2</a>
+                                                <a class="nav-item nav-link" id="nav-preinscription-tab" data-toggle="tab" href="#preinscription_section" role="tab" aria-selected="false">3</a>
+                                                <a class="nav-item nav-link" id="nav-inscription-tab" data-toggle="tab" href="#inscription_section" role="tab" aria-selected="false">4</a>
+                                            </div>
+                                        </nav>
+                                    </div>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="admission_section" role="tabpanel" aria-labelledby="nav-admission-tab">
+                                            <div class="col-md-12">
+                                                <fieldset id="fieldset">
+                                                    <legend id="legend">
+                                                        Test d'admission
+                                                    </legend>
+                                                    <div class="row">
+                                                        <div class="col-md-3"></div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="image" class="control-label mb-1">Image </label>
+                                                                <input id="url_photo" name="url_photo" type="file" accept="image/*" onchange="loadFile(event)" class="form-control cc-cvc">
+                                                                <div class="row justify-content-center" style="margin-top:5px;">
+                                                                    <img id="output" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="masculin" class="control-label mb-1">Masculin </label>
+                                                                <input type="radio" id="masculin" name="fav_genre" value="masculin">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="feminin" class="control-label mb-1">Féminin </label>
+                                                                <input type="radio" id="feminin" name="fav_genre" value="feminin">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="matricule" class="control-label mb-1">Matricule </label>
+                                                                <input id="matricule" name="matricule" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="prenom" class="control-label mb-1">Prénom </label>
+                                                                <input id="prenomEtu" name="prenomEtu" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="nom" class="control-label mb-1">Nom </label>
+                                                                <input id="nomEtu" name="nomEtu" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="date_naissance" class="control-label mb-1">Date de naissance </label>
+                                                                <input id="date_naissance" name="date_naissance" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="lieu_naissance" class="control-label mb-1">Lieu de naissance </label>
+                                                                <input id="lieu_naissance" name="lieu_naissance" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="nationalite" class="control-label mb-1">Nationalité </label>
+                                                                <input id="nationalite" name="nationalite" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="phone" class="control-label mb-1">Téléphone </label>
+                                                                <input id="phone" name="phone" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="adresse" class="control-label mb-1">Adresse </label>
+                                                                <input id="adresse" name="adresse" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="email" class="control-label mb-1">E-mail </label>
+                                                                <input id="adresse" name="adresse" type="email" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="dossiers_section" role="tabpanel" aria-labelledby="nav-dossiers-tab">
+                                            <div class="col-md-12">
+                                                <fieldset id="fieldset">
+                                                    <legend id="legend">
+                                                        Dossiers complémentaires
+                                                    </legend>
+                                                    <div class="row">
+                                                        <div class="col-md-3"></div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="image" class="control-label mb-1">Image </label>
+                                                                <input id="url_photo" name="url_photo" type="file" accept="image/*" onchange="loadFile(event)" class="form-control cc-cvc">
+                                                                <div class="row justify-content-center" style="margin-top:5px;">
+                                                                    <img id="output" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="masculin" class="control-label mb-1">Masculin </label>
+                                                                <input type="radio" id="masculin" name="fav_genre" value="masculin">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="feminin" class="control-label mb-1">Féminin </label>
+                                                                <input type="radio" id="feminin" name="fav_genre" value="feminin">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="matricule" class="control-label mb-1">Matricule </label>
+                                                                <input id="matricule" name="matricule" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="prenom" class="control-label mb-1">Prénom </label>
+                                                                <input id="prenomEtu" name="prenomEtu" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="nom" class="control-label mb-1">Nom </label>
+                                                                <input id="nomEtu" name="nomEtu" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="date_naissance" class="control-label mb-1">Date de naissance </label>
+                                                                <input id="date_naissance" name="date_naissance" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="lieu_naissance" class="control-label mb-1">Lieu de naissance </label>
+                                                                <input id="lieu_naissance" name="lieu_naissance" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="nationalite" class="control-label mb-1">Nationalité </label>
+                                                                <input id="nationalite" name="nationalite" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="phone" class="control-label mb-1">Téléphone </label>
+                                                                <input id="phone" name="phone" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="adresse" class="control-label mb-1">Adresse </label>
+                                                                <input id="adresse" name="adresse" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="email" class="control-label mb-1">E-mail </label>
+                                                                <input id="adresse" name="adresse" type="email" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="preinscription_section" role="tabpanel" aria-labelledby="nav-preinscription-tab">
+                                            <div class="col-md-12">
+                                                <fieldset id="fieldset">
+                                                    <legend id="legend">
+                                                        Pré-inscription
+                                                    </legend>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <strong id="title_infos_activite">Informations personnelles</strong> <span class="horizontal-line"></span>
+                                                        </div>
+                                                    </div><br />
+                                                    <div class="row">
+                                                        <div class="col-md-3"></div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="image" class="control-label mb-1">Image </label>
+                                                                <input id="url_photo" name="url_photo" type="file" accept="image/*" onchange="loadFile(event)" class="form-control cc-cvc">
+                                                                <div class="row justify-content-center" style="margin-top:5px;">
+                                                                    <img id="output" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="masculin" class="control-label mb-1">Masculin </label>
+                                                                <input type="radio" id="masculin" name="fav_genre" value="masculin">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="feminin" class="control-label mb-1">Féminin </label>
+                                                                <input type="radio" id="feminin" name="fav_genre" value="feminin">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="matricule" class="control-label mb-1">Matricule </label>
+                                                                <input id="matricule" name="matricule" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="prenom" class="control-label mb-1">Prénom </label>
+                                                                <input id="prenomEtu" name="prenomEtu" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="nom" class="control-label mb-1">Nom </label>
+                                                                <input id="nomEtu" name="nomEtu" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="date_naissance" class="control-label mb-1">Date de naissance </label>
+                                                                <input id="date_naissance" name="date_naissance" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="lieu_naissance" class="control-label mb-1">Lieu de naissance </label>
+                                                                <input id="lieu_naissance" name="lieu_naissance" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="nationalite" class="control-label mb-1">Nationalité </label>
+                                                                <input id="nationalite" name="nationalite" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="phone" class="control-label mb-1">Téléphone </label>
+                                                                <input id="phone" name="phone" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="adresse" class="control-label mb-1">Adresse </label>
+                                                                <input id="adresse" name="adresse" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="email" class="control-label mb-1">E-mail </label>
+                                                                <input id="adresse" name="adresse" type="email" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <strong id="title_infos_activite">Informations sur la formation</strong> <span class="horizontal-line"></span>
+                                                        </div>
+                                                    </div><br />
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="actif" class="control-label mb-1">Actif </label>
+                                                                <input type="radio" id="actif" name="fav_status" value="actif">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="attente" class="control-label mb-1">En attente </label>
+                                                                <input type="radio" id="attente" name="fav_status" value="attente">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="departement" class="control-label mb-1">Département </label>
+                                                                <select name="departement" id="departement" class="form-control">
+                                                                    <option value="choose">-- Choisir un département --</option>
+                                                                    <option value="d1">Sciences de l'informatique et des systèmes d'information</option>
+                                                                    <option value="d2">Lettres modernes</option>
+                                                                    <option value="d3">Sciences Economiques et de Gestion</option>
+                                                                    <option value="d4">Sciences juridiques et politiques</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="filiere" class="control-label mb-1">Filière </label>
+                                                                <select name="filiere" id="filiere" class="form-control">
+                                                                    <option value="choose">-- Choisir une filière --</option>
+                                                                    <option value="f1">Génie logiciel</option>
+                                                                    <option value="f2">Français</option>
+                                                                    <option value="f3">Finance</option>
+                                                                    <option value="f4">Droit privé</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="classe" class="control-label mb-1">Classe </label>
+                                                                <select name="classe" id="classe" class="form-control">
+                                                                    <option value="choose">-- Choisir une classe --</option>
+                                                                    <option value="c1">3ème</option>
+                                                                    <option value="c2">1ère</option>
+                                                                    <option value="terminal">Terminal</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="niveau" class="control-label mb-1">Niveau </label>
+                                                                <select name="niveau" id="niveau" class="form-control">
+                                                                    <option value="choose">-- Choisir un niveau --</option>
+                                                                    <option value="n1">Licence 1</option>
+                                                                    <option value="n2">Licence 2</option>
+                                                                    <option value="n3">Licence 3</option>
+                                                                    <option value="n4">Master 1</option>
+                                                                    <option value="n5">Master 2</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="groupe" class="control-label mb-1">Groupe </label>
+                                                                <select name="groupe" id="groupe" class="form-control">
+                                                                    <option value="choose">-- Choisir un groupe --</option>
+                                                                    <option value="g1">TRONC1-CO</option>
+                                                                    <option value="g2">TRONC2-CO</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="cours" class="control-label mb-1">Cours </label>
+                                                                <select name="cours" id="cours" class="form-control">
+                                                                    <option value="choose">-- Choisir un cours --</option>
+                                                                    <option value="cours1">Langues étrangères appliquées</option>
+                                                                    <option value="cours2">Génie logiciel</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="duree" class="control-label mb-1">Durée </label>
+                                                                <input id="duree" name="duree" type="time" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="date_debut" class="control-label mb-1">Date de début </label>
+                                                                <input id="date_debut" name="date_debut" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="date_fin" class="control-label mb-1">Date de fin </label>
+                                                                <input id="date_fin" name="date_fin" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="inscription_section" role="tabpanel" aria-labelledby="nav-inscription-tab">
+                                            <div class="col-md-12">
+                                                <fieldset id="fieldset">
+                                                    <legend id="legend">
+                                                        Inscription
+                                                    </legend>
+                                                    <div class="row">
+                                                        <div class="col-md-3"></div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="image" class="control-label mb-1">Image </label>
+                                                                <input id="url_photo" name="url_photo" type="file" accept="image/*" onchange="loadFile(event)" class="form-control cc-cvc">
+                                                                <div class="row justify-content-center" style="margin-top:5px;">
+                                                                    <img id="output" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="masculin" class="control-label mb-1">Masculin </label>
+                                                                <input type="radio" id="masculin" name="fav_genre" value="masculin">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="feminin" class="control-label mb-1">Féminin </label>
+                                                                <input type="radio" id="feminin" name="fav_genre" value="feminin">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="matricule" class="control-label mb-1">Matricule </label>
+                                                                <input id="matricule" name="matricule" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="prenom" class="control-label mb-1">Prénom </label>
+                                                                <input id="prenomEtu" name="prenomEtu" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="nom" class="control-label mb-1">Nom </label>
+                                                                <input id="nomEtu" name="nomEtu" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="date_naissance" class="control-label mb-1">Date de naissance </label>
+                                                                <input id="date_naissance" name="date_naissance" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="lieu_naissance" class="control-label mb-1">Lieu de naissance </label>
+                                                                <input id="lieu_naissance" name="lieu_naissance" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="nationalite" class="control-label mb-1">Nationalité </label>
+                                                                <input id="nationalite" name="nationalite" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="phone" class="control-label mb-1">Téléphone </label>
+                                                                <input id="phone" name="phone" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="adresse" class="control-label mb-1">Adresse </label>
+                                                                <input id="adresse" name="adresse" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="email" class="control-label mb-1">E-mail </label>
+                                                                <input id="adresse" name="adresse" type="email" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end user profile section -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+<style>
+    #modifier, #details, #supprimer {
+        border-radius: 100px;
+    }
+
+    #legend {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 35%;
+        border: 2px double #15283c;
+        border-radius: 8px;
+        padding: 5px 5px 5px 10px;
+        color: #15283c;
+        background-color: #fff;
+        text-align: center;
+    }
+
+    #fieldset {
+        border: 1px solid #15283c !important;
+        margin: 0;
+        min-width: 0;
+        padding: 10px;
+        position: relative;
+        border-radius: 8px;
+        background-color: #fff;
+        padding-left: 10px !important;
+    }
+
+    #nav-admission-tab, #nav-dossiers-tab, #nav-preinscription-tab, #nav-inscription-tab {
+        border-radius: 100px;
+    }
+
+    .horizontal-line {
+        border-bottom: 1px dashed #ff5722;
+        display: inline-block;
+        width: 65%;
+    }
+
+    #title_infos_activite {
+        color: #ff5722;
+        font-size: 16px;
+    }
+</style>
+

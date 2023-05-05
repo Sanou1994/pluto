@@ -1,0 +1,294 @@
+﻿@using Pluto.Controllers;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Pluto | Dashboard</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- site icon -->
+    <link rel="icon" href="~/AdminStyle/images/fevicon.png" type="image/png" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/bootstrap.min.css" />
+    <!-- site css -->
+    <link rel="stylesheet" href="~/AdminStyle/style.css" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/responsive.css" />
+    <!-- color css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/colors.css" />
+    <!-- select bootstrap -->
+    <link rel="stylesheet" href="~/AdminStyle/css/bootstrap-select.css" />
+    <!-- scrollbar css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/perfect-scrollbar.css" />
+    <!-- custom css -->
+    @*
+    <link rel="stylesheet" href="~/AdminStyle/css/tabulation.css" />*@
+    <!-- tabulation css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/custom.css" />
+    <link rel="stylesheet" href="~/AdminStyle/js/semantic.min.css" />
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+<body class="dashboard dashboard_1">
+    <div class="full_container">
+        <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar_blog_1">
+                    <div class="sidebar-header">
+                        <div class="logo_section">
+                            <a href="index.html"><img class="logo_icon img-responsive" src="~/AdminStyle/images/logo/logo_icon.png" alt="#" /></a>
+                        </div>
+                    </div>
+                    <div class="sidebar_user_info">
+                        <div class="icon_setting"></div>
+                        <div class="user_profle_side">
+                            <div class="user_img">
+                                @{
+                                    var result = ((EtudiantsController)this.ViewContext.Controller).Photo(ViewBag.name_logo);
+                                    if (@result != null)
+                                    {
+                                        <img class="img-responsive"  src="@result" alt="#" />                                        
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive" src="~/AdminStyle/images/layout_img/user_img.jpg" alt="#" />
+
+                                    }
+
+                                }
+                            </div>
+                            <div class="user_info">
+                                <h6 style="font-family:'Great Vibes'; font-size:22px; font-weight:bold;">@ViewBag.fullName</h6>
+                                <p><span class="online_animation"></span> En ligne</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar_blog_2">
+                    <h4 style="font-family: Algerian;">Université du Sahel</h4>
+                    <ul class="list-unstyled components" style="font-family:'Eras ITC';">
+                        <li class="active">
+                            <a href="~/Etudiants/Index"><i class="fa fa-home"></i> <span style="font-weight: bold;">Accueil</span></a>
+                        </li>
+                        <li class="active">
+                            <a href="~/Etudiants/Profil"><i class="fa fa-user"></i> <span style="font-weight: bold;">Mon Profil</span></a>
+                        </li>
+                        <li>
+                            <a href="~/Etudiants/Tests"><i class="fa fa-comments"></i> <span style="font-weight: bold;">Tests d'entrée</span></a>
+                        </li>
+                        <li>
+                            <a href="~/Etudiants/Preinscription"><i class="fa fa-folder-open"></i> <span style="font-weight: bold;">Préinscription</span></a>
+                        </li>
+                        <li>
+                            <a href="~/Etudiants/Inscription"><i class="fa fa-address-card"></i> <span style="font-weight: bold;">Inscription</span></a>
+                        </li>
+                        <li>
+                            <a href="#cours" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-briefcase"></i> <span style="font-weight: bold;">Cours</span></a>
+                            <ul class="collapse list-unstyled" id="cours">
+                                <li><a href="~/Etudiants/Cours_magistrals"><span> ➽ Cours magistrals</span></a></li>
+                                <li><a href="~/Etudiants/Cours_en_ligne"><span> ➽ Cours en ligne</span></a></li>
+                                <li><a href="~/Etudiants/Travaux_diriges"><span> ➽ Travaux dirigés</span></a></li>
+                                <li><a href="~/Etudiants/Travaux_pratiques"><span> ➽ Travaux pratiques</span></a></li>
+                                <li><a href="~/Etudiants/Interrogations"><span> ➽ Interrogations</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#tests" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i> <span style="font-weight: bold;">Évaluations</span></a>
+                            <ul class="collapse list-unstyled" id="tests">
+                                <li><a href="~/Etudiants/Devoirs"><span> ➽ Devoirs</span></a></li>
+                                <li><a href="~/Etudiants/Examens"><span> ➽ Examens</span></a></li>
+                                <li><a href="~/Etudiants/Rattrapages"><span> ➽ Rattrapages</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="~/Etudiants/Absences_Retards"><i class="fa fa-clock-o"></i> <span style="font-weight: bold;">Absences & Retards</span></a>
+                        </li>
+                        <li>
+                            <a href="~/Etudiants/Emploi_du_temps"><i class="fa fa-calendar"></i> <span style="font-weight: bold;">Emploi du temps</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+                <!-- topbar -->
+                <div class="topbar">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="full">
+                            <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                            <div class="logo_section">
+                                <a href="index.html">
+                                <img class="img-responsive" src="~/AdminStyle/images/logo/logo.png" alt="#" />
+                                
+                                </a>
+                            </div>
+                            <div class="right_topbar">
+                                <div class="icon_info">
+                                    <ul>
+                                        <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-bell"></i><span class="badge">2</span></a></li>
+                                    </ul>
+                                    <ul class="user_profile_dd">
+                                        <li>
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                @{
+                                                    var resultA = ((EtudiantsController)this.ViewContext.Controller).Photo(ViewBag.name_logo);
+                                                    if (@resultA != null)
+                                                    {
+                                                        <img class="img-responsive rounded-circle" src="@resultA" alt="#" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="img-responsive  rounded-circle" src="~/AdminStyle/images/layout_img/user_img.jpg" alt="#" />
+
+                                                    }
+
+                                                }
+
+
+                                                <span class="name_user" style="font-family:'Lucida Calligraphy';">@ViewBag.fullName</span>
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="~/Admins/Profil" style="font-family:'Eras ITC';"><i class="fa fa-user"></i> Mon profil</a>
+                                                <a class="dropdown-item" href="~/Home/" style="font-family:'Eras ITC';"><i class="fa fa-arrow-circle-right"></i> Deconnexion</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <!-- NOTIFICATIONS ETUDIANT POPUP-->
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body" style="color:#000000; text-align:center;">
+                                <div class="row column4 graph">
+                                    <div class="col-md-12">
+                                        <div class="white_shd full margin_bottom_30">
+                                            <div class="full graph_head">
+                                                <div class="heading1 margin_0">
+                                                    <h2>Message</h2>
+                                                </div>
+                                            </div>
+                                            <div class="full progress_bar_inner">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="msg_section">
+                                                            <div class="msg_list_main">
+                                                                <ul class="msg_list">
+                                                                    <li>
+                                                                        <span><img src="images/layout_img/msg2.png" class="img-responsive" alt="#"></span>
+                                                                        <span>
+                                                                            <span class="name_user">John Smith</span>
+                                                                            <span class="msg_user">Sed ut perspiciatis unde omnis.</span>
+                                                                            <span class="time_ago">12 min ago</span>
+                                                                            <span class="time_ago">12 min ago</span>
+                                                                        </span>
+                                                                    </li>
+                                                                    <li>
+                                                                        <span><img src="images/layout_img/msg3.png" class="img-responsive" alt="#"></span>
+                                                                        <span>
+                                                                            <span class="name_user">John Smith</span>
+                                                                            <span class="msg_user">On the other hand, we denounce.</span>
+                                                                            <span class="time_ago">12 min ago</span>
+                                                                        </span>
+                                                                    </li>
+                                                                    <li>
+                                                                        <span><img src="images/layout_img/msg2.png" class="img-responsive" alt="#"></span>
+                                                                        <span>
+                                                                            <span class="name_user">John Smith</span>
+                                                                            <span class="msg_user">Sed ut perspiciatis unde omnis.</span>
+                                                                            <span class="time_ago">12 min ago</span>
+                                                                        </span>
+                                                                    </li>
+                                                                    <li>
+                                                                        <span><img src="images/layout_img/msg3.png" class="img-responsive" alt="#"></span>
+                                                                        <span>
+                                                                            <span class="name_user">John Smith</span>
+                                                                            <span class="msg_user">On the other hand, we denounce.</span>
+                                                                            <span class="time_ago">12 min ago</span>
+                                                                        </span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="row justify-content-center">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END NOTIFICATIONS ETUDIANT POPUP-->
+                <!-- end topbar -->
+
+                @RenderBody()
+
+                <!-- footer -->
+                <div class="container-fluid">
+                    <div class="footer">
+                        <p>
+                            Copyright © 2022 Conçu par Rassoul Technologie. Tous les droits sont réservés.<br><br>
+                            <a href="https://rassoultechnologie.com/">www.rassoultechnologie.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- end dashboard inner -->
+        </div>
+    </div>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <!-- jQuery -->
+    @*<script src="~/AdminStyle/js/jquery.min.js"></script>*@
+    <script src="~/AdminStyle/js/popper.min.js"></script>
+    <script src="~/AdminStyle/js/bootstrap.min.js"></script>
+    <!-- wow animation -->
+    <script src="~/AdminStyle/js/animate.js"></script>
+    <!-- select country -->
+    <script src="~/AdminStyle/js/bootstrap-select.js"></script>
+    <!-- owl carousel -->
+    <script src="~/AdminStyle/js/owl.carousel.js"></script>
+    <!-- chart js -->
+    <script src="~/AdminStyle/js/Chart.min.js"></script>
+    <script src="~/AdminStyle/js/Chart.bundle.min.js"></script>
+    <script src="~/AdminStyle/js/utils.js"></script>
+    <script src="~/AdminStyle/js/analyser.js"></script>
+    <!-- nice scrollbar -->
+    <script src="~/AdminStyle/js/perfect-scrollbar.min.js"></script>
+    <script>
+        var ps = new PerfectScrollbar('#sidebar');
+    </script>
+    <!-- custom js -->
+    <script src="~/AdminStyle/js/custom.js"></script>
+    <script src="~/AdminStyle/js/chart_custom_style1.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,593 @@
+﻿
+@{
+    ViewBag.Title = "Details_inscription";
+    Layout = "~/Views/Shared/AdminsLayout.cshtml";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>
+                        <a href="~/Admins/Index">Accueil</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        <a href="~/Admins/Index">Gestion scolarité</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        <a href="~/Admins/Preinscription">Inscription</a>
+                        <span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        Détails de la inscription
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column4 graph">
+            <div class="col-md-12">
+                <div class="dash_blog">
+                    <div class="dash_blog_inner">
+                        <div class="dash_head" style="text-align:center;">
+                            <h3 style="font-weight:bold;"><span><i class="fa fa-home"></i> DÉTAILS DE L'INSCRIPTION</span></h3>
+                        </div><br />
+                        <div class="col-md-12">
+                            <h5>INFORMATIONS PERSONNELLLES</h5>
+                            <hr id="line" />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @*<label for="annee_academique" class="control-label mb-1">Année académique </label>*@
+                                        @*<input id="annee_academique" name="annee_academique" type="text" class="form-control" placeholder="Année académique *">*@
+                                        <select name="annee_academique" id="annee_academique" class="form-control">
+                                            <option value="choose">Année académique</option>
+                                            <option value="an1">2022 [Jan-Déc]</option>
+                                            <option value="an2">2023 [2022/2023]</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <select name="classer" id="classer" class="form-control">
+                                            <option value="choose">Classer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <select name="section" id="section" class="form-control">
+                                            <option value="choose">Section</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="numero_admission" name="numero_admission" type="text" class="form-control" placeholder="Numéro d'admission">
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="prenom" name="prenom" type="text" class="form-control" placeholder="Prénom *">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="nom" name="nom" type="text" class="form-control" placeholder="Nom *">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <select name="sexe" id="sexe" class="form-control">
+                                            <option value="choose">Sexe *</option>
+                                            <option value="sexe1">Homme</option>
+                                            <option value="sexe2">Femme</option>
+                                            <option value="sexe3">Autres</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="date_naissance" name="date_naissance" type="date" class="form-control" placeholder="Date de naissance *">
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <select name="groupe_sanguin" id="groupe_sanguin" class="form-control">
+                                            <option value="choose">Groupe sanguin </option>
+                                            <option value="group1">A+</option>
+                                            <option value="group2">O+</option>
+                                            <option value="group3">B+</option>
+                                            <option value="group4">AB+</option>
+                                            <option value="group5">UN+</option>
+                                            <option value="group6">LES-</option>
+                                            <option value="group7">B-</option>
+                                            <option value="group8">UN B-</option>
+                                            <option value="group9">Inconnue</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <select name="religion" id="religion" class="form-control">
+                                            <option value="choose">Religion </option>
+                                            <option value="r1">Islam</option>
+                                            <option value="r2">Christianisme</option>
+                                            <option value="r3">Hindouisme</option>
+                                            <option value="r4">Bouddhisme</option>
+                                            <option value="r5">Sikhisme</option>
+                                            <option value="r6">Autre</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="email" name="email" type="email" class="form-control" placeholder="Adresse E-mail ">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="phone" name="phone" type="text" class="form-control" placeholder="Numéro de téléphone ">
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input id="date_admission" name="date_admission" type="date" class="form-control" placeholder="Date d'admission ">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <select name="categorie" id="categorie" class="form-control">
+                                            <option value="choose">Catégorie </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <select name="groupe" id="groupe" class="form-control">
+                                            <option value="choose">Groupe </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input id="hauteur" name="hauteur" type="text" class="form-control" placeholder="Taille (cm) ">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input id="poids" name="poids" type="text" class="form-control" placeholder="Poids (kg) ">
+                                    </div>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="photo" name="photo" type="file" class="form-control" placeholder="Photo ">
+                                        @*<div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="customFileInput" aria-describedby="customFileInput">
+                                                    <label class="custom-file-label" for="customFileInput">Select file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" id="customFileInput">Parcourir</button>
+                                                </div>
+                                            </div>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="button_block"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mediumModalCreate" id="create"><i class="fa fa-plus-circle"></i> Ajouter des parents</button></div>
+                                    </div>
+                                </div>
+                                <!-- CREER PARENT POPUP-->
+                                <div class="modal fade" id="mediumModalCreate" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabelCreate" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mediumModalLabelCreate">Selectionner un frère</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" style="color:red;">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <select name="classer" id="classer" class="form-control">
+                                                                        <option value="choose">Classer *</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <select name="section" id="section" class="form-control">
+                                                                        <option value="choose">Section *</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <select name="frere_soeur" id="frere_soeur" class="form-control">
+                                                                        <option value="choose">Frère & Sœur *</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary">Enregistrer</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END CREER PARENT POPUP-->
+                            </div><br /><br />
+                            <h5>INFORMATIONS SUR LES PARENTS / TUTEUR</h5>
+                            <hr id="line" />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="nom_pere" name="nom_pere" type="text" class="form-control" placeholder="Nom du père">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="profession_pere" name="profession_pere" type="text" class="form-control" placeholder="Profession">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="phone_pere" name="phone_pere" type="text" class="form-control" placeholder="Téléphone du père">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="photo_pere" name="photo_pere" type="file" class="form-control" placeholder="Photo">
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="nom_mere" name="nom_mere" type="text" class="form-control" placeholder="Nom du mère">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="profession_mere" name="profession_mere" type="text" class="form-control" placeholder="Profession">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="phone_mere" name="phone_mere" type="text" class="form-control" placeholder="Téléphone du mère">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="photo_mere" name="photo_mere" type="file" class="form-control" placeholder="Photo">
+                                    </div>
+                                </div>
+                            </div><br />
+
+                            <h6 style="font-size:14px;">
+                                Relation avec le tuteur
+                            </h6>
+                            <div class="row justify-content-center">
+                                <div class="mr-30">
+                                    <input type="radio" name="relationButton" id="relationFather" value="F" class="common-radio relationButton">
+                                    <label for="relationFather">Père</label>
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="mr-30">
+                                    <input type="radio" name="relationButton" id="relationFather" value="F" class="common-radio relationButton">
+                                    <label for="relationFather">Mère</label>
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="mr-30">
+                                    <input type="radio" name="relationButton" id="relationFather" value="F" class="common-radio relationButton">
+                                    <label for="relationFather">Autre</label>
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="nom_tuteur" name="nom_tuteur" type="text" class="form-control" placeholder="Nom du tuteur">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="profession_tuteur" name="profession_tuteur" type="text" class="form-control" placeholder="Profession du tuteur">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="phone_tuteur" name="phone_tuteur" type="text" class="form-control" placeholder="Téléphone du tuteur">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="email_tuteur" name="email_tuteur" type="text" class="form-control" placeholder="E-mail du tuteur">
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input id="relation_tuteur" name="relation_tuteur" type="text" class="form-control" placeholder="Relation avec le tuteur">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input id="adresse_tuteur" name="adresse_tuteur" type="text" class="form-control" placeholder="Adresse du tuteur">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input id="photo_tuteur" name="photo_tuteur" type="file" class="form-control" placeholder="Photo">
+                                    </div>
+                                </div>
+                            </div><br /><br />
+                            <h5>INFORMATIONS SUR L'ADRESSE DE L'ÉTUDIANT</h5>
+                            <hr id="line" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="adresse_actuelle" name="adresse_actuelle" type="text" class="form-control" placeholder="Adresse actuelle">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="adresse_permanente" name="adresse_permanente" type="text" class="form-control" placeholder="Adresse permanente">
+                                    </div>
+                                </div>
+                            </div><br /><br />
+                            <h5>LE TRANSPORT</h5>
+                            <hr id="line" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="liste_itineraire" id="liste_itineraire" class="form-control">
+                                            <option value="choose">Liste des itinéraires </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="numero_vehicule" id="numero_vehicule" class="form-control">
+                                            <option value="choose">Numéro de véhicule </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><br /><br />
+                            <h5>AUTRES INFORMATIONS</h5>
+                            <hr id="line" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="nom_dortoir" id="nom_dortoir" class="form-control">
+                                            <option value="choose">Nom du dortoir </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="numero_chambre" id="numero_chambre" class="form-control">
+                                            <option value="choose">Numéro de chambre </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><br /><br />
+                            <h5>INFORMATIONS SUR LE DOCUMENT</h5>
+                            <hr id="line" />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="cin" name="cin" type="text" class="form-control" placeholder="Carte d'identité nationale">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="acte_naissance" name="acte_naissance" type="text" class="form-control" placeholder="N° Acte de naissance">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="compte_bancaire" name="compte_bancaire" type="text" class="form-control" placeholder="N° Compte bancaire">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="nom_banque" name="nom_banque" type="text" class="form-control" placeholder="Nom de la banque">
+                                    </div>
+                                </div>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="details_ecole_precedente" name="details_ecole_precedente" type="text" class="form-control" placeholder="Détails de l'école précédente">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="notes_complementaires" name="notes_complementaires" type="text" class="form-control" placeholder="Notes complémentaires">
+                                    </div>
+                                </div>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="document1" name="document1" type="text" class="form-control" placeholder="Document 01 Titre">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="document2" name="document2" type="text" class="form-control" placeholder="Document 02 Titre">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="document3" name="document3" type="text" class="form-control" placeholder="Document 03 Titre">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="document4" name="document4" type="text" class="form-control" placeholder="Document 04 Titre">
+                                    </div>
+                                </div>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="file1" name="file1" type="file" class="form-control" placeholder="01">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="file2" name="file2" type="file" class="form-control" placeholder="02">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="file3" name="file3" type="file" class="form-control" placeholder="03">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input id="file4" name="file4" type="file" class="form-control" placeholder="04">
+                                    </div>
+                                </div>
+                            </div><br /><br />
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <div class="form-group row justify-content-center">
+                                        <button class="btn btn-primary" type="submit" id="valider_candidature"><i class="fa fa-check-circle"></i> Accepter</button>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <button class="btn btn-danger" type="reset" id="refuser_candidature"><i class="fa fa-times-circle"></i> Refuser</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>
+<script>
+    $('.select2').select2();
+</script>
+<script>
+    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+        var name = document.getElementById("customFileInput").files[0].name;
+        var nextSibling = e.target.nextElementSibling
+        nextSibling.innerText = name
+    })
+</script>
+<style>
+    h5 {
+        font-size: 14px;
+    }
+
+    #line {
+        background: #15283c;
+    }
+
+    .custom-file-input.selected:lang(en)::after {
+        content: "" !important;
+    }
+
+    .custom-file {
+        overflow: hidden;
+    }
+
+    .custom-file-input {
+        white-space: nowrap;
+    }
+
+    #legend {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 35%;
+        border: 2px double #15283c;
+        border-radius: 8px;
+        padding: 5px 5px 5px 10px;
+        color: #15283c;
+        background-color: #fff;
+        text-align: center;
+    }
+
+    #fieldset {
+        border: 1px solid #15283c !important;
+        margin: 0;
+        min-width: 0;
+        padding: 10px;
+        position: relative;
+        border-radius: 8px;
+        background-color: #fff;
+        padding-left: 10px !important;
+    }
+
+    #annee_academique, #classer, #section, #numero_admission, #prenom, #nom, #sexe, #date_naissance, #photo,
+    #groupe_sanguin, #religion, #email, #phone, #date_admission, #categorie, #groupe, #hauteur, #poids,
+    #nom_pere, #nom_mere, #profession_pere, #profession_mere, #phone_pere, #phone_mere, #photo_pere, #photo_mere,
+    #nom_tuteur, #phone_tuteur, #email_tuteur, #adresse_tuteur, #profession_tuteur, #relation_tuteur, #photo_tuteur,
+    #adresse_actuelle, #adresse_permanente, #liste_itineraire, #numero_vehicule, #nom_dortoir, #numero_chambre,
+    #cin, #acte_naissance, #compte_bancaire, #nom_banque, #details_ecole_precedente, #notes_complementaires,
+    #document1, #document2, #document3, #document4, #file1, #file2, #file3, #file4, #frere_soeur {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        /*height:10px;*/
+    }
+
+    #create {
+        border-radius: 20px;
+    }
+
+    #valider_candidature, #refuser_candidature {
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 15px;
+        height: 40px;
+    }
+</style>
+
+

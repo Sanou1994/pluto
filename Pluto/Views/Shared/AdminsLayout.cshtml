@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Pluto | Dashboard</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- site icon -->
+    <link rel="icon" href="~/AdminStyle/images/fevicon.png" type="image/png" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/bootstrap.min.css" />
+    <!-- site css -->
+    <link rel="stylesheet" href="~/AdminStyle/style.css" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/responsive.css" />
+    <!-- color css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/colors.css" />
+    <!-- select bootstrap -->
+    <link rel="stylesheet" href="~/AdminStyle/css/bootstrap-select.css" />
+    <!-- scrollbar css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/perfect-scrollbar.css" />
+    <!-- custom css -->
+    @*<link  rel="stylesheet" href="~/AdminStyle/css/tabulation.css" />*@
+    <!-- tabulation css -->
+    <link rel="stylesheet" href="~/AdminStyle/css/custom.css" />
+    <link rel="stylesheet" href="~/AdminStyle/js/semantic.min.css" />
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+<body class="dashboard dashboard_1">
+    <div class="full_container">
+        <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar_blog_1">
+                    <div class="sidebar-header">
+                        <div class="logo_section">
+                            <a href="index.html"><img class="logo_icon img-responsive" src="~/AdminStyle/images/logo/logo_icon.png" alt="#" /></a>
+                        </div>
+                    </div>
+                    <div class="sidebar_user_info">
+                        <div class="icon_setting"></div>
+                        <div class="user_profle_side">
+                            <div class="user_img"><img class="img-responsive" src="~/AdminStyle/images/layout_img/user_img.jpg" alt="#" /></div>
+                            <div class="user_info">
+                                <h6>Hassane Diatta</h6>
+                                <p><span class="online_animation"></span> En ligne</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar_blog_2">
+                    <h4>HEKIMA</h4>
+                    <ul class="list-unstyled components">
+                        <li class="active">
+                            <a href="~/Admins/Index"><i class="fa fa-home"></i> <span>Accueil</span></a>
+                        </li>
+                        @*<li>
+            <a href="~/Admins/Profil"><i class="fa fa-user orange_color"></i> <span>Mon profil</span></a>
+        </li>*@
+                    <li>
+                        <a href="#candidature" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-id-card"></i> <span>Candidature</span></a>
+                        <ul class="collapse list-unstyled" id="candidature">
+                            <li><a href="~/Admins/Candidature"><span>> Liste des candidats</span></a></li>
+                            <li><a href="~/Admins/Tests">> <span>Organiser des Tests</span></a></li>
+                        </ul>
+                    </li>
+                       
+                        <li>
+                            <a href="#users" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-users"></i> <span>Utilisateurs</span></a>
+                            <ul class="collapse list-unstyled" id="users">
+                                <li><a href="~/Admins/Administration"><span>> Administration</span></a></li>
+                                <li><a href="~/Admins/Professeurs">> <span>Professeurs</span></a></li>
+                                <li><a href="~/Admins/Etudiants">> <span>Étudiants/Élèves</span></a></li>
+                                <li><a href="~/Admins/Parents">> <span>Parents</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#pedagogie" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-book-open"></i> <span>Gestion pédagogique</span></a>
+                            <ul class="collapse list-unstyled" id="pedagogie">
+                                <li><a href="~/Admins/Departements">> <span>Départements</span></a></li>
+                                <li><a href="~/Admins/Filieres">> <span>Filières</span></a></li>
+                                <li><a href="~/Admins/niveau_etudes">> <span>Niveaux études</span></a></li>
+                                <li><a href="~/Admins/Classes">> <span>Classes</span></a></li>
+                                <li><a href="~/Admins/Cours">> <span>Cours</span></a></li>
+                                <li><a href="~/Admins/Evaluations">> <span>Évaluations</span></a></li>
+                                <li><a href="~/Admins/Absences_Retards">> <span>Absences & Retards</span></a></li>
+                                <li><a href="~/Admins/Emploi_du_temps">> <span>Emploi du temps</span></a></li>
+                                <li><a href="~/Admins/Cahiers_de_texte">> <span>Cahiers de texte</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#comptable" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-credit-card"></i> <span>Gestion scolaire</span></a>
+                            <ul class="collapse list-unstyled" id="comptable">
+                                <li><a href="~/Admins/Scolarite">> <span>Fiche scolaire</span></a></li>
+                                <li><a href="~/Admins/Preinscription">> <span>Préinscription</span></a></li>
+                                <li><a href="~/Admins/Inscription">> <span>Inscription</span></a></li>
+                                <li><a href="~/Admins/Liste_inscrits">> <span>Liste des inscrits</span></a></li>
+                                <li><a href="~/Admins/Frais_payes">> <span>Frais payés</span></a></li>
+                                <li><a href="~/Admins/Frais_impayes">> <span>Frais impayés</span></a></li>
+                                <li><a href="~/Admins/Paiement_personnel">> <span>Paiement personnel</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-cogs"></i> <span>Paramètres</span></a>
+                            <ul class="collapse list-unstyled" id="settings">
+                                <li><a href="~/Admins/Configuration"> ><span>Configuration</span></a></li>
+                                <li><a href="~/Admins/Poste">> <span>Poste</span></a></li>
+                                <li><a href="~/Admins/Contrat">> <span>Contrat</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+                <!-- topbar -->
+                <div class="topbar">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="full">
+                            <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                            <div class="logo_section">
+                                <a href="index.html"><img class="img-responsive" src="~/AdminStyle/images/logo/logo.png" alt="#" /></a>
+                            </div>
+                            <div class="right_topbar">
+                                <div class="icon_info">
+                                    @*<ul>
+                                        <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+                                        <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
+                                    </ul>*@
+                                    <ul class="user_profile_dd">
+                                        <li>
+                                            <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="~/AdminStyle/images/layout_img/user_img.jpg" alt="#" /><span class="name_user">Hassane Diatta</span></a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="~/Admins/Profil"><i class="fa fa-user"></i> Mon profil</a>
+                                                <a class="dropdown-item" href="~/Home/"><i class="fa fa-arrow-circle-right"></i> Deconnexion</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <!-- end topbar -->
+
+                @RenderBody()
+
+                <!-- footer -->
+                <div class="container-fluid">
+                    <div class="footer">
+                        <p>
+                            Copyright © 2022 Conçu par Rassoul Technologie. Tous les droits sont réservés.<br><br>
+                            <a href="https://rassoultechnologie.com/">www.rassoultechnologie.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- end dashboard inner -->
+        </div>
+    </div>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <!-- jQuery -->
+    @*<script src="~/AdminStyle/js/jquery.min.js"></script>*@
+    <script src="~/AdminStyle/js/popper.min.js"></script>
+    <script src="~/AdminStyle/js/bootstrap.min.js"></script>
+    <!-- wow animation -->
+    <script src="~/AdminStyle/js/animate.js"></script>
+    <!-- select country -->
+    <script src="~/AdminStyle/js/bootstrap-select.js"></script>
+    <!-- owl carousel -->
+    <script src="~/AdminStyle/js/owl.carousel.js"></script>
+    <!-- chart js -->
+    <script src="~/AdminStyle/js/Chart.min.js"></script>
+    <script src="~/AdminStyle/js/Chart.bundle.min.js"></script>
+    <script src="~/AdminStyle/js/utils.js"></script>
+    <script src="~/AdminStyle/js/analyser.js"></script>
+    <!-- nice scrollbar -->
+    <script src="~/AdminStyle/js/perfect-scrollbar.min.js"></script>
+    <script>
+        var ps = new PerfectScrollbar('#sidebar');
+    </script>
+    <!-- custom js -->
+    <script src="~/AdminStyle/js/custom.js"></script>
+    <script src="~/AdminStyle/js/chart_custom_style1.js"></script>
+</body>
+</html>
+
