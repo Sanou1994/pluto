@@ -21,8 +21,10 @@ namespace Pluto.Repositories
     public class CallApiRepositoryImpl : ICAllApi
     {
 
-        string urlBase = "http://158.69.120.240:8081";
-        public Reponse   CallBackendGet(string url, string tokenKey)
+      //  string urlBase = "http://localhost:8081";
+		string urlBase = "http://158.69.120.240:8081";
+
+		public Reponse   CallBackendGet(string url, string tokenKey)
         {
             Reponse reponse = new Reponse();
             string apiAddress = urlBase +url;
@@ -208,7 +210,7 @@ namespace Pluto.Repositories
                       catch 
                       {
                           reponse.code = 500;
-                          reponse.message = "problème de serveur ";
+                          reponse.message = "problème de serveur " ;
 
                       } 
                  }

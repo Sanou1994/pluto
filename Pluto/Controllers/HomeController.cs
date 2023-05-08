@@ -68,9 +68,14 @@ namespace Pluto.Controllers
                 Reponse reponse = _authentificationRepository.Seconnecter(phone, pwd);
                 if (reponse.code == 200)
                 {
-                    
+					var userGot = Utils.ToObject<User>(reponse.result);
+					Session["token"] = userGot.monToken;
+					Session["id"] = userGot.id;
+					Session["structureID"] = userGot.structureID;
+					Session["fullName"] = userGot.prenom + " " + userGot.nom;
+					Session["name_logo"] = userGot.name_logo;
 
-                    return Json(new { code = 200,result = reponse.result, message=reponse.message });
+					return Json(new { code = 200,result = reponse.result, message=reponse.message });
                 }
                 else
                 {

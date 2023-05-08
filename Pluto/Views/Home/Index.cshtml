@@ -1221,14 +1221,35 @@
                 data: { pwd: document.getElementById('pwd').value, phone: document.getElementById('phone').value },
                 success: function (result)
                 {
-
-
                     if (result.code == 200) {
+                    switch (result.result.role) {
+                        case "Manager":
+                            document.getElementById("spinnerA").hidden = true
 
-                        document.getElementById('activation').style.display = 'block'
-                        document.getElementById("spinner").hidden = true
+                            window.location.href = "/Admins/Index"
+                            break;
+                        case "STUDENT":
+                            document.getElementById("spinnerA").hidden = true
 
+                            window.location.href = "/Etudiants/Index"
+                            break;
+                        case "PARENT":
+                            document.getElementById("spinnerA").hidden = true
+
+                            window.location.href = "/Parents/Index"
+                            break;
+                        default:
+                            document.getElementById("spinnerA").hidden = true
+
+                            window.location.href = "/Admins/Index"
+                        }
                     }
+                    //if (result.code == 200) {
+
+                    //    document.getElementById('activation').style.display = 'block'
+                    //    document.getElementById("spinner").hidden = true
+
+                    //}
                     else
                     {
                         document.getElementById("messadeConnexion").innerText = result.message;
