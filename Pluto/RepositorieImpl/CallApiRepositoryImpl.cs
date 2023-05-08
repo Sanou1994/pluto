@@ -24,7 +24,7 @@ namespace Pluto.Repositories
       //  string urlBase = "http://localhost:8081";
 		string urlBase = "http://158.69.120.240:8081";
 
-		public Reponse   CallBackendGet(string url, string tokenKey)
+		public Reponse CallBackendGet(string url, string tokenKey)
         {
             Reponse reponse = new Reponse();
             string apiAddress = urlBase +url;
